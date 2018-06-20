@@ -1,0 +1,32 @@
+/**
+ * Config / Breakpoints
+ *
+ * Breakpoint variables to be used for grid systems and media queries etc. to create
+ * consistent styling amongst smaller devices.
+ *
+ * @note - For any very specific breakpoints outside of these, just declare them as a pixel value in the element.
+ */
+
+/* Desktops */
+$breakpoint-desktop-large: 1920px;
+$breakpoint-desktop: 1440px;
+
+/* Laptops */
+$breakpoint-laptop-large: 1380px;
+$breakpoint-laptop: 1280px;
+
+/* Tablets */
+$breakpoint-tablet-landscape: 1024px;
+$breakpoint-tablet-portrait: 768px;
+
+/* Phablets */
+$breakpoint-palm-landscape: 736px;
+$breakpoint-palm-portrait: 414px;
+
+/* Large Phones */
+$breakpoint-mobile-landscape: 667px;
+$breakpoint-mobile-portrait: 375px;
+
+/* Small Phones */
+$breakpoint-mobile-small-landscape: 568px;
+$breakpoint-mobile-small-portrait: 320px;

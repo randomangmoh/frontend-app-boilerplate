@@ -1,0 +1,23 @@
+/**
+ * Components / Global / Image
+ *
+ * Image component for varying default styles of images.
+ */
+
+.img {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.img--full {
+    width: 100%;
+}
+
+.img--inline {
+    display: inline-block;
+}
+
+.img--circle {
+    border-radius: 50%;
+}

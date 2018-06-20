@@ -1,0 +1,27 @@
+// scss-lint:disable VendorPrefix
+// Disabling vendor prefix lint because placeholder test still needs to prefixes.
+
+/**
+ * Utils / Mixins / Placeholder
+ *
+ * Placeholder mixin for styling form input placeholder text.
+ */
+@mixin placeholder {
+
+    &::-webkit-input-placeholder {
+        @content
+    }
+
+    &::-moz-placeholder {
+        @content
+    }
+
+    &::-moz-placeholder {
+        @content
+    }
+
+    &:-ms-input-placeholder {
+        @content
+    }
+
+}

@@ -1,0 +1,32 @@
+/**
+ * Helpers / Classes / Typography
+ *
+ * Typography helper classes (making a text node uppercase, or 'bolding' an element etc.
+ */
+.text--upper {
+    text-transform: uppercase;
+}
+
+.text--capitalize {
+    text-transform: capitalize;
+}
+
+.text--right {
+    text-align: right;
+}
+
+.text--center {
+    text-align: center;
+}
+
+.text--left {
+    text-align: left;
+}
+
+.text--underline {
+    text-decoration: underline;
+}
+
+.text--italic {
+    font-style: italic;
+}

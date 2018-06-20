@@ -1,0 +1,10 @@
+/**
+ * Utils / Functions / Tracking
+ *
+ * Convert photoshop letter tracking to a pixel value
+ * that can be used by CSS.
+ */
+@function tracking($photoshop-letter-tracking) {
+    @return $photoshop-letter-tracking / 1000 + em;
+}
+

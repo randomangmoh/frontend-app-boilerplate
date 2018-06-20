@@ -1,0 +1,19 @@
+/**
+ * Config / Layering
+ *
+ * Z-Index values for base elements that are present. (Header, footer, body, etc).
+ */
+
+// Modal
+$index-modal: 100;
+
+// Header
+$index-header: 98;
+$index-header-top-nav: 3;
+$index-header-promo: 1;
+$index-header-nav: 2;
+
+// Navigation
+$index-nav: 99;
+$index-nav-mobile: 100;
+

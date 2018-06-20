@@ -1,0 +1,72 @@
+// Config
+@import '../../config/breakpoints';
+
+/**
+ * Helpers / Classes / Show
+ */
+.show {
+    display: inherit;
+}
+
+.show--desktop {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-desktop) and (min-width: $breakpoint-tablet-landscape) {
+        display: inherit;
+    }
+
+}
+
+.show--tablet-landscape {
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) and (min-width: $breakpoint-tablet-portrait) {
+        display: inherit;
+    }
+
+}
+
+.show--tablet-portrait {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-tablet-portrait) and (min-width: $breakpoint-mobile-portrait) {
+        display: inherit;
+    }
+
+}
+
+.show--mobile {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: inherit;
+    }
+
+}
+
+.show--palm-portrait {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) and (min-width: $breakpoint-mobile-portrait) {
+        display: inherit;
+    }
+
+}
+
+.show--mobile-large {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-mobile-portrait) and (min-width: $breakpoint-mobile-small-portrait) {
+        display: inherit;
+    }
+
+}
+
+.show--mobile-small {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-mobile-small-portrait) and (min-width: 0px) {
+        display: inherit;
+    }
+
+}
+

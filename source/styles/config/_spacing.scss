@@ -1,0 +1,16 @@
+/**
+ * Config / Spacing
+ *
+ * Normalize spacing between elements to create consistency (Should follow closely to a well written style guide).
+ */
+
+/* Base spacing unit */
+$spacing: 25px;
+
+/* Modifiers */
+$spacing-quad: $spacing * 4;
+$spacing-triple: $spacing * 3;
+$spacing-double: $spacing * 2;
+$spacing-half: $spacing / 2;
+$spacing-third: $spacing / 3;
+$spacing-quarter: $spacing / 4;

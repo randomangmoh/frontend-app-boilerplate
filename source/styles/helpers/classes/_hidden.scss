@@ -1,0 +1,74 @@
+// Config
+@import '../../config/breakpoints';
+
+/**
+ * Helpers / Classes / Hidden
+ */
+.hidden {
+    display: none;
+}
+
+.hidden--desktop {
+
+    @media screen and (max-width: $breakpoint-desktop) and (min-width: $breakpoint-tablet-landscape) {
+        display: none;
+    }
+
+}
+
+.hidden--tablet {
+    
+    @media screen and (max-width: $breakpoint-tablet-landscape) {
+        display: none;
+    }
+    
+}
+
+.hidden--tablet-landscape {
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) and (min-width: $breakpoint-tablet-portrait) {
+        display: none;
+    }
+
+}
+
+.hidden--tablet-portrait {
+
+    @media screen and (max-width: $breakpoint-tablet-portrait) and (min-width: $breakpoint-mobile-portrait) {
+        display: none;
+    }
+
+}
+
+.hidden--mobile {
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: none;
+    }
+
+}
+
+.hidden--palm-portrait {
+
+    @media screen and (max-width: $breakpoint-palm-portrait) and (min-width: $breakpoint-mobile-portrait) {
+        display: none;
+    }
+
+}
+
+.hidden--mobile-large {
+
+    @media screen and (max-width: $breakpoint-mobile-portrait) and (min-width: $breakpoint-mobile-small-portrait) {
+        display: none;
+    }
+
+}
+
+.hidden--mobile-small {
+
+    @media screen and (max-width: $breakpoint-mobile-small-portrait) and (min-width: 0px) {
+        display: none;
+    }
+
+}
+

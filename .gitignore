@@ -1,0 +1,13 @@
+##
+# Gitignore File
+##
+
+## Frontend Ignored files/directories
+node_modules/
+distribution/
+
+## Server-side ignored files/directories
+
+## General/Global ignored files/directories
+.DS_Store
+.idea/

@@ -1,0 +1,64 @@
+// Config
+@import '../config/palette';
+@import '../config/spacing';
+@import '../config/fonts';
+@import '../config/breakpoints';
+
+// Utils
+@import '../utils/functions/rem';
+
+/**
+ * Global / Typography
+ *
+ * Globally set typography rather than specific styles.
+ * You Can, for example, set all sizes of heading tags as a default
+ * then if need be, components can override these sizes.
+ */
+
+/**
+ * Headings
+ */
+h1,
+.h1 {
+    font-size: rem(60px);
+}
+
+h2,
+.h2 {
+    font-size: rem(30px);
+}
+
+/**
+ * Paragraphs
+ */
+p {
+    display: inline-block;
+    font-family: $fontstack-serif-primary;
+    font-size: rem(15px);
+    font-weight: 300;
+    line-height: 1.4;
+
+    &.lead {
+        font-family: $fontstack-sans-primary;
+        font-weight: 400;
+    }
+
+}
+
+/**
+ * Anchors and links
+ */
+a {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/**
+ * Buttons
+ */
+button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0;
+}

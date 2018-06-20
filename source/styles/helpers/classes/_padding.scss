@@ -1,0 +1,72 @@
+/* Config */
+@import '../../config/spacing';
+
+/**
+ * Helpers / Classes / Padding
+ *
+ * Padding class helpers for adding preset padding to an element.
+ */
+
+/* Padding on all sides */
+.padding--quad { padding: $spacing-quad; }
+.padding--triple { padding: $spacing-triple; }
+.padding--double { padding: $spacing-double; }
+.padding { padding: $spacing; }
+.padding--half { padding: $spacing-half; }
+.padding--third { padding: $spacing-third; }
+.padding--quarter { padding: $spacing-quarter; }
+
+/* Padding Top */
+.padding-top--quad { padding-top: $spacing-quad; }
+.padding-top--triple { padding-top: $spacing-triple; }
+.padding-top--double { padding-top: $spacing-double; }
+.padding-top { padding-top: $spacing; }
+.padding-top--half { padding-top: $spacing-half; }
+.padding-top--third { padding-top: $spacing-third; }
+.padding-top--quarter { padding-top: $spacing-quarter; }
+
+/* Padding Right */
+.padding-right--quad { padding-right: $spacing-quad; }
+.padding-right--triple { padding-right: $spacing-triple; }
+.padding-right--double { padding-right: $spacing-double; }
+.padding-right { padding-right: $spacing; }
+.padding-right--half { padding-right: $spacing-half; }
+.padding-right--third { padding-right: $spacing-third; }
+.padding-right--quarter { padding-right: $spacing-quarter; }
+
+/* Padding Bottom */
+.padding-bottom--quad { padding-bottom: $spacing-quad; }
+.padding-bottom--triple { padding-bottom: $spacing-triple; }
+.padding-bottom--double { padding-bottom: $spacing-double; }
+.padding-bottom { padding-bottom: $spacing; }
+.padding-bottom--half { padding-bottom: $spacing-half; }
+.padding-bottom--third { padding-bottom: $spacing-third; }
+.padding-bottom--quarter { padding-bottom: $spacing-quarter; }
+
+/* Padding Left */
+.padding-left--quad { padding-left: $spacing-quad; }
+.padding-left--triple { padding-left: $spacing-triple; }
+.padding-left--double { padding-left: $spacing-double; }
+.padding-left { padding-left: $spacing; }
+.padding-left--half { padding-left: $spacing-half; }
+.padding-left--third { padding-left: $spacing-third; }
+.padding-left--quarter { padding-left: $spacing-quarter; }
+
+/* Padding Ends */
+.padding-ends--quad { padding-top: $spacing-quad; padding-bottom: $spacing-quad; }
+.padding-ends--triple { padding-top: $spacing-triple; padding-bottom: $spacing-triple; }
+.padding-ends--double { padding-top: $spacing-double; padding-bottom: $spacing-double; }
+.padding-ends { padding-top: $spacing; padding-bottom: $spacing; }
+.padding-ends--half { padding-top: $spacing-half; padding-bottom: $spacing-half; }
+.padding-ends--third { padding-top: $spacing-third; padding-bottom: $spacing-third; }
+.padding-ends--quarter { padding-top: $spacing-quarter; padding-bottom: $spacing-quarter; }
+
+/* Padding Sides */
+.padding-sides--quad { padding-right: $spacing-quad; padding-left: $spacing-quad; }
+.padding-sides--triple { padding-right: $spacing-triple; padding-left: $spacing-triple; }
+.padding-sides--double { padding-right: $spacing-double; padding-left: $spacing-double; }
+.padding-sides { padding-right: $spacing; padding-left: $spacing; }
+.padding-sides--half { padding-right: $spacing-half; padding-left: $spacing-half; }
+.padding-sides--third { padding-right: $spacing-third; padding-left: $spacing-third; }
+.padding-sides--quarter { padding-right: $spacing-quarter; padding-left: $spacing-quarter; }
+
