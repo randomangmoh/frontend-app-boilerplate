@@ -1,7 +1,7 @@
 // Globals
 const root = process.cwd();
-const source = root + '/source';
-const dist = root + '/distribution';
+const source = root + '/frontend';
+const dist = root + '/assets';
 
 /**
  * Build Config

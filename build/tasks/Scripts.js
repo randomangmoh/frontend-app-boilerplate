@@ -32,35 +32,3 @@ export default () => {
         .pipe(Connect.reload());
 
 };
-
-
-/**
- * OLD Build process. Leaving it here as reference for now
- * @todo - Remove when we're happy with current build process.
- *
- * Libs not used currently
- *
- * import Browserify from 'browserify';
- * import Buffer from 'vinyl-buffer';
- * import Source from 'vinyl-source-stream';
- *
- * Bundle not used currently
- *
- * let bundler = Browserify({
- *     entries: Config.scripts.src_dir + Config.scripts.src_entry,
- *     debug: true,
- *     transform: [Babelify]
- * });
- *
- * return bundler.bundle()
- *     .on('error', function (err) { console.error(err); })
- *     .pipe(Source(Config.scripts.dist_name))
- *     .pipe(Buffer())
- *     .pipe(Sourcemaps.init({ loadMaps: true }))
- *     .pipe(Uglify())
- *     .pipe(Sourcemaps.write('./'))
- *     .pipe(Size({ title: Config.scripts.dist_name, showFiles: true }))
- *     .pipe(Gulp.dest(Config.scripts.dist_dir))
- *     .pipe(Connect.reload());
- *
- */

@@ -1,0 +1,26 @@
+// Config
+@import '../config/palette';
+@import '../config/fonts';
+
+/**
+ * Scaffolding / Global
+ *
+ * Global scaffolding declarations
+ */
+* {
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: $fontstack-sans-primary;
+    background-color: $color-brand-primary;
+    color: $color-white;
+}
+
+.page {
+    padding: 0 20px;
+}

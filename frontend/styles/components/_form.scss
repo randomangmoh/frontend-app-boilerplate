@@ -1,0 +1,54 @@
+@import '../utils/functions/rem';
+
+/**
+ * Components / Form
+ */
+
+.form {
+
+}
+
+.form-field {
+    background-color: rgba($color-white, 0.1);
+    padding: 5px 10px;
+    color: $color-white;
+    border-radius: 5px;
+}
+
+.form-field--full {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-field__icon {
+    display: inline-flex;
+    margin-right: 10px;
+}
+
+.form-field__field {
+    display: inline-flex;
+    padding: 15px 5px;
+    width: 100%;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    color: $color-white;
+    font-size: rem(15px);
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        color: $color-white;
+
+    }
+
+}
+
+.form__link {
+    font-size: rem(14px);
+}

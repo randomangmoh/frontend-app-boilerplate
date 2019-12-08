@@ -1,0 +1,12 @@
+// Config
+@import '../config/palette';
+@import '../config/breakpoints';
+
+/**
+ * Component / Footer
+ */
+
+.footer {
+    background-color: $color-brand-tertiary;
+    padding: 50px;
+}

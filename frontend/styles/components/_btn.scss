@@ -1,0 +1,58 @@
+@import '../config/palette';
+
+/**
+ * Components / Button
+ */
+
+.btn {
+    display: inline-block;
+    color: $color-white;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+}
+
+.btn--primary {
+    background: linear-gradient(90deg, $color-brand-red-dark, $color-brand-red-light);
+    background-size: 150% 150%;
+    background-position: 0% 0%;
+    min-width: 150px;
+    width: auto;
+    padding: 15px 30px;
+    border-radius: 5px;
+    color: $color-white;
+    transition: background 400ms ease;
+
+    &:hover {
+        background-position: 100% 100%;
+
+        .btn__icon {
+            transform: translateX(45%);
+        }
+
+    }
+
+}
+
+.btn--form {
+
+}
+
+.btn__icon {
+    transform: translateX(0%);
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+    transition: transform 300ms ease;
+}
+
+@keyframes buttonGradientAnimIn {
+
+    0% { background-position: 0% 0% }
+    100% { background-position: 100% 100% }
+
+}

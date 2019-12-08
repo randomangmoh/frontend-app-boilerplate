@@ -1,5 +1,7 @@
 'use strict';
 
+// @ts-ignore
+
 // Lib
 import Gulp from 'gulp';
 import { config } from 'dotenv';
@@ -27,7 +29,6 @@ Gulp.task('styles:build', taskStyles);
 Gulp.task('images:build', taskImages);
 Gulp.task('audio:build', taskAudio);
 Gulp.task('views:build', taskViews);
-
 Gulp.task('watch', taskWatch);
 Gulp.task('serve', Gulp.parallel('watch', taskServe));
 Gulp.task('build', taskBuild);

@@ -1,0 +1,49 @@
+// Config
+@import '../config/palette';
+@import '../config/breakpoints';
+
+/**
+ * Components / Header
+ *
+ * Global Header
+ */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 20px;
+    z-index: 2;
+    background: linear-gradient(rgba($color-brand-primary, 0.7), rgba($color-brand-primary, 0));
+    opacity: 1;
+    transition: opacity 350ms ease;
+
+    &.film-active {
+        opacity: 0;
+    }
+
+}
+
+.header__inner {
+    margin: auto;
+    width: 100%;
+    max-width: $breakpoint-tablet-landscape;
+}
+
+.header__logo {
+    display: block;
+    width: 100%;
+    max-width: 100px;
+    padding: 10px;
+    height: auto;
+}
+
+.header-nav {
+    text-align: right;
+    color: $color-white;
+}
+
+.header-nav__item {
+    margin-left: 40px;
+    font-weight: 200;
+}

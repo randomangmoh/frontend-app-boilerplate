@@ -1,0 +1,71 @@
+/* Config */
+@import '../../config/spacing';
+
+/**
+ * Helpers / Classes / Margin
+ *
+ * Margin class helpers for adding preset margin to an element.
+ */
+
+/* Margin on all sides */
+.margin--quad { margin: $spacing-quad; }
+.margin--triple { margin: $spacing-triple; }
+.margin--double { margin: $spacing-double; }
+.margin { margin: $spacing; }
+.margin--half { margin: $spacing-half; }
+.margin--third { margin: $spacing-third; }
+.margin--quarter { margin: $spacing-quarter; }
+
+/* Margin Top */
+.margin-top--quad { margin-top: $spacing-quad; }
+.margin-top--triple { margin-top: $spacing-triple; }
+.margin-top--double { margin-top: $spacing-double; }
+.margin-top { margin-top: $spacing; }
+.margin-top--half { margin-top: $spacing-half; }
+.margin-top--third { margin-top: $spacing-third; }
+.margin-top--quarter { margin-top: $spacing-quarter; }
+
+/* Margin Right */
+.margin-right--quad { margin-right: $spacing-quad; }
+.margin-right--triple { margin-right: $spacing-triple; }
+.margin-right--double { margin-right: $spacing-double; }
+.margin-right { margin-right: $spacing; }
+.margin-right--half { margin-right: $spacing-half; }
+.margin-right--third { margin-right: $spacing-third; }
+.margin-right--quarter { margin-right: $spacing-quarter; }
+
+/* Margin Bottom */
+.margin-bottom--quad { margin-bottom: $spacing-quad; }
+.margin-bottom--triple { margin-bottom: $spacing-triple; }
+.margin-bottom--double { margin-bottom: $spacing-double; }
+.margin-bottom { margin-bottom: $spacing; }
+.margin-bottom--half { margin-bottom: $spacing-half; }
+.margin-bottom--third { margin-bottom: $spacing-third; }
+.margin-bottom--quarter { margin-bottom: $spacing-quarter; }
+
+/* Margin Left */
+.margin-left--quad { margin-left: $spacing-quad; }
+.margin-left--triple { margin-left: $spacing-triple; }
+.margin-left--double { margin-left: $spacing-double; }
+.margin-left { margin-left: $spacing; }
+.margin-left--half { margin-left: $spacing-half; }
+.margin-left--third { margin-left: $spacing-third; }
+.margin-left--quarter { margin-left: $spacing-quarter; }
+
+/* Margin Ends */
+.margin-ends--quad { margin-bottom: $spacing-quad; margin-top: $spacing-quad; }
+.margin-ends--triple { margin-bottom: $spacing-triple; margin-top: $spacing-triple; }
+.margin-ends--double { margin-bottom: $spacing-double; margin-top: $spacing-double; }
+.margin-ends { margin-bottom: $spacing; margin-top: $spacing; }
+.margin-ends--half { margin-bottom: $spacing-half; margin-top: $spacing-half; }
+.margin-ends--third { margin-bottom: $spacing-third; margin-top: $spacing-third; }
+.margin-ends--quarter { margin-bottom: $spacing-quarter; margin-top: $spacing-quarter; }
+
+/* Margin Sides */
+.margin-sides--quad { margin-left: $spacing-quad; margin-right: $spacing-quad; }
+.margin-sides--triple { margin-left: $spacing-triple; margin-right: $spacing-triple; }
+.margin-sides--double { margin-left: $spacing-double; margin-right: $spacing-double; }
+.margin-sides { margin-left: $spacing; margin-right: $spacing; }
+.margin-sides--half { margin-left: $spacing-half; margin-right: $spacing-half; }
+.margin-sides--third { margin-left: $spacing-third; margin-right: $spacing-third; }
+.margin-sides--quarter { margin-left: $spacing-quarter; margin-right: $spacing-quarter; }
