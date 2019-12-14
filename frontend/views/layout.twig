@@ -4,15 +4,20 @@
         <meta name="viewport" content="initial-scale=1" />
         <title>{{ page_title }}</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
-        <link rel="stylesheet" href="/css/styles.css" />
+        {{ wp_head() }}
     </head>
     <body>
+
+        {% include './components/header.twig' %}
 
         <main class="page" data-page="container">
             {% block body %}{% endblock %}
         </main>
 
+        {% include './components/footer.twig' %}
+
+        {{ wp_footer() }}
+
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
-        <script type="text/javascript" src="/js/entry.js"></script>
     </body>
 </html>

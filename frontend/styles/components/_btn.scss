@@ -5,10 +5,28 @@
  */
 
 .btn {
+    position: relative;
     display: inline-block;
     color: $color-white;
     font-weight: 600;
     cursor: pointer;
+    background-size: 400% 400%;
+    background-position: 0% 0%;
+    min-width: 150px;
+    width: auto;
+    padding: 15px 30px;
+    border-radius: 5px;
+    color: $color-white;
+    transition: background 1000ms ease;
+
+    &:hover {
+        background-position: 40% 40%;
+
+        .btn__icon {
+            transform: translateX(45%);
+        }
+
+    }
 
     &:focus {
         outline: none;
@@ -17,25 +35,11 @@
 }
 
 .btn--primary {
-    background: linear-gradient(90deg, $color-brand-red-dark, $color-brand-red-light);
-    background-size: 150% 150%;
-    background-position: 0% 0%;
-    min-width: 150px;
-    width: auto;
-    padding: 15px 30px;
-    border-radius: 5px;
-    color: $color-white;
-    transition: background 400ms ease;
+    background-image: linear-gradient(to right, $color-brand-red-dark, $color-brand-red-light, $color-brand-red-dark);
+}
 
-    &:hover {
-        background-position: 100% 100%;
-
-        .btn__icon {
-            transform: translateX(45%);
-        }
-
-    }
-
+.btn--secondary {
+    background-image: linear-gradient(90deg, $color-brand-blue-dark, $color-brand-blue-lightest, $color-brand-blue-dark);
 }
 
 .btn--form {
@@ -48,11 +52,4 @@
     display: inline-block;
     margin-left: 20px;
     transition: transform 300ms ease;
-}
-
-@keyframes buttonGradientAnimIn {
-
-    0% { background-position: 0% 0% }
-    100% { background-position: 100% 100% }
-
 }

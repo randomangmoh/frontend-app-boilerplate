@@ -14,7 +14,9 @@ export default (done) => {
 
     logStart('Build');
 
-    return Gulp.series('styles:build', 'scripts:build', 'images:build', 'audio:build', 'views:build')(() => {
+    // return Gulp.series('styles:build', 'scripts:build', 'images:build', 'audio:build', 'views:build')(() => {
+
+    return Gulp.series('styles:build', 'scripts:build', 'images:build')(() => {
 
         logComplete('Build');
         done();

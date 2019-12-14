@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends './layout.twig' %}
 
 {# Page Variables #}
 {% set page_title = 'ADNA - Admin' %}
@@ -7,53 +7,88 @@
 {# Page Content #}
 {% block body %}
 
-    {% include './components/header.twig' %}
+    {% set table_data = [
+        {
+            campaign_name: 'The University of Notre Dame Australia (Parents) - Singapore',
+            code: '1'
+        },
+        {
+            campaign_name: 'Liam',
+            code: '2'
+        },
+        {
+            campaign_name: 'Gunther',
+            code: '3'
+        },
+        {
+            campaign_name: 'Liam 2',
+            code: '4'
+        }
+    ] %}
 
-    <section class="login">
+    <section class="wrapper">
 
-        <div class="login__inner">
+        <h1>All Campaigns</h1>
 
-            <a href="/" class="logo logo--centered padding-bottom--double">
-                <img src="/images/logo.png" alt="ADNA" />
-            </a>
+        <section class="table campaign-list" data-campaign="container">
 
-            <form class="form grid grid--middle margin-top--double" action="index.html" method="post">
+            <div class="table__search" data-campaign="search">
 
-                <div class="grid__item 1/1 margin-bottom--quarter">
+                <label for="campaign-search" class="form-field form-field--full margin-bottom">
+                    <div class="form-field__icon fas fa-user fa-search"></div>
+                    <input type="text" class="form-field__field" name="campaign-search" placeholder="Search by code or campaign name" />
+                </label>
 
-                    <label for="login-username" class="form-field form-field--full margin-bottom">
-                        <div class="form-field__icon fas fa-user"></div>
-                        <input type="text" class="form-field__field" name="login-username" placeholder="Username" />
-                    </label>
+            </div>
 
-                </div>
+            <table class="table__items" data-campaign="items">
 
-                <div class="grid__item 1/1 margin-bottom">
+                <tr class="table__header">
+                    <th>Code</th>
+                    <th>Campaign Name</th>
+                    <th>Actions</th>
+                </tr>
 
-                    <label for="login-password" class="form-field form-field--full ">
-                        <div class="form-field__icon fas fa-lock"></div>
-                        <input type="password" class="form-field__field" name="login-password" placeholder="Password" />
-                    </label>
+                {% for item in table_data %}
 
-                </div>
+                    <tr class="table__item campaign-list__item">
+                        <td class="campaign-list__code">
+                            <a href="#" class="sleep" id="sleep-one">{{ item.code }}</a>
+                        </td>
+                        <td class="campaign-list__name">
+                            {{ item.campaign_name }}
+                        </td>
+                        <td class="campaign-list__actions">
+                            <span data-campaign="actions">
+                                <a href="#" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
+                                <a href="#" class="campaign-list__action"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a>
+                                <a href="#" class="campaign-list__action"><i class="fas fa-trash"></i></a>
+                            </span>
+                        </td>
+                    </tr>
 
-                <div class="grid__item 1/2 align--left">
-                    <a href="#" class="form__link">Reset Password</a>
-                </div>
+                {% endfor %}
 
-                <div class="grid__item 1/2 align--right">
-                    <button type="button" name="login-login" class="btn btn--primary btn--form btn--icon">
-                        Login
-                        <i class="btn__icon fas fa-long-arrow-alt-right"></i>
-                    </button>
-                </div>
+            </table>
 
-            </form>
+            <ul class="table-pagination">
+                <li class="table-pagination__arrow table-pagination__arrow--left">
+                    <a href="#"><i class="fas fa-chevron-left"></i></a>
+                </li>
+                <li class="table-pagination__list">
+                    <ul class="table-pagination__pages">
+                        <li class="table-pagination__page active"><a href="#">1</a></li>
+                        <li class="table-pagination__page"><a href="#">2</a></li>
+                    </ul>
+                </li>
+                <li class="table-pagination__arrow table-pagination__arrow--right">
+                    <a href="#"><i class="fas fa-chevron-right"></i></a>
+                </li>
+            </ul>
 
-        </div>
+        </section>
 
     </section>
-
-    {% include './components/footer.twig' %}
 
 {% endblock %}

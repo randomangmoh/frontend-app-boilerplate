@@ -1,0 +1,22 @@
+/**
+ * Components / Campaign
+ */
+
+.campaign {
+    padding: $spacing-doule 0;
+}
+
+.campaign-overview {
+    display: block;
+    width: 100%;
+}
+
+.campaign-sidebar {
+    display: block;
+    width: 25%;
+}
+
+.campaign-main {
+    display: flex;
+    width: 100%;
+}

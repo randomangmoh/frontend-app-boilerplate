@@ -36,15 +36,24 @@
     border: 0;
     outline: none;
     color: $color-white;
-    font-size: rem(15px);
+    font-size: rem(16px);
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active,
+    &:-internal-autofill-selected {
+        border: 0px;
+        -webkit-box-shadow: 0 0 0 100px $color-brand-primary inset;
+        -webkit-text-fill-color: #fff;
+    }
 
     &:focus {
         outline: none;
     }
 
     &::placeholder {
-        color: $color-white;
-
+        color: rgba($color-white, .5);
     }
 
 }

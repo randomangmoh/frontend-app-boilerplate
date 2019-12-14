@@ -15,11 +15,11 @@ export default (done) => {
 
     logStart('Build');
 
-    Connect.server({
-        root: Config.dist,
-        livereload: true,
-        port: Config.server.port,
-        fallback: 'distribution/index.html'
-    });
+    // Connect.server({
+    //     root: Config.dist,
+    //     livereload: true,
+    //     port: Config.server.port,
+    //     fallback: 'distribution/index.html'
+    // });
 
 }

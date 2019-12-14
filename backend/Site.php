@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . '/PostTypes.php');
+
 // Set Timber Up
 $timber = new \Timber\Timber();
 $timber::$dirname = ['templates', 'frontend/views'];
@@ -36,7 +38,12 @@ class ADNATheme extends TimberSite
 
     }
 
-    public function register_post_types() {}
+    public function register_post_types() {
+
+
+
+    }
+
     public function register_taxonomies() {}
 
 
@@ -47,9 +54,11 @@ class ADNATheme extends TimberSite
     public function enqueue_scripts()
     {
 
-        wp_enqueue_style( 'styles', get_template_directory_uri() . '/distribution/css/styles.css?v='. time(), [], null, false );
-        wp_enqueue_script( 'js', get_template_directory_uri() . '/distribution/js/entry.js?v='. time(), [], null, true );
         wp_localize_script( 'js', 'wp', ['theme' => get_stylesheet_directory_uri()]);
+
+        wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css?v='. time(), [], null, false );
+        wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/js/entry.js?v='. time(), [], null, true );
+        wp_enqueue_script( 'js', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js'. time(), [], null, true );
 
     }
 
@@ -62,7 +71,8 @@ class ADNATheme extends TimberSite
     {
 
         $context['global_options'] = get_fields('options');
-        $context['assets'] = $context['theme']->link . '/distribution';
+        $context['current_user'] = new Timber\User();
+        $context['assets'] = $context['theme']->link . '/assets';
         $context['navigation'] = new TimberMenu('Main Menu');
         $context['footer_nav'] = new TimberMenu('Footer Menu');
 

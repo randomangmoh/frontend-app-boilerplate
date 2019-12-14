@@ -1,6 +1,7 @@
 // Config
 @import '../config/palette';
 @import '../config/fonts';
+@import '../config/breakpoints';
 
 /**
  * Scaffolding / Global
@@ -23,4 +24,11 @@ body {
 
 .page {
     padding: 0 20px;
+}
+
+.wrapper {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    max-width: $breakpoint-laptop;
 }

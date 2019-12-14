@@ -1,0 +1,86 @@
+@import '../config/spacing';
+
+/**
+ * Components / Table
+ */
+
+.table {
+    width: 100%;
+}
+
+.table__items {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.table__header {
+    background: linear-gradient(90deg, $color-brand-blue-dark, $color-brand-blue-lightest);
+    background-size: 150% 150%;
+    background-position: 0% 0%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: rem(18px);
+
+    th {
+        text-align: left;
+        padding: $spacing;
+    }
+
+}
+
+.table__item {
+    background-color: $color-brand-blue-darkest;
+
+    &:nth-of-type(even) {
+        background-color: $color-brand-blue-light;
+    }
+
+    td {
+        font-size: rem(16px);
+        font-weight: 500;
+        padding: $spacing;
+    }
+
+}
+
+.table-pagination {
+    display: block;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: $spacing-double auto;
+
+    li {
+        display: inline-block;
+    }
+
+    a {
+        display: block;
+        padding: $spacing-third $spacing-half;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+    }
+
+}
+
+.table-pagination__arrow {
+    margin: 0 $spacing-half;
+}
+
+.table-pagination__pages {
+    padding: 0;
+}
+
+.table-pagination__page {
+
+    &.active {
+        border-radius: 7px;
+        background-size: 200%;
+        background-image: linear-gradient(to left, $color-brand-blue-light, $color-brand-blue-lightest);
+    }
+
+}
