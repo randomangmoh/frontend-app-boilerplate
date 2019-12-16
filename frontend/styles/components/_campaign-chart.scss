@@ -1,0 +1,14 @@
+// Config
+@import '../config/palette';
+@import '../config/breakpoints';
+
+// Utils
+@import '../utils/functions/tracking';
+
+/**
+ * Components / Campaign Chart
+ */
+.campaign-chart {
+    width: 100%;
+    height: auto;
+}

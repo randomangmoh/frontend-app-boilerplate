@@ -33,12 +33,8 @@
                 {% for campaign in campaigns %}
 
                     <tr class="table__item campaign-list__item">
-                        <td class="campaign-list__code">
-                            {{ campaign.code }}
-                        </td>
-                        <td class="campaign-list__name">
-                            <a href="{{ campaign.link }}"> {{ campaign.title }} </a>
-                        </td>
+                        <td class="campaign-list__code">{{ campaign.code }}</td>
+                        <td class="campaign-list__name"><a href="{{ campaign.link }}"> {{ campaign.title }} </a></td>
                         <td class="campaign-list__actions">
                             <span data-campaign="actions">
                                 <a href="{{ campaign.link }}" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
@@ -52,8 +48,6 @@
                 {% endfor %}
 
             </table>
-
-            {{ dump(campagins.pagination) }}
 
             {% if campaigns.pagination.prev %}
             <ul class="table-pagination">

@@ -15,7 +15,7 @@
     color: $color-white;
     font-weight: 600;
     cursor: pointer;
-    background-size: 400% 400%;
+    background-size: 300% 300%;
     background-position: 0% 0%;
     min-width: 150px;
     width: auto;
@@ -52,6 +52,10 @@
 
 .btn--secondary {
     background-image: linear-gradient(90deg, $color-brand-blue-dark, $color-brand-blue-lightest, $color-brand-blue-dark);
+}
+
+.btn--tertiary {
+    background-image: linear-gradient(to right, $color-brand-orange-light, $color-brand-orange-dark);
 }
 
 .btn--form {
