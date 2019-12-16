@@ -8,28 +8,9 @@
 {# Page Content #}
 {% block body %}
 
-    {% set campaign_data = [
-        {
-            campaign_name: 'The University of Notre Dame Australia (Parents) - Singapore',
-            code: '1'
-        },
-        {
-            campaign_name: 'Liam',
-            code: '2'
-        },
-        {
-            campaign_name: 'Gunther',
-            code: '3'
-        },
-        {
-            campaign_name: 'Liam 2',
-            code: '4'
-        }
-    ] %}
-
     <section class="wrapper campaign">
 
-        <section class="campaign-overview align-right">
+        <section class="campaign-overview">
             <button type="button" name="login-login" class="btn btn--primary btn--form btn--icon">
                 Download
                 <i class="btn__icon fas fa-long-arrow-alt-right"></i>
@@ -40,18 +21,34 @@
 
             <aside class="campaign-sidebar">
 
-                <div class="campaign-toggle">
-                    <div class="campaign-toggle__title">
-                        <span>parents</span>
+                <div class="campaign-group">
+                    <div class="campaign-group__title">
+                        <span>Parents</span>
                     </div>
-                    <div class="campaign-toggle__options">
-                        <a href="#" class="campaign-toggle__option">Singapore</a>
-                        <a href="#" class="campaign-toggle__option">Indonesia</a>
-                        <a href="#" class="campaign-toggle__option">Malaysia</a>
+                    <div class="campaign-group__options">
+                        <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
+                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
+                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
+                    </div>
+                </div>
+
+                <div class="campaign-group">
+                    <div class="campaign-group__title">
+                        <span>Students</span>
+                    </div>
+                    <div class="campaign-group__options">
+                        <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
+                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
+                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
                     </div>
                 </div>
 
             </aside>
+
+            <section class="campaign">
+                <h3 class="campaign-subhead"></h3>
+                <h1 class=></h1>
+            </section>
 
 
         </section>

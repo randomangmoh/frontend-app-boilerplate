@@ -1,0 +1,22 @@
+// Config
+@import '../config/breakpoints';
+
+/**
+ * Components / Wrapper
+ */
+ .wrapper {
+     position: relative;
+     margin: auto;
+     width: 100%;
+     padding: 0 $spacing;
+     max-width: $breakpoint-desktop;
+
+     @media screen and (max-width: $breakpoint-laptop) {
+
+     }
+
+ }
+
+ .wrapper--large {
+     max-width: $breakpoint-laptop-large;
+ }

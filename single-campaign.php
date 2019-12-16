@@ -16,18 +16,8 @@
 $context = Timber::get_context();
 $context['post'] = new Timber\Post();
 
-$templates = $context['logged_in'] ? ['pages/campaign-list.twig'] : ['pages/login.twig'];
+$templates = $context['logged_in'] ? ['pages/campaign.twig'] : ['pages/login.twig'];
 
-if($context['logged_in']) {
-
-    $user_id = $context['user']->id || null;
-    $associated_clients = get_field('associated_clients', 'user_' . $user_id, false);
-
-    $context['campaigns'] = Timber::get_posts([
-        'post_type'         => 'campaign',
-        'posts_per_page'    => -1,
-    ]);
-
-}
-
+$user_id = $context['user']->id;
+$associated_clients = get_field('associated_clients', 'user_' . $user_id, false);
 Timber::render( $templates, $context );

@@ -5,13 +5,22 @@
 .logo {
     display: inline-block;
     width: 100%;
-    max-width: 350px;
+    max-width: 550px;
 
     img {
         width: 100%;
         display: block;
     }
 
+}
+
+.logo--svg__path {
+    fill: none;
+    stroke: url(#a);
+    stroke-width: 13;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
 }
 
 .logo--centered {

@@ -17,3 +17,29 @@
     transform: translateY(-50%);
     text-align: center;
 }
+
+.login-username,
+.login-password {
+    display: block;
+    @extend .form-field;
+
+    label {
+        display: none;
+    }
+
+    input {
+        @extend .form-field__field;
+    }
+
+}
+
+.login-submit {
+    display: block;
+
+    input {
+        border: 0;
+        @extend .btn;
+        @extend .btn--primary;
+    }
+
+}

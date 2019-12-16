@@ -1,7 +1,7 @@
 {% extends './layout.twig' %}
 
 {# Page Variables #}
-{% set page_title = 'ADNA - Admin' %}
+{% set page_title = 'ADNA - Login' %}
 {% set page_name = 'ADNA' %}
 
 {# Page Content #}
@@ -11,17 +11,31 @@
 
         <div class="login__inner">
 
-            <a href="/" class="logo logo--centered padding-bottom--double">
-                <img src="{{ assets }}/images/logo.png" alt="ADNA" />
-            </a>
+            <a href="/" class="logo logo--centered"> {% include './components/logo.twig' %} </a>
 
-            <form class="form grid grid--middle margin-top--double" action="index.html" method="post">
+            {{  function('wp_login_form', {
+                'echo'           : true,
+                'form_id'        : 'userlogin',
+                'label_username' : __( 'Name' ),
+                'label_password' : __( 'Password' ),
+                'label_remember' : __( 'Remember Me' ),
+                'label_log_in'   : __( 'Log In' ),
+                'id_username'    : 'login-user',
+                'id_password'    : 'login-pass',
+                'id_remember'    : 'login-remember',
+                'id_submit'      : 'wp-submit',
+                'remember'       : false,
+                'value_username' : NULL,
+                'value_remember' : true
+            })}}
+
+            <!-- <form class="form grid grid--middle margin-top--double" action="index.html" method="post">
 
                 <div class="grid__item 1/1 margin-bottom--quarter">
 
                     <label for="login-username" class="form-field form-field--full margin-bottom">
                         <div class="form-field__icon fas fa-user"></div>
-                        <input type="text" class="form-field__field" name="login-username" placeholder="Username" />
+                        <input type="text" class="form-field__field" name="login-username" placeholder="Username / E-mail" />
                     </label>
 
                 </div>
@@ -46,9 +60,10 @@
                     </button>
                 </div>
 
-            </form>
+            </form> -->
 
         </div>
+
 
     </section>
 

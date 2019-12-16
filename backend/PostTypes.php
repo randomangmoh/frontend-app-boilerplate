@@ -4,7 +4,7 @@
  * Campaign Post Type
  * @var [type]
  */
-register_post_type( 'Campaigns', [
+register_post_type('campaign', [
 
     'labels' => [
         'name' => _x('Campaigns', 'post type general name'),
@@ -23,6 +23,7 @@ register_post_type( 'Campaigns', [
     ],
     'description' => 'List of the campaigns',
     'public'        => true,
+    'menu_icon'     => 'dashicons-analytics',
     'menu_position' => 5,
     'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
     'has_archive'   => true,
@@ -33,7 +34,7 @@ register_post_type( 'Campaigns', [
  * Client Post Type
  * @var [type]
  */
-register_post_type( 'Clients', [
+register_post_type('client', [
 
     'labels' => [
         'name' => _x('Clients', 'post type general name'),
@@ -48,10 +49,11 @@ register_post_type( 'Clients', [
         'not_found'          => __( 'No clients found' ),
         'not_found_in_trash' => __( 'No clients found in the Trash' ),
         'parent_item_colon'  => '',
-        'menu_name'          => __('Client')
+        'menu_name'          => __('Clients')
     ],
-    'description' => 'List of the clients',
+    'description'   => 'List of the clients',
     'public'        => true,
+    'menu_icon'     => 'dashicons-businessman',
     'menu_position' => 5,
     'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
     'has_archive'   => true,

@@ -1,10 +1,12 @@
 <?php
 
+// Post Type Registration
 require_once(__DIR__ . '/PostTypes.php');
 
 // Set Timber Up
 $timber = new \Timber\Timber();
 $timber::$dirname = ['templates', 'frontend/views'];
+
 
 /**
  * NestBloom site functionality.
@@ -19,6 +21,10 @@ class ADNATheme extends TimberSite
     public function __construct()
     {
 
+        // Admin Actions
+        add_action('admin_menu', [ $this, 'admin_menu' ]);
+        add_action('admin_enqueue_scripts', [$this, 'load_admin_style']);
+
         // Theme Support
         add_theme_support('post-formats');
         add_theme_support('post-thumbnails');
@@ -29,7 +35,6 @@ class ADNATheme extends TimberSite
         add_filter('timber_context', [ $this, 'add_to_context' ]);
         add_filter('get_twig', [ $this, 'add_to_twig' ]);
 
-        // Actions
         add_action('init', [ $this, 'register_post_types' ]);
         add_action('init', [ $this, 'register_taxonomies' ]);
         add_action('wp_enqueue_scripts', [ $this, 'enqueue_scripts' ]);
@@ -38,12 +43,39 @@ class ADNATheme extends TimberSite
 
     }
 
-    public function register_post_types() {
 
+    /**
+     * Customize the admin panel style and functionality
+     * @return void
+     */
+    public function customize_admin()
+    {
 
+        wp_register_style( 'admin_css', get_template_directory_uri() . '/style-admin.css', false, '1.0.0' );
 
     }
 
+
+    /**
+     * Admin menu functionality
+     * @return void
+     */
+    public function admin_menu()
+    {
+
+        // Remove Posts Page
+        remove_menu_page('edit.php');
+
+        // Remove Comments Page
+        remove_menu_page( 'edit-comments.php' );
+
+        // Remove support of comments
+        remove_post_type_support( 'post', 'comments' );
+        remove_post_type_support( 'page', 'comments' );
+
+    }
+
+    public function register_post_types() {}
     public function register_taxonomies() {}
 
 
@@ -71,6 +103,7 @@ class ADNATheme extends TimberSite
     {
 
         $context['global_options'] = get_fields('options');
+        $context['logged_in'] = is_user_logged_in();
         $context['current_user'] = new Timber\User();
         $context['assets'] = $context['theme']->link . '/assets';
         $context['navigation'] = new TimberMenu('Main Menu');
