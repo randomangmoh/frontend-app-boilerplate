@@ -31,4 +31,128 @@
     width: 20%;
 }
 
-.campaign-group {}
+////
+// Campaign Overview
+////
+.campaign__overview {
+    width: 100%;
+    overflow: auto;
+    padding: 0 0 0 $spacing-double;
+}
+
+.campaign__header {
+    margin: 0 0 $spacing 0;
+    line-height: 1;
+}
+
+.campaign__subheader {
+    margin: 0 0 $spacing-half 0;
+    text-transform: uppercase;
+    letter-spacing: tracking(100);
+}
+
+.campaign__section {
+    margin-bottom: $spacing-double;
+}
+
+////
+// Campaign Overview
+////
+.campaign__demographics {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    &::-webkit-scrollbar { width: 0 !important }
+}
+
+.campaign__demographic {
+    align-content: center;
+    min-width: 175px;
+    flex-shrink: 0;
+    margin-right: $spacing-half;
+    background-color: $color-brand-secondary;
+    text-align: center;
+    padding: $spacing * .75;
+
+    small {
+        display: block;
+        text-transform: uppercase;
+        font-size: rem(12px);
+        letter-spacing: tracking(100);
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    span {
+        display: block;
+        font-weight: 500;
+    }
+
+}
+
+
+////
+// Campaign Questions
+////
+.campaign-questions {
+    position: relative;
+}
+
+.campaign-questions__nav {
+    display: flex;
+    align-items: center;
+}
+
+.campaign-questions__select--alt {
+    text-align: right;
+    align-items: flex-end;
+    align-content: flex-end;
+}
+
+.campaign-questions__dropdown {
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.campaign-questions__arrows {
+    display: flex;
+    width: 175px;
+    align-items: center;
+    align-content: center;
+}
+
+.campaign-questions__arrow {
+    width: 50%;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    background-image: linear-gradient(140deg, $color-brand-blue-dark, $color-brand-blue-lightest);
+    border: transparent;
+    color: $color-white;
+    text-align: center;
+    border-radius: 7px;
+    cursor: pointer;
+
+    &:first-of-type {
+        margin: 0 10px;
+    }
+
+    svg, i {
+        margin: auto;
+        display: block;
+    }
+
+}
+
+.campaign-questions__arrow--disabled {
+    border: 1px solid rgba($color-white, .25);
+    color: rgba($color-white, .25);
+    background: transparent;
+    cursor: default;
+}
+
+.campaign-questions__container {
+    position: relative;
+    width: 100%;
+}

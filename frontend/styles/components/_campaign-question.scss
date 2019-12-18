@@ -1,0 +1,27 @@
+
+@import '../helpers/classes/margin';
+
+/**
+ * Components / Campaign Question
+ */
+
+.campaign-question {
+
+}
+
+
+.campaign-question__insights {
+    margin-top: $spacing-double;
+}
+
+.campaign-question__insight {
+    padding: $spacing-half;
+    border-radius: 5px;
+    background-color: rgba($color-white, .1);
+    color: $color-white;
+
+    p {
+        font-size: rem(14px);
+        font-weight: 400;
+    }
+}
