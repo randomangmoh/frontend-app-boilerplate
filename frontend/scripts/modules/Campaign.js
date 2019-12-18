@@ -1,5 +1,6 @@
 // Lib
 import Chart from 'chart.js';
+import Glide from '@glidejs/glide'
 
 /**
  * Class to handle all Campaign functionality
@@ -14,57 +15,25 @@ export default class Campaign {
 
         this.container = container;
 
-        this.chartContainer = this.container.querySelector('[data-question="chart"]');
-        this.chartContext = this.chartContainer.getContext('2d');
+        this.questionsContainer = this.container.querySelector('[data-questions="container"]');
+        this.carouselContainer = this.container.querySelector('[data-questions="carousel"]');
+        this.carousel = this.initCarousel(this.carouselContainer);
 
-        this.chart = new Chart(this.chartContainer, {
-            type: 'pie',
-            data: {
-                labels: ['Yes', 'No', 'Maybe'],
-                datasets: [{
-                    fillColor: [this.generateGradient(), this.generateGradient()],
-                    data: [243, 984, 544],
-                    borderWidth: 0,
-                    backgroundColor: [
-                        this.generateGradient(),
-                        this.generateGradient(),
-                        this.generateGradient()
-                    ]
-                }]
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: true,
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        fontColor: 'white',
-                        padding: 50,
-                        boxWidth: 30
-                    }
-                }
-            }
-        });
+
 
     }
 
-    generateGradient() {
+    /**
+     * Initialize Questions Carousel
+     * @return {Void}
+     */
+    initCarousel(container) {
 
-        let gradient = this.chartContext.createLinearGradient(0, 0, 0, 1000);
-        gradient.addColorStop(0, this.rgba());
-        gradient.addColorStop(1, this.rgba());
+        if(!container) return;
 
-        return gradient;
-
-    }
-
-    rgba() {
-
-        const o = Math.round, r = Math.random, s = 255;
-        const color = o(r()*s);
-        const grad = 'rgba(' + 0 + ',' + 0 + ',' + o(r()*s) + ',' + 1 + ')';
-
-        return grad;
+        return new Glide('[data-questions="container"]', {
+            type: 'carousel'
+        }).mount();
 
     }
 

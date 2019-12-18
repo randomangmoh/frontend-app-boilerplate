@@ -134,6 +134,13 @@
     border-radius: 7px;
     cursor: pointer;
 
+    &.disabled {
+        border: 1px solid rgba($color-white, .25);
+        color: rgba($color-white, .25);
+        background: transparent;
+        cursor: default;
+    }
+
     &:first-of-type {
         margin: 0 10px;
     }
@@ -143,13 +150,6 @@
         display: block;
     }
 
-}
-
-.campaign-questions__arrow--disabled {
-    border: 1px solid rgba($color-white, .25);
-    color: rgba($color-white, .25);
-    background: transparent;
-    cursor: default;
 }
 
 .campaign-questions__container {

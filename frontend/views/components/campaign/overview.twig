@@ -24,45 +24,6 @@
     </div>
 
     {# Campaign Questions #}
-    <div class="campaign__section" data-questions="container">
-
-        <h3 class="campaign__subheader">Questions</h3>
-
-        <div class="campaign__section campaign-questions__nav">
-
-            <div class="form-field campaign-questions__dropdown">
-
-                <select class="form-field__select">
-                    {% for question in questions %}
-                    <option value="question-one">{{ question.title }}</option>
-                    {% endfor %}
-                </select>
-
-            </div>
-
-            <div class="campaign-questions__arrows">
-                <div class="campaign-questions__arrow campaign-questions__arrow--disabled">
-                    <i class="fas fa-long-arrow-alt-left"></i>
-                </div>
-                <div class="campaign-questions__arrow">
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="campaign__section campaign-questions__container">
-
-            <h3 class="campaign__subheader">Responses</h3>
-
-            {% for question in questions %}
-
-                {% include './components/campaign/question.twig' %}
-
-            {% endfor %}
-
-        </div>
-
-    </div>
+    {% include './components/campaign/questions.twig' %}
 
 </div>

@@ -1,10 +1,15 @@
+// Config
+@import '../config/spacing';
 
+// Helpers
 @import '../helpers/classes/margin';
+
+// Utils
+@import '../utils/functions/rem';
 
 /**
  * Components / Campaign Question
  */
-
 .campaign-question {
 
 }
@@ -24,4 +29,16 @@
         font-size: rem(14px);
         font-weight: 400;
     }
+}
+
+.campaign-question__chart {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    text-align: left;
+    background: #000;
+}
+
+.campaign-question__subcharts {
+    padding-left: $spacing;
 }

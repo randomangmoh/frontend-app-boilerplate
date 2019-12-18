@@ -123,6 +123,9 @@ class ADNATheme extends TimberSite
 
         wp_localize_script( 'js', 'wp', ['theme' => get_stylesheet_directory_uri()]);
 
+        wp_register_style('GliderJS', 'https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css');
+        wp_enqueue_style('GliderJS');
+
         wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css?v='. time(), [], null, false );
         wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/js/entry.js?v='. time(), [], null, true );
         wp_enqueue_script( 'js', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js'. time(), [], null, true );

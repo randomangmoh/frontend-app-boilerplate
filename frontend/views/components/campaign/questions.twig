@@ -1,0 +1,63 @@
+<div class="campaign__section" data-questions="container">
+
+    <h3 class="campaign__subheader">Questions</h3>
+
+    <div class="campaign__section campaign-questions__nav">
+
+        <div class="form-field campaign-questions__dropdown">
+
+            <select class="form-field__select">
+                {% for question in questions %}
+                <option value="question-one" data-index="{{ loop.index0 }}">{{ question.title }}</option>
+                {% endfor %}
+            </select>
+
+        </div>
+
+        <div class="campaign-questions__arrows glide__arrows" data-glide-el="controls">
+            <div class="campaign-questions__arrow campaign-questions__arrow--prev" data-glide-dir="<">
+                <i class="fas fa-long-arrow-alt-left"></i>
+            </div>
+            <div class="campaign-questions__arrow campaign-questions__arrow--next" data-glide-dir=">">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="campaign__section">
+
+        <h3 class="campaign__subheader">Responses</h3>
+
+        <div class="campaign-questions__container" data-questions="carousel">
+
+            <div class="glide__track" data-glide-el="track">
+
+                <div class="glide__slides">
+
+                    {% for question in questions %}
+                        {% include './components/campaign/question.twig' %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="campaign__section campaign-questions__nav">
+
+        <div class="campaign-questions__arrows glide__arrows" data-glide-el="controls">
+            <div class="campaign-questions__arrow campaign-questions__arrow--prev glide__arrow glide__arrow--left" data-glide-dir="<">
+                <i class="fas fa-long-arrow-alt-left"></i>
+            </div>
+            <div class="campaign-questions__arrow campaign-questions__arrow--next glide__arrow glide__arrow--right" data-glide-dir=">">
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+        </div>
+
+    </div>
+
+</div>
