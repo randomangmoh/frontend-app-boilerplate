@@ -18,6 +18,4 @@ $context['post'] = new Timber\Post();
 
 $templates = $context['logged_in'] ? ['pages/campaign.twig'] : ['pages/login.twig'];
 
-$user_id = $context['user']->id;
-$associated_clients = get_field('associated_clients', 'user_' . $user_id, false);
 Timber::render( $templates, $context );

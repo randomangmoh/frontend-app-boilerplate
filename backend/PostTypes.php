@@ -25,8 +25,9 @@ register_post_type('campaign', [
     'public'        => true,
     'menu_icon'     => 'dashicons-analytics',
     'menu_position' => 5,
-    'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
-    'has_archive'   => true,
+    'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
+    'rewrite'       => ['slug' => 'campaigns'],
+    'has_archive'   => 'campaigns',
 
 ]);
 
@@ -55,7 +56,8 @@ register_post_type('client', [
     'public'        => true,
     'menu_icon'     => 'dashicons-businessman',
     'menu_position' => 5,
-    'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
-    'has_archive'   => true,
+    'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
+    'rewrite'       => ['slug' => 'clients'],
+    'has_archive'   => 'clients',
 
 ]);

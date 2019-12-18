@@ -1,0 +1,151 @@
+
+{% extends './layout.twig' %}
+
+{# Page Variables #}
+{% set page_title = 'ADNA - Campagin' %}
+{% set page_name = 'campaign' %}
+
+{# Page Content #}
+{% block body %}
+
+    {% set questions = post.get_field('question') %}
+
+    <section class="wrapper campaign" data-campaign="container">
+
+        <section class="campaign-download">
+            <button type="button" name="login-login" class="btn btn--tertiary btn--icon">
+                Download Report
+                <i class="btn__icon fas fa-long-arrow-alt-down"></i>
+            </button>
+        </section>
+
+        <section class="campaign-main">
+
+            {# Campaign Sidebar #}
+            {% include './components/campaign/sidebar.twig' %}
+
+            {# Campaign Overview #}
+            <section class="campaign-overview">
+
+                {# Campaign Info #}
+                <div class="campaign__section">
+                    <h3 class="campaign-subheader">campaign</h3>
+                    <h1 class="campaign-header">{{ post.title }}</h1>
+                    <time class="campaign-time">15 November 2018 - 15 December 2018</time>
+                </div>
+
+
+                {# Campaign Demographics #}
+
+                <div class="campaign__section">
+                    <h3 class="campaign-subheader">Demographics</h3>
+                    <div class="campaign-demographics">
+                        {% for demographic in post.get_field('demographics') %}
+                            <div class="campaign-demographic">
+                                <small>{{ demographic.custom_label ? demographic.custom_label : demographic.type.value }}</small>
+                                <span>{{ demographic.value_country ? demographic.value_country : demographic.value }}</span>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="campaign-questions" data-questions="container">
+                    <h3 class="campaign-subheader">Questions</h3>
+
+                    <div class="campaign-questions__select">
+
+                        <div class="form-field campaign-questions__dropdown">
+
+                            <select class="form-field__select">
+                                {% for question in questions %}
+                                <option value="question-one">{{ question.title }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+
+                        <div class="campaign-questions__arrows">
+                            <div class="campaign-questions__arrow campaign-questions__arrow--disabled">
+                                <i class="fas fa-long-arrow-alt-left"></i>
+                            </div>
+                            <div class="campaign-questions__arrow">
+                                <i class="fas fa-long-arrow-alt-right"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {# Each Question Response #}
+
+                    {% for question in questions %}
+
+                        <div class="campaign-responses">
+
+                            <h3 class="campaign-subheader">Responses</h3>
+
+                            <div class="campaign-question" data-questions="question" data-question="{{ loop.index0 }}">
+
+                                <div class="campaign-question__images"></div>
+
+                                <div class="campaign-question__responses">
+
+                                    <div class="campaign-question__chart">
+
+                                        <canvas class="campaign-chart" data-question="chart" data-chart-type="donut" width="750" height="750"></canvas>
+
+                                    </div>
+
+                                    <div class="campaign-question__most-selected campaign-most-selected">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="campaign-question__insights">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="margin-top--double">
+
+                            <h3 class="campaign-subheader">ADNA Insights</h3>
+
+                            <div class="campaign-insights margin-top">
+                                {{ question.insights }}
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                    <div class="margin-top--double">
+
+                        <div class="campaign-questions__select campaign-questions__select--alt">
+
+                            <div class="campaign-questions__arrows">
+                                <div class="campaign-questions__arrow campaign-questions__arrow--disabled">
+                                    <i class="fas fa-long-arrow-alt-left"></i>
+                                </div>
+                                <div class="campaign-questions__arrow">
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </section>
+
+{% endblock %}

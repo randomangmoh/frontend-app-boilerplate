@@ -1,0 +1,55 @@
+// Config
+@import '../config/palette';
+@import '../config/breakpoints';
+
+// Utils
+@import '../utils/functions/rem';
+@import '../utils/functions/tracking';
+
+/**
+ * Components / Campaign
+ */
+ .campaign-group {
+     margin-bottom: $spacing-double;
+     position: relative;
+     width: 100%;
+ }
+
+ .campaign-group__title {
+     padding: $spacing;
+     background-image: linear-gradient(140deg, $color-brand-blue-dark, $color-brand-blue-light);
+     border-radius: 7px 7px 0 0;
+     text-align: center;
+     font-size: rem(20px);
+     font-weight: bold;
+     letter-spacing: tracking(100);
+     text-transform: uppercase;
+ }
+
+ .campaign-group__options {
+     background-color: $color-brand-secondary;
+     padding: $spacing $spacing;
+     height: auto;
+     border-radius: 0 0 7px 7px;
+ }
+
+ .campaign-group__option {
+     display: block;
+     width: 100%;
+     margin: 0 auto $spacing-half;
+     padding: $spacing * .75 $spacing-half;
+     text-align: center;
+     font-size: rem(18px);
+     border-radius: 5px;
+     background-image: linear-gradient(140deg, $color-brand-secondary, $color-brand-secondary);
+
+     &:hover {
+         transition: background-image 400ms ease;
+         background-image: linear-gradient(140deg, $color-brand-blue-dark, $color-brand-blue-lightest);
+     }
+
+ }
+
+ .campaign-group__option--active {
+     background-image: linear-gradient(140deg, $color-brand-blue-dark, $color-brand-blue-lightest);
+ }

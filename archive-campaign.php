@@ -1,4 +1,7 @@
 <?php
+
+require_once(__DIR__ . '/backend/Helpers.php');
+
 /**
  * The main template file
  * This is the most generic template file in a WordPress theme
@@ -16,6 +19,13 @@
 $context = Timber::get_context();
 $context['post'] = new Timber\Post();
 
-$templates = ['pages/index.twig'];
+$helpers = new Helpers($context);
+
+// Tiger Beer Client ID 37, Notre Dame 70
+
+$client_ids = $helpers->check_user_clients();
+$context['campaigns'] = $helpers->filter_campaigns($client_ids);
+
+$templates = $context['logged_in'] ? ['pages/campaign-list.twig'] : ['pages/login.twig'];
 
 Timber::render( $templates, $context );

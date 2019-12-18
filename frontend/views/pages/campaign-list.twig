@@ -38,9 +38,9 @@
                         <td class="campaign-list__actions">
                             <span data-campaign="actions">
                                 <a href="{{ campaign.link }}" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
-                                <a href="#" class="campaign-list__action"><i class="fas fa-edit"></i></a>
+                                <a href="{{ function('get_edit_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a>
-                                <a href="#" class="campaign-list__action"><i class="fas fa-trash"></i></a>
+                                <a href="{{ function('get_delete_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-trash"></i></a>
                             </span>
                         </td>
                     </tr>

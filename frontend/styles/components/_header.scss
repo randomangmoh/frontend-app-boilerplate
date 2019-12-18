@@ -29,10 +29,17 @@
 .nav {
     position: relative;
     display: flex;
-    justify-content: space-between;
+}
+
+.nav--primary {
+    justify-content: flex-end;
+}
+
+.nav--secondary {
+    justify-content: flex-end;
 }
 
 .nav__item {
-    align-content: space-around;
+    margin-left: $spacing;
     align-self: center;
 }

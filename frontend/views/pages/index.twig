@@ -9,64 +9,7 @@
 
     <section class="wrapper">
 
-        <h1>All Campaigns</h1>
-
-        <section class="table campaign-list" data-campaign="container">
-
-            <div class="table__search" data-campaign="search">
-
-                <label for="campaign-search" class="form-field form-field--full margin-bottom">
-                    <div class="form-field__icon fas fa-user fa-search"></div>
-                    <input type="text" class="form-field__field" name="campaign-search" placeholder="Search by code or campaign name" />
-                </label>
-
-            </div>
-
-            <table class="table__items" data-campaign="items">
-
-                <tr class="table__header">
-                    <th>Code</th>
-                    <th>Campaign Name</th>
-                    <th>Actions</th>
-                </tr>
-
-                {% for campaign in campaigns %}
-
-                    <tr class="table__item campaign-list__item">
-                        <td class="campaign-list__code">{{ campaign.code }}</td>
-                        <td class="campaign-list__name"><a href="{{ campaign.link }}"> {{ campaign.title }} </a></td>
-                        <td class="campaign-list__actions">
-                            <span data-campaign="actions">
-                                <a href="{{ campaign.link }}" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
-                                <a href="#" class="campaign-list__action"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a>
-                                <a href="#" class="campaign-list__action"><i class="fas fa-trash"></i></a>
-                            </span>
-                        </td>
-                    </tr>
-
-                {% endfor %}
-
-            </table>
-
-            {% if campaigns.pagination.prev %}
-            <ul class="table-pagination">
-                <li class="table-pagination__arrow table-pagination__arrow--left">
-                    <a href="#"><i class="fas fa-chevron-left"></i></a>
-                </li>
-                <li class="table-pagination__list">
-                    <ul class="table-pagination__pages">
-                        <li class="table-pagination__page active"><a href="#">1</a></li>
-                        <li class="table-pagination__page"><a href="#">2</a></li>
-                    </ul>
-                </li>
-                <li class="table-pagination__arrow table-pagination__arrow--right">
-                    <a href="#"><i class="fas fa-chevron-right"></i></a>
-                </li>
-            </ul>
-            {% endif %}
-
-        </section>
+        <h1>Homepage</h1>
 
     </section>
 

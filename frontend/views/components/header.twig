@@ -1,33 +1,33 @@
-{% if logged_in %}
-    <header class="header {{ logged_in ? 'header--logged-in' : 'header--no-login'}} wrapper">
+<header class="header {{ logged_in ? 'header--logged-in' : 'header--no-login'}} wrapper">
 
-        <div class="header__inner grid">
+    <div class="header__inner grid">
 
-            <div class="grid__item 1/2 1/3--tablet-landscape">
+        <div class="grid__item 1/3">
 
-                <a href="/" class="logo logo--header">
-                    {% include './components/logo.twig' %}
-                </a>
-
-            </div>
-
-            <div class="grid__item align--right 1/2 2/3--tablet-landscape">
-
-                <nav class="nav nav--main">
-
-                    <a href="#" class="nav__item">Campaigns</a>
-                    <a href="#" class="nav__item">Users</a>
-                    {% if logged_in %}
-                        <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
-                    {% endif %}
-                    <a href="#" class="btn btn--secondary">Add New User</a>
-                    <a href="#" class="btn btn--primary">Add New Campaign</a>
-
-                </nav>
-
-            </div>
+            <a href="/" class="logo logo--header">
+                {% include './components/logo.twig' %}
+            </a>
 
         </div>
 
-    </header>
-{% endif %}
+        <div class="grid__item align--right 2/3">
+
+            {% if logged_in %}
+                <nav class="nav nav--primary">
+                    <a href="{{ function('get_post_type_archive_link', 'campaign') }}" class="nav__item">Campaigns</a>
+                    <a href="#" class="nav__item">Users</a>
+                    <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
+                    <a href="#" class="nav__item btn btn--secondary">Add New User</a>
+                    <a href="#" class="nav__item btn btn--primary">Add New Campaign</a>
+                </nav>
+            {% else %}
+                <nav class="nav nav--secondary">
+                    <a href="{{ function('wp_login_url', '/') }}" class="nav__item btn btn--secondary margin-right">Log in</a>
+                    <a href="#" class="btn btn--primary align--right">Contact ADNA</a>
+                </nav>
+            {% endif %}
+        </div>
+
+    </div>
+
+</header>

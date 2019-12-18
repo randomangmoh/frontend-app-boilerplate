@@ -42,13 +42,7 @@ export default class Campaign {
                         padding: 50,
                         boxWidth: 30
                     }
-                },
-                title: {
-                    display: true,
-                    text: 'Question',
-                    fontSize: 20,
-                    padding: 50
-                },
+                }
             }
         });
 

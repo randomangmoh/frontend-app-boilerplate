@@ -10,148 +10,22 @@
 
     {% set questions = post.get_field('question') %}
 
-    <section class="wrapper campaign" data-campaign="container">
+    <section class="campaign wrapper" data-campaign="container">
 
-        <section class="campaign-download">
+        {# Download Report #}
+        <section class="campaign__download">
             <button type="button" name="login-login" class="btn btn--tertiary btn--icon">
-                Download
-                <i class="btn__icon fas fa-long-arrow-alt-right"></i>
+                Download Report
+                <i class="btn__icon fas fa-long-arrow-alt-down"></i>
             </button>
         </section>
 
-        <section class="campaign-main">
+        <section class="campaign__content">
 
-            {#
+            {# Sidebar #}
+            {% include './components/campaign/sidebar.twig' %}
 
-                Campaign Sidebar
-
-            #}
-
-            <aside class="campaign-sidebar">
-
-                <div class="campaign-group">
-                    <div class="campaign-group__title">
-                        <span>Parents</span>
-                    </div>
-                    <div class="campaign-group__options">
-                        <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
-                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
-                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
-                    </div>
-                </div>
-
-                <div class="campaign-group">
-                    <div class="campaign-group__title">
-                        <span>Students</span>
-                    </div>
-                    <div class="campaign-group__options">
-                        <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
-                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
-                        <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
-                    </div>
-                </div>
-
-            </aside>
-
-            {#
-
-                Campaign Overview
-
-            #}
-
-            <section class="campaign-overview">
-
-                <div class="campaign-info margin-bottom--double">
-                    <h3 class="campaign-subheader">campaign</h3>
-                    <h1 class="campaign-header">{{ post.title }}</h1>
-                    <time class="campaign-time">15 November 2018 - 15 December 2018</time>
-                </div>
-
-
-                {# Campaign Demographics #}
-
-                <div class="campaign-demographics margin-bottom--double">
-                    <h3 class="campaign-subheader">Demographics</h3>
-                    <div class="campaign-demographics__list">
-                        {% for demographic in post.get_field('demographics') %}
-                            <div class="campaign-demographic">
-                                <small>{{ demographic.custom_label ? demographic.custom_label : demographic.type.value }}</small>
-                                <span>{{ demographic.value }}</span>
-                            </div>
-
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="campaign-questions" data-questions="container">
-                    <h3 class="campaign-subheader">Questions</h3>
-
-                    <div class="campaign-questions__select">
-
-                        <div class="form-field campaign-questions__dropdown">
-
-                            <select class="form-field__select">
-                                {% for question in questions %}
-                                <option value="question-one">{{ question.title }}</option>
-                                {% endfor %}
-                            </select>
-
-                        </div>
-
-                        <div class="campaign-questions__arrows">
-                            <div class="campaign-questions__arrow campaign-questions__arrow--disabled">
-                                <i class="fas fa-long-arrow-alt-left"></i>
-                            </div>
-                            <div class="campaign-questions__arrow">
-                                <i class="fas fa-long-arrow-alt-right"></i>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {# Each Question Response #}
-
-                    {% for question in questions %}
-
-                        <div class="campaign-responses">
-
-                            <h3 class="campaign-subheader">Responses</h3>
-
-                            <div class="campaign-question" data-questions="question" data-question="1">
-
-                                <div class="campaign-question__images">
-
-                                </div>
-
-                                <div class="campaign-question__responses">
-
-                                    <div class="campaign-question__chart">
-
-                                        <canvas class="campaign-chart" data-question="chart" data-chart-type="donut" width="750" height="750"></canvas>
-
-                                    </div>
-
-                                    <div class="campaign-question__most-selected campaign-most-selected">
-
-                                    </div>
-
-                                </div>
-
-                                <div class="campaign-question__insights">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    {% endfor %}
-
-
-                </div>
-
-            </section>
-
+            {% include './components/campaign/overview.twig' %}
 
         </section>
 
