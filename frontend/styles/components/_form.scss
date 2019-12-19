@@ -64,7 +64,7 @@
 
 .form-field__select {
     display: block;
-    font-size: 16px;
+    font-size: rem(16px);
     font-family: sans-serif;
     font-weight: 700;
     color: $color-white;
@@ -97,6 +97,12 @@
         outline: none;
     }
 
+}
+
+.form-field__select--large {
+    font-size: rem(18px);
+    text-transform: uppercase;
+    letter-spacing: tracking(50);
 }
 
 // /* Hover style */

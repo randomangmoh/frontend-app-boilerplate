@@ -14,7 +14,6 @@
 
 }
 
-
 .campaign-question__insights {
     margin-top: $spacing-double;
 }
@@ -34,9 +33,8 @@
 .campaign-question__chart {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: auto;
     text-align: left;
-    background: #000;
 }
 
 .campaign-question__subcharts {

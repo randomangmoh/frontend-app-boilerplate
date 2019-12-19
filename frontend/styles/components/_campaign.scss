@@ -103,6 +103,11 @@
     align-items: center;
 }
 
+.campaign-questions__nav--alt {
+    display: block;
+    text-align: right;
+}
+
 .campaign-questions__select--alt {
     text-align: right;
     align-items: flex-end;
@@ -112,7 +117,7 @@
 .campaign-questions__dropdown {
     padding: 0;
     display: inline-block;
-    width: 100%;
+    width: 90%;
 }
 
 .campaign-questions__arrows {
@@ -120,6 +125,11 @@
     width: 175px;
     align-items: center;
     align-content: center;
+
+    .campaign-questions__nav--alt & {
+        display: inline-flex;
+    }
+
 }
 
 .campaign-questions__arrow {

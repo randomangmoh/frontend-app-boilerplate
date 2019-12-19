@@ -1,6 +1,7 @@
 // Config
 @import '../config/palette';
 @import '../config/breakpoints';
+@import '../config/spacing';
 
 // Utils
 @import '../utils/functions/tracking';
@@ -9,6 +10,7 @@
  * Components / Campaign Chart
  */
 .campaign-chart {
+    margin-top: $spacing;
     width: 100%;
     height: auto;
 }

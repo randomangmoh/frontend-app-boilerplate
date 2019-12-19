@@ -6,19 +6,19 @@
 
         <div class="form-field campaign-questions__dropdown">
 
-            <select class="form-field__select">
+            <select class="form-field__select form-field__select--large" data-questions="select">
                 {% for question in questions %}
-                <option value="question-one" data-index="{{ loop.index0 }}">{{ question.title }}</option>
+                    <option value="question-one" data-index="{{ loop.index0 }}">{{ question.title }}</option>
                 {% endfor %}
             </select>
 
         </div>
 
         <div class="campaign-questions__arrows glide__arrows" data-glide-el="controls">
-            <div class="campaign-questions__arrow campaign-questions__arrow--prev" data-glide-dir="<">
+            <div class="campaign-questions__arrow campaign-questions__arrow--prev glide__arrow glide__arrow--left" data-glide-dir="<">
                 <i class="fas fa-long-arrow-alt-left"></i>
             </div>
-            <div class="campaign-questions__arrow campaign-questions__arrow--next" data-glide-dir=">">
+            <div class="campaign-questions__arrow campaign-questions__arrow--next glide__arrow glide__arrow--right" data-glide-dir=">">
                 <i class="fas fa-long-arrow-alt-right"></i>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
     </div>
 
-    <div class="campaign__section campaign-questions__nav">
+    <div class="campaign__section campaign-questions__nav campaign-questions__nav--alt">
 
         <div class="campaign-questions__arrows glide__arrows" data-glide-el="controls">
             <div class="campaign-questions__arrow campaign-questions__arrow--prev glide__arrow glide__arrow--left" data-glide-dir="<">
