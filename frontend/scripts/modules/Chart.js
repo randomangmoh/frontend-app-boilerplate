@@ -1,5 +1,7 @@
 // Lib
 import ChartJS from 'chart.js';
+import { TinyColor, random } from '@ctrl/tinycolor';
+
 
 /**
  * Class to handle all Campaign Charts
@@ -27,14 +29,15 @@ export default class Chart {
             data: {
                 labels: this.generateLabels(this.data.answers),
                 datasets: [{
-                    fillColor: this.generateGradients(this.count),
                     data: this.generateValues(this.data.answers),
                     borderWidth: 0,
+                    fill: this.data.type === 'line' ? false : true,
+                    borderColor: this.data.type === 'line' ? this.generateGradient(random({ count: length, hue: 'blue', luminosity: 'bright' })) : false,
                     backgroundColor: this.generateGradients(this.count)
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
                 maintainAspectRatio: true,
                 legend: {
                     display: true,
@@ -80,8 +83,6 @@ export default class Chart {
 
         answers.forEach((answer) => labels.push(answer.description));
 
-        console.log(labels);
-
         return labels;
 
     }
@@ -89,16 +90,24 @@ export default class Chart {
 
     /**
      * Generate gradients for the chart
+     *
      * @param  {Int}   length
      * @return {Array} gradients
      */
     generateGradients(length) {
 
         let gradients = [];
+        let baseColor = random({
+            count: length,
+            hue: 'green',
+            luminosity: 'bright'
+        });
 
         for (var i = 0; i < length; i++) {
-            gradients.push(this.generateGradient());
-        };
+
+            gradients.push(this.generateGradient(baseColor[i]));
+
+        }
 
         return gradients;
 
@@ -107,13 +116,16 @@ export default class Chart {
 
     /**
      * Generate gradients for the charts
+     *
      * @return {HTMLElement}
      */
-    generateGradient() {
+    generateGradient(baseColor) {
+
+        let color = baseColor;
 
         let gradient = this.context.createLinearGradient(0, 0, 0, 1000);
-        gradient.addColorStop(0, this.rgba());
-        gradient.addColorStop(1, this.rgba());
+        gradient.addColorStop(0, color.lighten(20).toHexString());
+        gradient.addColorStop(1, color.darken(20).toHexString());
 
         return gradient;
 
@@ -128,7 +140,7 @@ export default class Chart {
 
         const o = Math.round, r = Math.random, s = 255;
         const color = o(r()*s);
-        const grad = 'rgba(' + 0 + ',' + 0 + ',' + o(r()*s) + ',' + 1 + ')';
+        const grad = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + color + ',' + 1 + ')';
 
         return grad;
 

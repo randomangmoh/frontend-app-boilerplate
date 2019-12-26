@@ -10,15 +10,25 @@
  * Components / Campaign
  */
 .campaign {
-    margin: $spacing-double auto;
+    margin: $spacing auto;
     position: relative;
 }
 
 .campaign__download {
     display: block;
     width: 100%;
-    margin-bottom: $spacing-double;
     text-align: right;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        text-align: center;
+
+        a {
+            width: 100%;
+            padding: 15px;
+        }
+
+    }
+
 }
 
 .campaign__content {
@@ -29,6 +39,15 @@
 .campaign__sidebar {
     display: block;
     width: 20%;
+
+    @media screen and (max-width: $breakpoint-tablet-portrait) {
+        width: 30%;
+    }
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: none;
+    }
+
 }
 
 ////
@@ -38,6 +57,11 @@
     width: 100%;
     overflow: auto;
     padding: 0 0 0 $spacing-double;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        padding: 0;
+    }
+
 }
 
 .campaign__header {
@@ -55,14 +79,36 @@
     margin-bottom: $spacing-double;
 }
 
+.campaign__section--desktop {
+    display: block;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: none;
+    }
+
+}
+
+.campaign__section--mobile {
+    display: none;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: block;
+        margin-top: $spacing;
+    }
+}
+
 ////
-// Campaign Overview
+// Campaign Demographics
 ////
 .campaign__demographics {
     width: 100%;
     display: flex;
     overflow-x: auto;
-    &::-webkit-scrollbar { width: 0 !important }
+
+    &::-webkit-scrollbar {
+        width: 0 !important;
+    }
+
 }
 
 .campaign__demographic {
@@ -81,11 +127,27 @@
         letter-spacing: tracking(100);
         font-weight: 700;
         margin-bottom: 5px;
+
+        @media screen and (max-width: $breakpoint-tablet-landscape) {
+            font-size: rem(10px);
+        }
+
     }
 
     span {
+        font-size: rem(14px);
         display: block;
         font-weight: 500;
+        text-transform: capitalize;
+
+        @media screen and (max-width: $breakpoint-tablet-landscape) {
+            font-size: rem(12px);
+        }
+
+    }
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) {
+        padding: $spacing-half;
     }
 
 }
@@ -163,6 +225,11 @@
 }
 
 .campaign-questions__container {
+    position: relative;
+    width: 100%;
+}
+
+.campaign-questions__media {
     position: relative;
     width: 100%;
 }

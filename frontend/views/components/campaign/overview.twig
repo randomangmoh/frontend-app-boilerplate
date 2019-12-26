@@ -6,7 +6,16 @@
         <h3 class="campaign__subheader">campaign</h3>
         <h1 class="campaign__header">{{ post.title }}</h1>
         <time class="campaign__time">15 November 2018 - 15 December 2018</time>
+
+        {# Download Report #}
+        {% if(post.get_field('campaign_data')) %}
+            <section class="campaign__section campaign__section--mobile">
+                {% include './components/campaign/download.twig' %}
+            </section>
+        {% endif %}
+
     </div>
+
 
     {# Campaign Demographics #}
     <div class="campaign__section">

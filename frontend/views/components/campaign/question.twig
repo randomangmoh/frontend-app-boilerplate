@@ -1,9 +1,6 @@
+{% set subcharts = (question.most_selected or question.least_selected) %}
+
 <div class="campaign-question glide__slide" data-question="item" data-index="{{ loop.index0 }}">
-
-    {# Question Media #}
-    <div class="campaign-question__media">
-
-    </div>
 
     {# Question Responses #}
     <div class="grid campaign__section">
@@ -19,17 +16,19 @@
                     width="750"
                     height="750"
                 ></canvas>
-                
+
             </div>
         </div>
 
-        <div class="grid__item 2/5">
+        {% if subcharts %}
+            <div class="grid__item 2/5">
 
-            <div class="campaign-question__subcharts">
+                <div class="campaign-question__subcharts">
+
+                </div>
 
             </div>
-
-        </div>
+        {% endif %}
 
     </div>
 

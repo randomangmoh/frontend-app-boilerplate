@@ -1,5 +1,6 @@
 import Chart from './Chart';
 
+
 /**
  * Class to handle all Charts in the Campaign page
  *

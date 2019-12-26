@@ -6,6 +6,7 @@
   "author": "Liam Annis",
   "license": "ISC",
   "devDependencies": {
+    "@ctrl/tinycolor": "^2.6.0",
     "@glidejs/glide": "^3.4.1",
     "avalanche-css": "^1.3.0",
     "babel-core": "^6.26.0",

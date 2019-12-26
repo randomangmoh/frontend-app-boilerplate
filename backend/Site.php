@@ -37,13 +37,38 @@ class ADNATheme extends TimberSite
         add_filter('timber_context', [ $this, 'add_to_context' ]);
         add_filter('get_twig', [ $this, 'add_to_twig' ]);
 
-        add_action('init', [ $this, 'register_post_types' ]);
-        add_action('init', [ $this, 'register_taxonomies' ]);
+        add_action('init', [ $this, 'modify_roles' ]);
         add_action('wp_enqueue_scripts', [ $this, 'enqueue_scripts' ]);
 
         parent::__construct();
 
     }
+
+
+    public function modify_roles()
+    {
+
+
+        /**
+         * Remove Roles
+         */
+         remove_role('subscriber');
+         remove_role('editor');
+         remove_role('author');
+         remove_role('contributor');
+
+        //
+        add_role(
+            'client',
+            __( 'Client' ),
+            [
+                'read'         => true,
+                'edit_posts'   => false
+            ]
+        );
+
+    }
+
 
     /**
      * Check if Admin.
@@ -93,9 +118,6 @@ class ADNATheme extends TimberSite
         remove_post_type_support( 'page', 'comments' );
 
     }
-
-    public function register_post_types() {}
-    public function register_taxonomies() {}
 
     public function remove_dashboard_widgets()
     {

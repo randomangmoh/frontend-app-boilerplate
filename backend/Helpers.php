@@ -15,12 +15,15 @@ class Helpers
 
         $this->context = $context;
 
-        // Admin Actions
-        // add_action('admin_menu', [ $this, 'admin_menu' ]);
-
     }
 
 
+    /**
+     * Filter campaigns based on user allowed clients
+     *
+     * @param  [type] $client_ids [description]
+     * @return [type]             [description]
+     */
     public function filter_campaigns($client_ids = null)
     {
 
@@ -40,9 +43,6 @@ class Helpers
 
             }
 
-            // return $meta_queries;
-
-
             // All Campaigns
             return $campaigns = Timber::get_posts([
                 'post_type' => 'campaign',
@@ -57,12 +57,35 @@ class Helpers
 
     /**
      * Get associated clients with user
-     * @return array
+     *
+     * @return Array
      */
     public function check_user_clients()
     {
 
         return $this->context['current_user']->get_field('associated_clients');
+
+    }
+
+
+    /**
+     * Check if user can access requested campaign
+     *
+     * @param  Array $campaign_client
+     * @return Boolean
+     */
+    public function can_access_campaign($campaign_client)
+    {
+
+        $user_clients = $this->check_user_clients();
+
+        foreach ($user_clients as $client) {
+
+            if($campaign_client[0] == $client) return true;
+
+        }
+
+        return false;
 
     }
 

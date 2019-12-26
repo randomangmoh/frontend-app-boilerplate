@@ -68,4 +68,9 @@
     display: inline-block;
     margin-left: 20px;
     transition: transform 300ms ease;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        margin-left: 5px;
+    }
+
 }

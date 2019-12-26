@@ -13,12 +13,11 @@
     <section class="campaign wrapper" data-campaign="container">
 
         {# Download Report #}
-        <section class="campaign__download">
-            <button type="button" name="login-login" class="btn btn--tertiary btn--icon">
-                Download Report
-                <i class="btn__icon fas fa-long-arrow-alt-down"></i>
-            </button>
-        </section>
+        {% if(post.get_field('campaign_data')) %}
+            <section class="campaign__section--desktop">
+                {% include './components/campaign/download.twig' %}
+            </section>
+        {% endif %}
 
         <section class="campaign__content">
 

@@ -1,4 +1,7 @@
 <?php
+
+require_once(__DIR__ . '/backend/Helpers.php');
+
 /**
  * The main template file
  * This is the most generic template file in a WordPress theme
@@ -16,6 +19,19 @@
 $context = Timber::get_context();
 $context['post'] = new Timber\Post();
 
-$templates = $context['logged_in'] ? ['pages/campaign.twig'] : ['pages/login.twig'];
+$helpers = new Helpers($context);
 
-Timber::render( $templates, $context );
+$post_client_id = $context['post']->get_field('client');
+
+// echo '<pre>';
+$can_access = $helpers->can_access_campaign($post_client_id);
+// var_dump($can_access);
+// die();
+
+if(!$context['logged_in']) return Timber::render( ['pages/login.twig'], $context );
+if(!$can_access) {
+    echo 'Cannot access';
+    return;
+}
+
+return Timber::render( ['pages/campaign.twig'], $context );
