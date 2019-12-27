@@ -32,6 +32,11 @@
 .campaign-list-header__item--name,
 .campaign-list__name {
     width: 75%;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        width: 100%;
+    }
+
 }
 
 .campaign-list-header__item--date,
@@ -67,12 +72,24 @@
 
 }
 
+.campaign-list__code,
+.campaign-list-header__item--code,
+.campaign-list__actions,
+.campaign-list-header__item--actions,
+.campaign-list__date,
+.campaign-list-header__item--date,
+.campaign-list__surveyed,
+.campaign-list-header__item--surveyed {
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        display: none;
+    }
+
+}
+
 .campaign-list__code {
     font-style: italic;
     padding-right: 5px;
-}
-
-.campaign-list__name {
 }
 
 .campaign-list__actions {

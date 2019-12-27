@@ -21,6 +21,7 @@
 
 
     {# Campaign Demographics #}
+    {% if post.get_field('demographics') %}
     <div class="campaign__section">
         <h3 class="campaign__subheader">Demographics</h3>
         <div class="campaign__demographics">
@@ -34,6 +35,7 @@
 
         </div>
     </div>
+    {% endif %}
 
     <div class="campaign__section campaign__section--mobile">
         <h3 class="campaign__subheader">Groups</h3>

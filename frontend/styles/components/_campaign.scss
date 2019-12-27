@@ -31,6 +31,15 @@
 
 }
 
+.campaign__time {
+    display: block;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        margin-bottom: $spacing-half;
+    }
+
+}
+
 .campaign__content {
     display: flex;
     width: 100%;
@@ -83,6 +92,11 @@
 
 .campaign__section {
     margin-bottom: $spacing-double;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        margin-bottom: $spacing;
+    }
+
 }
 
 .campaign__section--desktop {
@@ -99,7 +113,6 @@
 
     @media screen and (max-width: $breakpoint-palm-portrait) {
         display: block;
-        margin-top: $spacing;
     }
 }
 
@@ -110,9 +123,11 @@
     width: 100%;
     display: flex;
     overflow-x: auto;
+    // margin-bottom: -$spacing;
 
     &::-webkit-scrollbar {
         width: 0 !important;
+        display: none;
     }
 
 }
