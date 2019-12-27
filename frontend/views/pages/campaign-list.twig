@@ -7,7 +7,6 @@
 {# Page Content #}
 {% block body %}
 
-
     <section class="wrapper">
 
         <h1>All Campaigns</h1>
@@ -72,19 +71,22 @@
 
             </section>
 
-            {% if campaigns.pagination.prev %}
+            {% if pagination and (pagination.total > 1) %}
                 <ul class="table-pagination">
-                    <li class="table-pagination__arrow table-pagination__arrow--left">
-                        <a href="#"><i class="fas fa-chevron-left"></i></a>
+                    <li class="table-pagination__arrow table-pagination__arrow--left {{ pagination.prev.link ? 'table-pagination__arrow--active' : 'table-pagination__arrow--disabled' }}">
+                        <a href="{{ pagination.prev.link }}"><i class="fas fa-chevron-left"></i></a>
                     </li>
                     <li class="table-pagination__list">
                         <ul class="table-pagination__pages">
-                            <li class="table-pagination__page active"><a href="#">1</a></li>
-                            <li class="table-pagination__page"><a href="#">2</a></li>
+
+                            {% for page in pagination.pages %}
+                                <li class="table-pagination__page {{ page.current ? 'table-pagination__page--active' : '' }}"><a href="{{ page.link }}">{{ loop.index }}</a></li>
+                            {% endfor %}
+
                         </ul>
                     </li>
-                    <li class="table-pagination__arrow table-pagination__arrow--right">
-                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                    <li class="table-pagination__arrow table-pagination__arrow--right {{ pagination.next.link ? 'table-pagination__arrow--active' : 'table-pagination__arrow--disabled' }}">
+                        <a href="{{ pagination.next.link }}"><i class="fas fa-chevron-right"></i></a>
                     </li>
                 </ul>
             {% endif %}

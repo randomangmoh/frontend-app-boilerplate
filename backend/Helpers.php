@@ -24,7 +24,7 @@ class Helpers
      * @param  [type] $client_ids [description]
      * @return [type]             [description]
      */
-    public function filter_campaigns($client_ids = null)
+    public function filter_campaigns($client_ids = null, $paged = 0)
     {
 
         if($client_ids) {
@@ -44,9 +44,10 @@ class Helpers
             }
 
             // All Campaigns
-            return $campaigns = Timber::get_posts([
+            return $campaigns = new Timber\PostQuery([
                 'post_type' => 'campaign',
-                'posts_per_page' => -1,
+                'posts_per_page' => 10,
+                'paged' => $paged,
                 'meta_query' => $meta_queries
             ]);
 

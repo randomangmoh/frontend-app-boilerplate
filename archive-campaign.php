@@ -16,15 +16,15 @@ require_once(__DIR__ . '/backend/Helpers.php');
  * @since   Timber 0.1
  */
 
+global $paged;
+
 $context = Timber::get_context();
 $context['post'] = new Timber\Post();
 
 $helpers = new Helpers($context);
-
-// Tiger Beer Client ID 37, Notre Dame 70
-
 $client_ids = $helpers->check_user_clients();
-$context['campaigns'] = $helpers->filter_campaigns($client_ids);
+$context['campaigns'] = $helpers->filter_campaigns($client_ids, $paged);
+$context['pagination'] = $context['campaigns']->pagination();
 
 $templates = $context['logged_in'] ? ['pages/campaign-list.twig'] : ['pages/login.twig'];
 

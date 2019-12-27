@@ -25,7 +25,7 @@ class ADNATheme extends TimberSite
         add_action('wp_dashboard_setup', [$this, 'remove_dashboard_widgets']);
         add_action('admin_init', [ $this, 'admin_check' ]);
         add_action('admin_menu', [ $this, 'admin_menu' ]);
-        add_action('admin_enqueue_scripts', [$this, 'customize']);
+        add_action('admin_enqueue_scripts', [ $this, 'customize' ]);
 
         // Theme Support
         add_theme_support('post-formats');
@@ -37,9 +37,8 @@ class ADNATheme extends TimberSite
         add_filter('timber_context', [ $this, 'add_to_context' ]);
         add_filter('get_twig', [ $this, 'add_to_twig' ]);
 
+        add_action('init', [ $this, 'add_routes' ]);
         add_action('init', [ $this, 'modify_roles' ]);
-        add_action('acf/input/admin_enqueue_scripts', [ $this, 'enqueue_acf_scripts' ]);
-        add_action('acf/field_group/admin_enqueue_scripts', [ $this, 'enqueue_acf_scripts_group' ]);
         add_action('wp_enqueue_scripts', [ $this, 'enqueue_scripts' ]);
 
         parent::__construct();
@@ -126,6 +125,11 @@ class ADNATheme extends TimberSite
 
     }
 
+
+    /**
+     * Remove unnecessary admin widgets
+     * @return Void
+     */
     public function remove_dashboard_widgets()
     {
 
@@ -162,20 +166,6 @@ class ADNATheme extends TimberSite
 
     }
 
-    public function enqueue_acf_scripts()
-    {
-
-        wp_enqueue_style( 'my-acf-input-css', get_stylesheet_directory_uri() . '/css/my-acf-input.css', false, '1.0.0' );
-        wp_enqueue_script( 'my-acf-input-js', get_stylesheet_directory_uri() . '/js/my-acf-input.js', true, '1.0.0' );
-
-    }
-
-    public function enqueue_acf_scripts_group()
-    {
-        wp_enqueue_style( 'my-acf-field-group-css', get_stylesheet_directory_uri() . '/css/my-acf-field-group.css', false, '1.0.0' );
-        wp_enqueue_script( 'my-acf-field-group-js', get_stylesheet_directory_uri() . '/js/my-acf-field-group.js', false, '1.0.0' );
-    }
-
 
     /**
      * Add global variables to twig context for every page
@@ -196,6 +186,17 @@ class ADNATheme extends TimberSite
 
         return $context;
 
+    }
+
+
+    public function add_routes()
+    {
+        Routes::map(':name/page/:pg', function($params) {
+
+            $query = 'posts_per_page=2&post_type=' . $params['name'] . '&paged=' . $params['pg'];
+            Routes::load('archive-campaign.php', $params, $query);
+
+        });
     }
 
 
