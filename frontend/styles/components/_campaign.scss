@@ -67,6 +67,12 @@
 .campaign__header {
     margin: 0 0 $spacing 0;
     line-height: 1;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        line-height: 1.2;
+        font-size: rem(30px);
+    }
+
 }
 
 .campaign__subheader {
@@ -163,6 +169,11 @@
 .campaign-questions__nav {
     display: flex;
     align-items: center;
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        flex-wrap: wrap;
+    }
+
 }
 
 .campaign-questions__nav--alt {
@@ -179,17 +190,28 @@
 .campaign-questions__dropdown {
     padding: 0;
     display: inline-block;
-    width: 90%;
+    width: calc(100% - 200px);
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        width: 100%;
+    }
+
 }
 
 .campaign-questions__arrows {
     display: flex;
-    width: 175px;
+    width: 200px;
     align-items: center;
     align-content: center;
 
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        margin: $spacing auto 0;
+        width: 100%;
+    }
+
     .campaign-questions__nav--alt & {
         display: inline-flex;
+        margin-top: 0;
     }
 
 }
@@ -215,6 +237,11 @@
 
     &:first-of-type {
         margin: 0 10px;
+
+        @media screen and (max-width: $breakpoint-palm-portrait) {
+            margin: 0 10px 0 0;
+        }
+
     }
 
     svg, i {

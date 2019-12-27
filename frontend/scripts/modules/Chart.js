@@ -103,11 +103,7 @@ export default class Chart {
             luminosity: 'bright'
         });
 
-        for (var i = 0; i < length; i++) {
-
-            gradients.push(this.generateGradient(baseColor[i]));
-
-        }
+        for (var i = 0; i < length; i++) gradients.push(this.generateGradient(baseColor[i]));
 
         return gradients;
 
@@ -131,19 +127,5 @@ export default class Chart {
 
     }
 
-
-    /**
-     * Generate a random RGB value
-     * @return {String}
-     */
-    rgba() {
-
-        const o = Math.round, r = Math.random, s = 255;
-        const color = o(r()*s);
-        const grad = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + color + ',' + 1 + ')';
-
-        return grad;
-
-    }
 
 }

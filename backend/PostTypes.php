@@ -21,11 +21,13 @@ register_post_type('campaign', [
         'parent_item_colon'  => '',
         'menu_name'          => __('Campaigns')
     ],
-    'description' => 'List of the campaigns',
+    'description'   => 'List of the campaigns',
     'public'        => true,
+    'hierarchical'  => true,
+    'taxonomies'    => ['post_tag', 'category'],
     'menu_icon'     => 'dashicons-analytics',
     'menu_position' => 5,
-    'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
+    'supports'      => ['title'],
     'rewrite'       => ['slug' => 'campaigns'],
     'has_archive'   => 'campaigns',
 
@@ -54,9 +56,10 @@ register_post_type('client', [
     ],
     'description'   => 'List of the clients',
     'public'        => true,
+    'hierarchical'  => true,
     'menu_icon'     => 'dashicons-businessman',
-    'menu_position' => 5,
-    'supports'      => ['title', 'editor', 'thumbnail', 'excerpt', 'comments'],
+    'menu_position' => 6,
+    'supports'      => ['title'],
     'rewrite'       => ['slug' => 'clients'],
     'has_archive'   => 'clients',
 

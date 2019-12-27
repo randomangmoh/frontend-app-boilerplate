@@ -7,63 +7,86 @@
 {# Page Content #}
 {% block body %}
 
+
     <section class="wrapper">
 
         <h1>All Campaigns</h1>
 
-        <section class="table campaign-list" data-campaign="container">
+        <section class="campaign-list" data-campaign-list="container">
 
-            <div class="table__search" data-campaign="search">
+            <label for="campaign-search" class="form-field form-field--full margin-bottom">
+                <div class="form-field__icon fas fa-user fa-search"></div>
+                <input type="text" class="form-field__field" name="campaign-search" placeholder="Search by code or campaign name" />
+            </label>
 
-                <label for="campaign-search" class="form-field form-field--full margin-bottom">
-                    <div class="form-field__icon fas fa-user fa-search"></div>
-                    <input type="text" class="form-field__field" name="campaign-search" placeholder="Search by code or campaign name" />
-                </label>
+            <section class="campaign-list__items" data-campaign="items">
 
-            </div>
+                {% if not is_admin %}
 
-            <table class="table__items" data-campaign="items">
+                    <div class="campaign-list-header">
+                        <div class="campaign-list-header__item campaign-list-header__item--code">Code</div>
+                        <div class="campaign-list-header__item campaign-list-header__item--name">Campaign Name</div>
+                        <div class="campaign-list-header__item campaign-list-header__item--actions">Actions</div>
+                    </div>
 
-                <tr class="table__header">
-                    <th>Code</th>
-                    <th>Campaign Name</th>
-                    <th>Actions</th>
-                </tr>
+                {% else %}
+
+                    <div class="campaign-list-header">
+                        <div class="campaign-list-header__item campaign-list-header__item--name">Campaign Name</div>
+                        <div class="campaign-list-header__item campaign-list-header__item--date">Start</div>
+                        <div class="campaign-list-header__item campaign-list-header__item--date">End</div>
+                        <div class="campaign-list-header__item campaign-list-header__item--surveyed"><span>No. Surveyed</span></div>
+                    </div>
+
+                {% endif %}
 
                 {% for campaign in campaigns %}
 
-                    <tr class="table__item campaign-list__item">
-                        <td class="campaign-list__code">{{ campaign.code }}</td>
-                        <td class="campaign-list__name"><a href="{{ campaign.link }}"> {{ campaign.title }} </a></td>
-                        <td class="campaign-list__actions">
+                    {% if not is_admin %}
+
+                    <div class="campaign-list__item">
+                        <div class="campaign-list__code">{{ campaign.code }}</div>
+                        <div class="campaign-list__name"><a href="{{ campaign.link }}"> {{ campaign.title }} </a></div>
+                        <div class="campaign-list__actions">
                             <span data-campaign="actions">
                                 <a href="{{ campaign.link }}" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
                                 <a href="{{ function('get_edit_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-edit"></i></a>
                                 <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a>
                                 <a href="{{ function('get_delete_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-trash"></i></a>
                             </span>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
+
+                    {% else %}
+
+                        <div class="campaign-list__item">
+                            <div class="campaign-list__name"><a href="{{ campaign.link }}"> {{ campaign.title }} </a></div>
+                            <div class="campaign-list__date">{{ campaign.from_date }}</div>
+                            <div class="campaign-list__date">{{ campaign.to_date }}</div>
+                            <div class="campaign-list__surveyed">{{ campaign.number_surveyed }}</div>
+                        </div>
+
+                    {% endif %}
 
                 {% endfor %}
 
-            </table>
+            </section>
 
             {% if campaigns.pagination.prev %}
-            <ul class="table-pagination">
-                <li class="table-pagination__arrow table-pagination__arrow--left">
-                    <a href="#"><i class="fas fa-chevron-left"></i></a>
-                </li>
-                <li class="table-pagination__list">
-                    <ul class="table-pagination__pages">
-                        <li class="table-pagination__page active"><a href="#">1</a></li>
-                        <li class="table-pagination__page"><a href="#">2</a></li>
-                    </ul>
-                </li>
-                <li class="table-pagination__arrow table-pagination__arrow--right">
-                    <a href="#"><i class="fas fa-chevron-right"></i></a>
-                </li>
-            </ul>
+                <ul class="table-pagination">
+                    <li class="table-pagination__arrow table-pagination__arrow--left">
+                        <a href="#"><i class="fas fa-chevron-left"></i></a>
+                    </li>
+                    <li class="table-pagination__list">
+                        <ul class="table-pagination__pages">
+                            <li class="table-pagination__page active"><a href="#">1</a></li>
+                            <li class="table-pagination__page"><a href="#">2</a></li>
+                        </ul>
+                    </li>
+                    <li class="table-pagination__arrow table-pagination__arrow--right">
+                        <a href="#"><i class="fas fa-chevron-right"></i></a>
+                    </li>
+                </ul>
             {% endif %}
 
         </section>

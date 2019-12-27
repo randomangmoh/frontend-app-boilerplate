@@ -21,6 +21,11 @@
 h1,
 .h1 {
     font-size: rem(60px);
+
+    @media screen and (max-width: $breakpoint-palm-portrait) {
+        font-size: rem(35px);
+    }
+
 }
 
 h2,

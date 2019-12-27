@@ -9,6 +9,8 @@
 {% block body %}
 
     {% set questions = post.get_field('question') %}
+    {% set date_from = post.get_field('from_date') %}
+    {% set date_to   = post.get_field('to_date') %}
 
     <section class="campaign wrapper" data-campaign="container">
 

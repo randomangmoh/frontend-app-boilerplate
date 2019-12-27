@@ -5,7 +5,10 @@
     <div class="campaign__section">
         <h3 class="campaign__subheader">campaign</h3>
         <h1 class="campaign__header">{{ post.title }}</h1>
-        <time class="campaign__time">15 November 2018 - 15 December 2018</time>
+
+        {% if (date_from and date_to ) %}
+            <time class="campaign__time">{{ post.get_field('from_date') }} - {{ post.get_field('to_date') }}</time>
+        {% endif %}
 
         {# Download Report #}
         {% if(post.get_field('campaign_data')) %}
@@ -29,6 +32,24 @@
                 </div>
             {% endfor %}
 
+        </div>
+    </div>
+
+    <div class="campaign__section campaign__section--mobile">
+        <h3 class="campaign__subheader">Groups</h3>
+        <div class="form-field campaign-questions__dropdown">
+            <select class="form-field__select form-field__select--large" data-campaign="group-select">
+                <optgroup label="parents">
+                    <option class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</option>
+                    <option class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</option>
+                    <option class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</option>
+                </optgroup>
+                <optgroup label="Children">
+                    <option class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</option>
+                    <option class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</option>
+                    <option class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</option>
+                </optgroup>
+            </select>
         </div>
     </div>
 

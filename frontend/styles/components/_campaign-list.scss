@@ -4,16 +4,78 @@
 
 .campaign-list {}
 
+.campaign-list-header {
+    background: linear-gradient(90deg, $color-brand-blue-dark, $color-brand-blue-lightest);
+    background-size: 150% 150%;
+    background-position: 0% 0%;
+    font-size: rem(18px);
+    padding: $spacing;
+    display: flex;
+}
+
+.campaign-list-header__item {
+    align-content: space-around;
+    width: 100%;
+}
+
+.campaign-list-header__item--code,
 .campaign-list__code {
-    width: 10%;
+    width: 200px;
+    word-break: break-all;
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) {
+        width: 150px;
+    }
+
+}
+
+.campaign-list-header__item--name,
+.campaign-list__name {
+    width: 75%;
+}
+
+.campaign-list-header__item--date,
+.campaign-list__date {
+    width: 150px;
+}
+
+.campaign-list-header__item--surveyed,
+.campaign-list__surveyed {
+    width: 150px;
+    text-align: right;
+}
+
+.campaign-list-header__item--actions,
+.campaign-list__actions {
+    width: 200px;
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) {
+        width: 150px;
+    }
+
+}
+
+.campaign-list__item {
+    background-color: $color-brand-blue-darkest;
+    padding: $spacing;
+    display: flex;
+    word-wrap: break-word;
+
+    &:nth-of-type(even) {
+        background-color: $color-brand-blue-light;
+    }
+
+}
+
+.campaign-list__code {
+    font-style: italic;
+    padding-right: 5px;
 }
 
 .campaign-list__name {
-    width: 65%;
 }
 
 .campaign-list__actions {
-    width: 15%;
 
     span {
         display: flex;
@@ -30,6 +92,10 @@
 
     &:hover {
         color: rgba($color-brand-red-dark, 1);
+    }
+
+    @media screen and (max-width: $breakpoint-tablet-landscape) {
+        font-size: rem(18px);
     }
 
 }

@@ -38,6 +38,8 @@ class ADNATheme extends TimberSite
         add_filter('get_twig', [ $this, 'add_to_twig' ]);
 
         add_action('init', [ $this, 'modify_roles' ]);
+        add_action('acf/input/admin_enqueue_scripts', [ $this, 'enqueue_acf_scripts' ]);
+        add_action('acf/field_group/admin_enqueue_scripts', [ $this, 'enqueue_acf_scripts_group' ]);
         add_action('wp_enqueue_scripts', [ $this, 'enqueue_scripts' ]);
 
         parent::__construct();
@@ -45,6 +47,11 @@ class ADNATheme extends TimberSite
     }
 
 
+    /**
+     * Modify the default user roles
+     *
+     * @return Void
+     */
     public function modify_roles()
     {
 
@@ -74,7 +81,7 @@ class ADNATheme extends TimberSite
      * Check if Admin.
      * if not, don't allow user to access WP-Admin
      *
-     * @return void
+     * @return Void
      */
     public function admin_check()
     {
@@ -138,6 +145,7 @@ class ADNATheme extends TimberSite
 
     /**
      * Enqueue frontend scripts (Styles and JS).
+     *
      * @return void
      */
     public function enqueue_scripts()
@@ -148,10 +156,24 @@ class ADNATheme extends TimberSite
         wp_register_style('GliderJS', 'https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css');
         wp_enqueue_style('GliderJS');
 
-        wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css?v='. time(), [], null, false );
-        wp_enqueue_script( 'js', get_template_directory_uri() . '/assets/js/entry.js?v='. time(), [], null, true );
-        wp_enqueue_script( 'js', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js'. time(), [], null, true );
+        wp_enqueue_script( 'scripts', get_template_directory_uri() . '/assets/js/entry.js?v=' . time(), ['jquery', 'acf-input'], null, true);
+        wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/css/styles.css?v='. time(), [], null, false);
 
+
+    }
+
+    public function enqueue_acf_scripts()
+    {
+
+        wp_enqueue_style( 'my-acf-input-css', get_stylesheet_directory_uri() . '/css/my-acf-input.css', false, '1.0.0' );
+        wp_enqueue_script( 'my-acf-input-js', get_stylesheet_directory_uri() . '/js/my-acf-input.js', true, '1.0.0' );
+
+    }
+
+    public function enqueue_acf_scripts_group()
+    {
+        wp_enqueue_style( 'my-acf-field-group-css', get_stylesheet_directory_uri() . '/css/my-acf-field-group.css', false, '1.0.0' );
+        wp_enqueue_script( 'my-acf-field-group-js', get_stylesheet_directory_uri() . '/js/my-acf-field-group.js', false, '1.0.0' );
     }
 
 
@@ -165,6 +187,7 @@ class ADNATheme extends TimberSite
         $context['global_options'] = get_fields('options');
         $context['logged_in'] = is_user_logged_in();
         $context['current_user'] = new Timber\User();
+        $context['is_admin'] = current_user_can('administrator');
         $context['assets'] = $context['theme']->link . '/assets';
         $context['navigation'] = new TimberMenu('Main Menu');
         $context['footer_nav'] = new TimberMenu('Footer Menu');
