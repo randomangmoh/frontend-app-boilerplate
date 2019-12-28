@@ -22,34 +22,168 @@ export default class Chart {
         this.element = this.data.el;
         this.context = this.element.getContext('2d');
 
+        this.type = data.type
         this.count = this.data.answers.length;
 
+
         this.chart = new ChartJS(this.element, {
-            type: this.data.type,
+            type: this.type,
             data: {
                 labels: this.generateLabels(this.data.answers),
                 datasets: [{
                     data: this.generateValues(this.data.answers),
                     borderWidth: 0,
-                    fill: this.data.type === 'line' ? false : true,
-                    borderColor: this.data.type === 'line' ? this.generateGradient(random({ count: length, hue: 'blue', luminosity: 'bright' })) : false,
+                    fill: this.type === 'line' ? false : true,
+                    borderColor: this.type === 'line' ? this.generateGradient(random({ count: this.count, hue: 'blue', luminosity: 'bright' })) : false,
                     backgroundColor: this.generateGradients(this.count)
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                legend: {
-                    display: true,
-                    position: 'bottom',
-                    labels: {
-                        fontColor: 'white',
-                        padding: 50,
-                        boxWidth: 30
-                    }
+            options: this.generateOptions()
+        });
+
+
+        this.generateGlobalOptions();
+
+
+    }
+
+
+    generateGlobalOptions() {
+
+        ChartJS.defaults.global.elements.point.radius = 2;
+
+    }
+
+
+    /**
+     * Generate options depending on chart type
+     *
+     * @return {Object} options
+     */
+    generateOptions() {
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'left',
+                onClick: false,
+                labels: {
+                    fontColor: 'white',
+                    padding: 20,
+                    boxWidth: 20
                 }
             }
-        });
+        };
+
+        switch (this.type) {
+            case 'pie':
+                break;
+            case 'bar':
+
+                options['scales'] = {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                };
+
+                options['legend'] = false;
+
+                break;
+
+            case 'radar':
+
+                options['scale'] = {
+                    gridLines: {
+                        color: 'rgba(255, 255, 255, .15)',
+                    },
+                    ticks: {
+                        display: true,
+                        backdropColor: 'rgba(255, 255, 255, .15)',
+                        fontColor: 'white',
+                        fontSize: 14,
+                        padding: 30
+                    },
+                    pointLabels: {
+                        fontSize: 14,
+                    }
+                };
+
+                options['legend'] = false;
+
+                break;
+
+            case 'polarArea':
+
+                options['scale'] = {
+                    gridLines: {
+                        color: 'rgba(255, 255, 255, .15)',
+                    },
+                    ticks: {
+                        display: false,
+                        backdropColor: 'rgba(255, 255, 255, .15)',
+                        fontColor: 'white',
+                        fontSize: 14,
+                        padding: 30,
+                        z: 1
+                    },
+                    pointLabels: {
+                        fontSize: 14,
+                    }
+                };
+
+                break;
+            default:
+
+        }
+
+        return options;
+
+    }
+
+
+
+    /**
+     * Generate data options/values
+     *
+     * @return {Object} data
+     */
+    generateData() {
+
+
+        const data = {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'left',
+                onClick: false,
+                labels: {
+                    fontColor: 'white',
+                    padding: 20,
+                    boxWidth: 20
+                }
+            }
+        };
+
+        switch (this.type) {
+            case 'pie':
+                break;
+            case 'bar':
+                break;
+            case 'radar':
+                break;
+            default:
+
+        }
+
+        return data;
+
 
     }
 

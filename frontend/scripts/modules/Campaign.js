@@ -46,7 +46,13 @@ export default class Campaign {
 
     }
 
-    onSelectChange(event) {
+
+    /**
+     * On select Change
+     * 
+     * @return {Void}
+     */
+    onSelectChange() {
 
         this.carousel.go(`=${this.questionsSelect.selectedIndex}`);
 
