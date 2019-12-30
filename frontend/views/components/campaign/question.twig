@@ -11,6 +11,7 @@
                 <div
                     class="campaign-chart"
                     data-question="chart"
+                    data-question-title="{{ question.title }}"
                     data-chart-type="{{ question.chart_type }}"
                     data-answers="{{ question.answers|json_encode|escape|raw }}"
                     width="750"

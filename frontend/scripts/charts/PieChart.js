@@ -25,10 +25,7 @@ export default class PieChart extends Chart {
         this.el = data.el;
         this.globalOptions = this.generateGlobalOptions();
         this.chartOptions = this.generateChartOptions();
-
-        this.options = Object.assign({}, this.globalOptions, this.chartOptions);
-
-        console.log(this.options);
+        this.options = this.mergeDeep(this.globalOptions, this.chartOptions);
 
         this.chart = new ApexCharts(this.el, this.options);
         this.chart.render();
@@ -44,31 +41,40 @@ export default class PieChart extends Chart {
 
         return {
             chart: {
-                type: 'donut'
+                type: this.data.type,
             },
             labels: this.data.labels,
             series: this.data.values,
-            dataLabels: {
-                enabled: true
-            },
             plotOptions: {
                 pie: {
                     customScale: 0.9,
+                    expandOnClick: false,
                     donut: {
-                        size: '50%'
+                        size: '50%',
+                        labels: {
+                            show: this.data.type === 'donut' ? true : false,
+                            name: {
+                                color: '#FFF'
+                            },
+                            value: {
+                                color: 'rgba(255, 255, 255, 0.5)'
+                            }
+                        }
                     }
-                }
+                },
             },
             stroke: {
-                show: false,
-                opacity: 0,
-                width: 0
+                show: true,
+                opacity: 1,
+                width: 0,
+                colors: ['#130c26']
             },
             grid: {
                 show: false
             }
 
         }
+
     }
 
 

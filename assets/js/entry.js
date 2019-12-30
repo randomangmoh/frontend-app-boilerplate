@@ -2,8 +2,18 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _apexcharts = require('apexcharts');
+
+var _apexcharts2 = _interopRequireDefault(_apexcharts);
+
+var _chromaJs = require('chroma-js');
+
+var _chromaJs2 = _interopRequireDefault(_chromaJs);
 
 var _Chart2 = require('./Chart');
 
@@ -15,7 +25,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Base Chart
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Lib
+
+
+// Base Chart
 
 
 /**
@@ -24,29 +37,107 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class BarChart
  */
 var BarChart = function (_Chart) {
-  _inherits(BarChart, _Chart);
+    _inherits(BarChart, _Chart);
 
-  /**
-   * @constructor
-   * @param {Object} data
-   */
-  function BarChart(data) {
-    _classCallCheck(this, BarChart);
+    /**
+     * @constructor
+     * @param {Object} data
+     */
+    function BarChart(data) {
+        _classCallCheck(this, BarChart);
 
-    return _possibleConstructorReturn(this, (BarChart.__proto__ || Object.getPrototypeOf(BarChart)).call(this, data));
-  }
+        var _this = _possibleConstructorReturn(this, (BarChart.__proto__ || Object.getPrototypeOf(BarChart)).call(this, data));
 
-  return BarChart;
+        _this.el = data.el;
+        _this.globalOptions = _this.generateGlobalOptions();
+        _this.chartOptions = _this.generateChartOptions();
+        _this.options = _this.mergeDeep(_this.globalOptions, _this.chartOptions);
+
+        console.log(_this.data);
+
+        _this.chart = new _apexcharts2.default(_this.el, _this.options);
+        _this.chart.render();
+
+        return _this;
+    }
+
+    /**
+     * Generating chart specific options
+     * @return {Object}
+     */
+
+
+    _createClass(BarChart, [{
+        key: 'generateChartOptions',
+        value: function generateChartOptions() {
+
+            return {
+                chart: {
+                    type: this.data.type
+                },
+                labels: this.data.labels,
+                series: [{
+                    name: 'Series',
+                    data: this.data.values
+                }],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '95%',
+                        dataLabels: {
+                            position: 'center'
+                        },
+                        colors: {
+                            ranges: [{
+                                from: 0,
+                                to: 1
+                            }],
+                            colors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
+                            backgroundBarColors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
+                            backgroundBarOpacity: .25
+                        }
+                    }
+                },
+                dataLabels: {
+                    style: {
+                        fontSize: '15px',
+                        colors: ["#FFF"]
+                    }
+                },
+                xaxis: {
+                    enabled: false,
+                    labels: {
+                        rotate: -45
+                    },
+                    categories: this.data.labels,
+                    color: '#FFF'
+                },
+                yaxis: {
+                    title: {
+                        text: 'Answers'
+                    }
+                },
+                grid: {
+                    show: true
+                }
+
+            };
+        }
+    }]);
+
+    return BarChart;
 }(_Chart3.default);
 
 exports.default = BarChart;
 
-},{"./Chart":2}],2:[function(require,module,exports){
+},{"./Chart":2,"apexcharts":9,"chroma-js":10}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -71,6 +162,8 @@ var Chart = function () {
 
         this.el = data.el;
 
+        this.font = 'D-Din';
+
         this.rawData = data;
         this.data = this.sanitizeData(this.rawData);
     }
@@ -79,6 +172,7 @@ var Chart = function () {
      * Sanitize the raw data and
      * build our new data object
      *
+     * @method sanitizeData
      * @param  {Object} rawData
      * @return {Object} data
      */
@@ -90,6 +184,7 @@ var Chart = function () {
 
             var data = {
                 type: rawData.type,
+                title: rawData.title,
                 labels: [],
                 values: []
             };
@@ -107,6 +202,7 @@ var Chart = function () {
          * Generate the global options
          * shared between all charts
          *
+         * @method generateGlobalOptions
          * @return {Object}
          */
 
@@ -121,9 +217,36 @@ var Chart = function () {
                  * @type {Object}
                  */
                 chart: {
-                    type: 'pie',
-                    toolbar: { show: false }
+                    type: this.data.type,
+                    toolbar: { show: false },
+                    fontFamily: this.font,
+                    height: '750px',
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 1000,
+                        animateGradually: {
+                            enabled: false,
+                            delay: 150
+                        },
+                        dynamicAnimation: {
+                            enabled: false,
+                            speed: 350
+                        }
+                    }
                 },
+
+                title: {
+                    text: this.data.title,
+                    align: 'center',
+                    style: {
+                        fontSize: '14px',
+                        color: '#fff'
+                    }
+                },
+
+                // colors: ['#364f6b', '#3fc1c9', '#f5f5f5', '#fc5185'],
+                colors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
 
                 /**
                  * Labels
@@ -138,14 +261,39 @@ var Chart = function () {
                 series: [],
 
                 /**
+                 * Data label styling
+                 *
+                 * @type {Object}
+                 */
+                dataLabels: {
+                    enabled: true,
+                    textAnchor: 'middle',
+                    style: {
+                        fontSize: '14px'
+                    },
+                    dropShadow: {
+                        enabled: false
+                    }
+                },
+
+                /**
                  * Legend
                  * @type {Object}
                  */
                 legend: {
                     position: 'bottom',
                     verticalAlign: 'center',
+                    labels: {
+                        colors: 'rgba(255, 255, 255, .75)'
+                    },
+                    markers: {
+                        width: 30,
+                        height: 10,
+                        radius: 0
+                    },
                     itemMargin: {
-                        horizontal: 25
+                        horizontal: 0,
+                        vertical: 10
                     },
                     onItemClick: {
                         toggleDataSeries: false
@@ -190,15 +338,40 @@ var Chart = function () {
                  */
                 fill: {
                     type: 'gradient',
+                    colors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
                     gradient: {
                         shade: 'dark',
                         type: 'vertical',
-                        shadeIntensity: 1,
-                        gradientToColors: ['#24B3E8', '#51B748', '#F27024', '#EA0D80'],
+                        shadeIntensity: .05,
                         inverseColors: true,
                         opacityFrom: 1,
                         opacityTo: 1,
-                        stops: [0, 75]
+                        stops: [0, 100]
+                    }
+                },
+
+                /**
+                 * Chart markers
+                 *
+                 * @type {Object}
+                 */
+                markers: {
+                    size: 1,
+                    colors: undefined,
+                    strokeColors: 'transparent',
+                    strokeWidth: 0,
+                    strokeOpacity: 0.9,
+                    fillOpacity: 1,
+                    discrete: [],
+                    shape: 'circle',
+                    radius: 2,
+                    offsetX: 0,
+                    offsetY: 0,
+                    onClick: undefined,
+                    onDblClick: undefined,
+                    hover: {
+                        size: undefined,
+                        sizeOffset: 3
                     }
                 },
 
@@ -211,6 +384,46 @@ var Chart = function () {
                 }
 
             };
+        }
+
+        /**
+         * Performs a deep merge of `source` into `target`.
+         * Mutates `target` only but not its objects and arrays.
+         *
+         * @method mergeDeep
+         * @author inspired by [jhildenbiddle](https://stackoverflow.com/a/48218209).
+         */
+
+    }, {
+        key: 'mergeDeep',
+        value: function mergeDeep(target, source) {
+            var _this = this;
+
+            var isObject = function isObject(obj) {
+                return obj && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object';
+            };
+
+            if (!isObject(target) || !isObject(source)) {
+                return source;
+            }
+
+            Object.keys(source).forEach(function (key) {
+
+                var targetValue = target[key];
+                var sourceValue = source[key];
+
+                if (Array.isArray(targetValue) && Array.isArray(sourceValue)) {
+
+                    target[key] = targetValue.concat(sourceValue);
+                } else if (isObject(targetValue) && isObject(sourceValue)) {
+
+                    target[key] = _this.mergeDeep(Object.assign({}, targetValue), sourceValue);
+                } else {
+                    target[key] = sourceValue;
+                }
+            });
+
+            return target;
         }
     }]);
 
@@ -272,10 +485,7 @@ var PieChart = function (_Chart) {
         _this.el = data.el;
         _this.globalOptions = _this.generateGlobalOptions();
         _this.chartOptions = _this.generateChartOptions();
-
-        _this.options = Object.assign({}, _this.globalOptions, _this.chartOptions);
-
-        console.log(_this.options);
+        _this.options = _this.mergeDeep(_this.globalOptions, _this.chartOptions);
 
         _this.chart = new _apexcharts2.default(_this.el, _this.options);
         _this.chart.render();
@@ -295,25 +505,33 @@ var PieChart = function (_Chart) {
 
             return {
                 chart: {
-                    type: 'donut'
+                    type: this.data.type
                 },
                 labels: this.data.labels,
                 series: this.data.values,
-                dataLabels: {
-                    enabled: true
-                },
                 plotOptions: {
                     pie: {
                         customScale: 0.9,
+                        expandOnClick: false,
                         donut: {
-                            size: '50%'
+                            size: '50%',
+                            labels: {
+                                show: this.data.type === 'donut' ? true : false,
+                                name: {
+                                    color: '#FFF'
+                                },
+                                value: {
+                                    color: 'rgba(255, 255, 255, 0.5)'
+                                }
+                            }
                         }
                     }
                 },
                 stroke: {
-                    show: false,
-                    opacity: 0,
-                    width: 0
+                    show: true,
+                    opacity: 1,
+                    width: 0,
+                    colors: ['#130c26']
                 },
                 grid: {
                     show: false
@@ -631,6 +849,8 @@ var Charts = function () {
             // radialBar
             // bubble
             // scatter
+            //
+            console.log(item.type);
 
             switch (item.type) {
                 case 'pie':
@@ -639,6 +859,10 @@ var Charts = function () {
                     new _PieChart2.default(item);
 
                     break;
+                case 'bar':
+
+                    new _BarChart2.default(item);
+
                 default:
 
             }
@@ -658,7 +882,9 @@ var Charts = function () {
 
             chartElements.forEach(function (chart) {
 
+                console.log(chart);
                 charts.push({
+                    title: chart.getAttribute('data-question-title'),
                     el: chart,
                     type: chart.getAttribute('data-chart-type') || 'pie',
                     answers: JSON.parse(chart.getAttribute('data-answers'))

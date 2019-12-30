@@ -68,6 +68,8 @@ export default class Charts {
         // radialBar
         // bubble
         // scatter
+        //
+        console.log(item.type);
 
         switch (item.type) {
             case 'pie':
@@ -76,6 +78,10 @@ export default class Charts {
                 new PieChart(item);
 
                 break;
+            case 'bar':
+
+                new BarChart(item);
+
             default:
 
         }
@@ -92,9 +98,12 @@ export default class Charts {
 
         let charts = [];
 
+
         chartElements.forEach((chart) => {
 
+            console.log(chart);
             charts.push({
+                title: chart.getAttribute('data-question-title'),
                 el: chart,
                 type: chart.getAttribute('data-chart-type') || 'pie',
                 answers: JSON.parse(chart.getAttribute('data-answers')),
