@@ -1,4 +1,5 @@
-import Chart from './Chart';
+import BarChart from '../charts/BarChart';
+import PieChart from '../charts/PieChart';
 
 
 /**
@@ -26,6 +27,11 @@ export default class Charts {
     }
 
 
+    /**
+     * Initialize all charts
+     * @param  {Array} data
+     * @return {Object}
+     */
     initializeCharts(data) {
 
         let charts = {};
@@ -34,7 +40,7 @@ export default class Charts {
 
             charts[i] = {
                 ...item,
-                chart: new Chart(item)
+                chart: this.chooseChart(item)
             };
 
         });
@@ -43,6 +49,45 @@ export default class Charts {
 
     }
 
+
+    /**
+     * Choose the chart type to instantiate
+     * @param  {Object} type
+     * @return {Class}
+     */
+    chooseChart(item) {
+
+        // pie
+        // donut
+        // line
+        // bar
+        // area
+        // candlestick
+        // heatmap
+        // radar
+        // radialBar
+        // bubble
+        // scatter
+
+        switch (item.type) {
+            case 'pie':
+            case 'donut':
+
+                new PieChart(item);
+
+                break;
+            default:
+
+        }
+
+    }
+
+
+    /**
+     * Get chart data
+     * @param  {Array} chartElements
+     * @return {Array
+     */
     getChartData(chartElements) {
 
         let charts = [];

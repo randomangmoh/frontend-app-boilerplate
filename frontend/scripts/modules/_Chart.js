@@ -25,29 +25,44 @@ export default class Chart {
         this.type = data.type
         this.count = this.data.answers.length;
 
-
         this.chart = new ChartJS(this.element, {
             type: this.type,
-            data: {
-                labels: this.generateLabels(this.data.answers),
-                datasets: [{
-                    data: this.generateValues(this.data.answers),
-                    borderWidth: 0,
-                    fill: this.type === 'line' ? false : true,
-                    borderColor: this.type === 'line' ? this.generateGradient(random({ count: this.count, hue: 'blue', luminosity: 'bright' })) : false,
-                    backgroundColor: this.generateGradients(this.count)
-                }]
-            },
+            data: this.generateData(),
             options: this.generateOptions()
         });
 
 
         this.generateGlobalOptions();
 
+    }
+
+
+    generateData() {
+
+        const data = {
+            labels: this.generateLabels(this.data.answers),
+            datasets: [{
+                data: this.generateValues(this.data.answers),
+                borderWidth: 0,
+                fill: this.type === 'line' ? false : true,
+                borderColor: this.type === 'line' ? this.generateGradient(random()) : false,
+                backgroundColor: this.generateGradients(this.count)
+            }]
+        };
+
+        console.log('data', data);
+
+        return data;
+
 
     }
 
 
+
+    /**
+     * Generate Global options within the charts
+     * @return {Void}
+     */
     generateGlobalOptions() {
 
         ChartJS.defaults.global.elements.point.radius = 2;
@@ -65,6 +80,18 @@ export default class Chart {
         const options = {
             responsive: true,
             maintainAspectRatio: true,
+            devicePixelRatio: 2,
+            tooltips: {
+                mode: 'index',
+                position: 'nearest',
+                backgroundColor: 'rgba(19, 12, 38, .75)',
+                titleFontSize: 17,
+                bodyFontSize: 15,
+                xPadding: 10,
+                yPadding: 10,
+                caretSize: 0,
+                cornerRadius: 0
+            },
             legend: {
                 display: true,
                 position: 'bottom',
@@ -79,8 +106,12 @@ export default class Chart {
         };
 
         switch (this.type) {
+
+            // Pie Chart
             case 'pie':
                 break;
+
+            // Bar Chart
             case 'bar':
 
                 options['scales'] = {
@@ -88,28 +119,38 @@ export default class Chart {
                         ticks: {
                             beginAtZero: true
                         }
-                    }]
+                    }],
+                    gridLines: {
+                        color: 'rgba(255, 255, 255, .15)',
+                        tickMarkLength: 50,
+                        borderDash: [3]
+                    }
                 };
 
                 options['legend'] = false;
 
                 break;
 
+            // Radar Chart
             case 'radar':
 
                 options['scale'] = {
                     gridLines: {
                         color: 'rgba(255, 255, 255, .15)',
+                        tickMarkLength: 50,
+                        borderDash: [3]
                     },
                     ticks: {
                         display: true,
-                        backdropColor: 'rgba(255, 255, 255, .15)',
+                        backdropColor: 'rgba(255, 255, 255, 0)',
                         fontColor: 'white',
                         fontSize: 14,
-                        padding: 30
+                        padding: 100,
+                        z: 1
                     },
                     pointLabels: {
-                        fontSize: 14,
+                        fontSize: 12,
+                        padding: 20
                     }
                 };
 
@@ -117,24 +158,48 @@ export default class Chart {
 
                 break;
 
+            // Polar Area Chart
             case 'polarArea':
 
                 options['scale'] = {
                     gridLines: {
                         color: 'rgba(255, 255, 255, .15)',
+                        tickMarkLength: 50,
+                        borderDash: [3]
                     },
                     ticks: {
-                        display: false,
-                        backdropColor: 'rgba(255, 255, 255, .15)',
+                        display: true,
+                        backdropColor: 'rgba(255, 255, 255, 0)',
                         fontColor: 'white',
                         fontSize: 14,
-                        padding: 30,
+                        padding: 100,
                         z: 1
                     },
                     pointLabels: {
-                        fontSize: 14,
+                        fontSize: 12,
+                        padding: 20
                     }
                 };
+
+                break;
+            case 'bubble':
+
+                options['scales'] = {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Happiness"
+                        }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "GDP (PPP)"
+                        }
+                    }]
+                }
+
+                options['legend'] = false;
 
                 break;
             default:
@@ -153,7 +218,6 @@ export default class Chart {
      * @return {Object} data
      */
     generateData() {
-
 
         const data = {
             responsive: true,
@@ -233,7 +297,7 @@ export default class Chart {
         let gradients = [];
         let baseColor = random({
             count: length,
-            hue: 'green',
+            hue: 'blue',
             luminosity: 'bright'
         });
 
@@ -254,7 +318,7 @@ export default class Chart {
         let color = baseColor;
 
         let gradient = this.context.createLinearGradient(0, 0, 0, 1000);
-        gradient.addColorStop(0, color.lighten(20).toHexString());
+        gradient.addColorStop(0, color.lighten(50).toHexString());
         gradient.addColorStop(1, color.darken(20).toHexString());
 
         return gradient;
