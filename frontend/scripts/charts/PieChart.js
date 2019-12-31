@@ -41,7 +41,7 @@ export default class PieChart extends Chart {
 
         return {
             chart: {
-                type: this.data.type,
+                type: 'donut',
             },
             labels: this.data.labels,
             series: this.data.values,
@@ -50,9 +50,9 @@ export default class PieChart extends Chart {
                     customScale: 0.9,
                     expandOnClick: false,
                     donut: {
-                        size: '50%',
+                        size: this.data.type === 'pie' ? '5%' : '50%',
                         labels: {
-                            show: this.data.type === 'donut' ? true : false,
+                            show: this.data.type === 'pie' ? false : true,
                             name: {
                                 color: '#FFF'
                             },
@@ -65,9 +65,11 @@ export default class PieChart extends Chart {
             },
             stroke: {
                 show: true,
-                opacity: 1,
-                width: 0,
-                colors: ['#130c26']
+                opacity: .2,
+                lineCap: 'round',
+                width: 5,
+                curve: 'straight',
+                colors: this.backgroundColor
             },
             grid: {
                 show: false

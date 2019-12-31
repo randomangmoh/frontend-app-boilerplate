@@ -1,5 +1,6 @@
 import BarChart from '../charts/BarChart';
 import PieChart from '../charts/PieChart';
+import LineChart from '../charts/LineChart';
 
 
 /**
@@ -16,7 +17,7 @@ export default class Charts {
      */
     constructor(container) {
 
-        if(!container) return;
+        if (!container) return;
 
         this.container = container;
 
@@ -29,6 +30,7 @@ export default class Charts {
 
     /**
      * Initialize all charts
+     * 
      * @param  {Array} data
      * @return {Object}
      */
@@ -52,6 +54,7 @@ export default class Charts {
 
     /**
      * Choose the chart type to instantiate
+     *
      * @param  {Object} type
      * @return {Class}
      */
@@ -74,14 +77,14 @@ export default class Charts {
         switch (item.type) {
             case 'pie':
             case 'donut':
-
                 new PieChart(item);
-
                 break;
             case 'bar':
-
                 new BarChart(item);
-
+                break;
+            case 'line':
+                new LineChart(item);
+                break;
             default:
 
         }
@@ -91,6 +94,7 @@ export default class Charts {
 
     /**
      * Get chart data
+     *
      * @param  {Array} chartElements
      * @return {Array
      */
@@ -98,10 +102,8 @@ export default class Charts {
 
         let charts = [];
 
-
         chartElements.forEach((chart) => {
 
-            console.log(chart);
             charts.push({
                 title: chart.getAttribute('data-question-title'),
                 el: chart,

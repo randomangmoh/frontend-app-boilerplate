@@ -1,6 +1,28 @@
+@import '../config/palette';
+@import '../config/breakpoints';
+
 /**
  * Vendor / ApexCharts
  */
 [class*="apexcharts"] {
     font-weight: 700;
+}
+
+.apexcharts-tooltip {
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2) !important;
+    background-color: transparent;
+    padding: 5px;
+    background-image: linear-gradient(140deg, rgba($color-brand-secondary, .5), $color-brand-primary) !important;
+}
+
+.apexcharts-tooltip-marker {
+    display: none;
+}
+
+.apexcharts-legend-marker {
+    margin-right: 0px !important;
+}
+
+.apexcharts-legend-text {
+    padding-left: 3px;
 }

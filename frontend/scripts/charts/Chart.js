@@ -18,6 +18,8 @@ export default class Chart {
         this.el = data.el;
 
         this.font = 'D-Din';
+        this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
+        this.backgroundColor = ['#130c26']
 
         this.rawData = data;
         this.data = this.sanitizeData(this.rawData);
@@ -89,6 +91,11 @@ export default class Chart {
                 }
             },
 
+
+            /**
+             * Title (Question)
+             * @type {Object}
+             */
             title: {
                 text: this.data.title,
                 align: 'center',
@@ -98,8 +105,12 @@ export default class Chart {
                 }
             },
 
-            // colors: ['#364f6b', '#3fc1c9', '#f5f5f5', '#fc5185'],
-            colors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
+
+            /**
+             * Default colors
+             * @type {Array}
+             */
+            colors: this.colors,
 
 
             /**
@@ -191,6 +202,33 @@ export default class Chart {
 
 
             /**
+             * States
+             * @type {Object}
+             */
+            states: {
+                normal: {
+                    filter: {
+                        type: 'none',
+                        value: 0,
+                    }
+                },
+                hover: {
+                    filter: {
+                        type: 'none',
+                        value: 0.15,
+                    }
+                },
+                active: {
+                    allowMultipleDataPointsSelection: false,
+                    filter: {
+                        type: 'darken',
+                        value: 0.35,
+                    }
+                },
+            },
+
+
+            /**
              * Fill (Color of the chart objects)
              *
              * Brand Colors [#24B3E8, #51B748, #F27024, #EA0D80]
@@ -198,15 +236,16 @@ export default class Chart {
              */
             fill: {
                 type: 'gradient',
-                colors: ['#131244', '#162559', '#315584', '#42D6D6', '#48F2E4'],
+                colors: this.colors,
                 gradient: {
                     shade: 'dark',
-                    type: 'vertical',
-                    shadeIntensity: .05,
-                    inverseColors: true,
+                    type: 'horizontal',
+                    shadeIntensity: .5,
+                    inverseColors: false,
                     opacityFrom: 1,
-                    opacityTo: 1,
+                    opacityTo: .9,
                     stops: [0, 100],
+                    gradientToColors: this.colors
                 }
             },
 
