@@ -7,9 +7,9 @@ import Chart from './Chart';
 
 
 /**
- * Bar Chart, extends Chart
+ * Pie Chart, extends Chart
  *
- * @class BarChart
+ * @class PieChart
  */
 export default class PieChart extends Chart {
 

@@ -76,6 +76,7 @@ export default class Chart {
                 toolbar: { show: false },
                 fontFamily: this.font,
                 height: '750px',
+                background: 'transparent',
                 animations: {
                     enabled: true,
                     easing: 'easeinout',

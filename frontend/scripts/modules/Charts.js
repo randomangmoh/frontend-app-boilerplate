@@ -1,6 +1,7 @@
 import BarChart from '../charts/BarChart';
 import PieChart from '../charts/PieChart';
 import LineChart from '../charts/LineChart';
+import RadarChart from '../charts/RadarChart';
 
 
 /**
@@ -30,7 +31,7 @@ export default class Charts {
 
     /**
      * Initialize all charts
-     * 
+     *
      * @param  {Array} data
      * @return {Object}
      */
@@ -84,6 +85,9 @@ export default class Charts {
                 break;
             case 'line':
                 new LineChart(item);
+                break;
+            case 'radar':
+                new RadarChart(item);
                 break;
             default:
 
