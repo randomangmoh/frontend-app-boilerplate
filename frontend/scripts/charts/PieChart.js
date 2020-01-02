@@ -27,6 +27,8 @@ export default class PieChart extends Chart {
         this.chartOptions = this.generateChartOptions();
         this.options = this.mergeDeep(this.globalOptions, this.chartOptions);
 
+        console.log(this.options);
+
         this.chart = new ApexCharts(this.el, this.options);
         this.chart.render();
 
@@ -45,6 +47,21 @@ export default class PieChart extends Chart {
             },
             labels: this.data.labels,
             series: this.data.values,
+            colors: this.colors,
+            fill: {
+                type: 'gradient',
+                colors: this.colors,
+                opacity: .7
+            },
+            stroke: {
+                show: true,
+                opacity: 0,
+                lineCap: 'butt',
+                width: 4,
+                curve: 'smooth',
+                colors: this.colors,
+                dashArray: 20
+            },
             plotOptions: {
                 pie: {
                     customScale: 0.9,
@@ -54,7 +71,7 @@ export default class PieChart extends Chart {
                         labels: {
                             show: this.data.type === 'pie' ? false : true,
                             name: {
-                                color: '#FFF'
+                                color: 'rgba(255, 255, 255, 0.8)'
                             },
                             value: {
                                 color: 'rgba(255, 255, 255, 0.5)'
@@ -62,14 +79,6 @@ export default class PieChart extends Chart {
                         }
                     }
                 },
-            },
-            stroke: {
-                show: true,
-                opacity: .2,
-                lineCap: 'round',
-                width: 5,
-                curve: 'straight',
-                colors: this.backgroundColor
             },
             grid: {
                 show: false

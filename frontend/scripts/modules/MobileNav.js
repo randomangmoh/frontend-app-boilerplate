@@ -8,7 +8,6 @@ export default class MobileNav {
 
         if(!container) return 'No nav container passed';
 
-
         this.container = container;
         this.navBtn = this.container.querySelector('[data-mobile-nav="btn"]');
         this.navBtnClose = this.container.querySelector('[data-mobile-nav="close"]');
@@ -19,9 +18,13 @@ export default class MobileNav {
 
     }
 
-    onNavBtnClick(event) {
 
-        event.preventDefault();
+    /**
+     * On nav button click
+     *
+     * @return {Void}
+     */
+    onNavBtnClick() {
 
         this.mobileNav.classList.toggle('active');
 

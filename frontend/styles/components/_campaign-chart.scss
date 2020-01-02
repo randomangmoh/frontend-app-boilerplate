@@ -10,12 +10,6 @@
  * Components / Campaign Chart
  */
 .campaign-chart {
-    margin-top: $spacing;
     width: 100%;
     height: auto;
-
-    @media screen and (max-width: $breakpoint-tablet-landscape) {
-        width: 25%;
-    }
-
 }

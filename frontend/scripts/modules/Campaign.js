@@ -22,6 +22,7 @@ export default class Campaign {
         this.carouselContainer = this.container.querySelector('[data-questions="carousel"]');
 
         this.carousel = this.initCarousel(this.carouselContainer);
+
         this.carousel.mount({ arrowDisabler: this.arrowDisabler, selectChanger: this.selectChanger.bind(this) });
 
         this.charts = new Charts(this.questionsContainer);
@@ -49,7 +50,7 @@ export default class Campaign {
 
     /**
      * On select Change
-     * 
+     *
      * @return {Void}
      */
     onSelectChange() {
@@ -129,6 +130,34 @@ export default class Campaign {
 
             }
         }
+
+    }
+
+
+
+    carouselAutoHeight(Glide, Components, Events) {
+
+        return false;
+
+        const AUTOHEIGHT = {
+
+            mount () {
+                Components.Html.track.style.transition = 'height 0.2s ease-in-out'
+
+                AUTOHEIGHT.set();
+            },
+
+            set () {
+                Components.Html.track.style.height = `${Components.Html.slides[Glide.index].offsetHeight}px`
+            }
+        };
+
+        Events.on(['run', 'resize'], () => {
+            AUTOHEIGHT.set()
+        });
+
+        return AUTOHEIGHT;
+
 
     }
 

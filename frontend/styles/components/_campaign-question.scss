@@ -6,12 +6,14 @@
 
 // Utils
 @import '../utils/functions/rem';
+@import '../utils/functions/tracking';
+@import '../utils/mixins/aspect-ratio';
 
 /**
  * Components / Campaign Question
  */
 .campaign-question {
-
+    margin-top: $spacing;
 }
 
 .campaign-question__insights {
@@ -38,5 +40,46 @@
 }
 
 .campaign-question__subcharts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     padding-left: $spacing;
+    font-size: rem(13px);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: tracking(150);
+    text-align: right;
+    width: 95%;
+    margin-left: 5%;
+}
+
+.campaign-question__selected {
+    width: 100%;
+    @include aspect-ratio(1, 1);
+    background-image: linear-gradient(140deg, $color-brand-blue-dark, $color-brand-blue-light);
+    border-radius: 10px;
+
+    &:first-of-type {
+        margin-bottom: 10%;
+    }
+
+    @media screen and (max-width: $breakpoint-tablet-portrait) {
+        width: 45%;
+
+        &:first-of-type {
+            margin-bottom: 0;
+        }
+
+    }
+
+}
+
+.campaign-question__selected--alt {
+    background-image: linear-gradient(140deg, $color-brand-red-dark, $color-brand-red-light);
+}
+
+.campaign-question__subtitle {
+    display: block;
+    text-align: center;
+    margin: $spacing auto 0;
 }

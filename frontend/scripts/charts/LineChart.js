@@ -38,7 +38,7 @@ export default class LineChart extends Chart {
      */
     generateChartOptions() {
 
-        return {
+        const options = {
             chart: {
                 type: this.data.type,
                 foreColor: 'rgba(255, 255, 255, 0.2)'
@@ -54,38 +54,18 @@ export default class LineChart extends Chart {
                 align: 'center',
             },
             fill: {
-                type: "gradient",
+                type: 'gradient',
                 gradient: {
-                  shadeIntensity: 1,
-                  opacityFrom: 0.7,
-                  opacityTo: 0.9,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: this.colors[0],
-                      opacity: 1
-                    },
-                    {
-                      offset: 25,
-                      color: this.colors[1],
-                      opacity: 1
-                    },
-                    {
-                      offset: 50,
-                      color: this.colors[2],
-                      opacity: 1
-                    },
-                    {
-                      offset: 75,
-                      color: this.colors[3],
-                      opacity: 1
-                    }
-                  ]
+                    shadeIntensity: 1,
+                    type: this.data.type === 'line' ? 'horizontal' : 'vertical',
+                    opacityFrom: 0.7,
+                    opacityTo: this.data.type === 'line' ? 0.9 : 0
                 }
             },
             stroke: {
                 curve: 'smooth',
-                width: 5
+                width: 5,
+                colors: this.colors,
             },
             markers: {
                 size: 6,
@@ -113,6 +93,38 @@ export default class LineChart extends Chart {
             }
 
         }
+
+        if(this.data.type === 'line') {
+
+            options.fill.gradient.colorStops = [
+                {
+                    offset: 0,
+                    color: this.colors[0],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                },
+                {
+                    offset: 25,
+                    color: this.colors[1],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                },
+                {
+                    offset: 50,
+                    color: this.colors[2],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                },
+                {
+                    offset: 75,
+                    color: this.colors[3],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                }
+            ];
+
+        } else {
+
+        }
+
+        return options;
+
 
     }
 

@@ -130,7 +130,7 @@ var BarChart = function (_Chart) {
 
 exports.default = BarChart;
 
-},{"./Chart":2,"apexcharts":11,"chroma-js":12}],2:[function(require,module,exports){
+},{"./Chart":2,"apexcharts":13,"chroma-js":14}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -162,7 +162,7 @@ var Chart = function () {
 
         this.el = data.el;
 
-        this.font = 'D-Din';
+        this.font = 'Arial';
         this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
         this.backgroundColor = ['#130c26'];
 
@@ -211,8 +211,10 @@ var Chart = function () {
     }, {
         key: 'generateGlobalOptions',
         value: function generateGlobalOptions() {
+            var responsiveness = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
-            return {
+
+            var options = {
 
                 /**
                  * Chart
@@ -222,7 +224,7 @@ var Chart = function () {
                     type: this.data.type,
                     toolbar: { show: false },
                     fontFamily: this.font,
-                    height: '750px',
+                    height: '600px',
                     background: 'transparent',
                     animations: {
                         enabled: true,
@@ -413,6 +415,14 @@ var Chart = function () {
                 },
 
                 /**
+                 * X Axis
+                 * @type {Object}
+                 */
+                xaxis: {
+                    tickPlacement: 'on'
+                },
+
+                /**
                  * Theme
                  * @type {Object}
                  */
@@ -421,6 +431,27 @@ var Chart = function () {
                 }
 
             };
+
+            if (responsiveness === true) {
+
+                options.responsive = [{
+                    breakpoint: 768,
+                    options: {
+                        chart: {
+                            height: '400px'
+                        }
+                    }
+                }, {
+                    breakpoint: 1024,
+                    options: {
+                        chart: {
+                            height: '400px'
+                        }
+                    }
+                }];
+            };
+
+            return options;
         }
 
         /**
@@ -536,7 +567,7 @@ var LineChart = function (_Chart) {
         key: 'generateChartOptions',
         value: function generateChartOptions() {
 
-            return {
+            var options = {
                 chart: {
                     type: this.data.type,
                     foreColor: 'rgba(255, 255, 255, 0.2)'
@@ -550,33 +581,18 @@ var LineChart = function (_Chart) {
                     align: 'center'
                 },
                 fill: {
-                    type: "gradient",
+                    type: 'gradient',
                     gradient: {
                         shadeIntensity: 1,
+                        type: this.data.type === 'line' ? 'horizontal' : 'vertical',
                         opacityFrom: 0.7,
-                        opacityTo: 0.9,
-                        colorStops: [{
-                            offset: 0,
-                            color: this.colors[0],
-                            opacity: 1
-                        }, {
-                            offset: 25,
-                            color: this.colors[1],
-                            opacity: 1
-                        }, {
-                            offset: 50,
-                            color: this.colors[2],
-                            opacity: 1
-                        }, {
-                            offset: 75,
-                            color: this.colors[3],
-                            opacity: 1
-                        }]
+                        opacityTo: this.data.type === 'line' ? 0.9 : 0
                     }
                 },
                 stroke: {
                     curve: 'smooth',
-                    width: 5
+                    width: 5,
+                    colors: this.colors
                 },
                 markers: {
                     size: 6,
@@ -604,6 +620,29 @@ var LineChart = function (_Chart) {
                 }
 
             };
+
+            if (this.data.type === 'line') {
+
+                options.fill.gradient.colorStops = [{
+                    offset: 0,
+                    color: this.colors[0],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                }, {
+                    offset: 25,
+                    color: this.colors[1],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                }, {
+                    offset: 50,
+                    color: this.colors[2],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                }, {
+                    offset: 75,
+                    color: this.colors[3],
+                    opacity: this.data.type === 'line' ? 1 : 0.25
+                }];
+            } else {}
+
+            return options;
         }
     }]);
 
@@ -612,7 +651,7 @@ var LineChart = function (_Chart) {
 
 exports.default = LineChart;
 
-},{"./Chart":2,"apexcharts":11}],4:[function(require,module,exports){
+},{"./Chart":2,"apexcharts":13}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -667,6 +706,8 @@ var PieChart = function (_Chart) {
         _this.chartOptions = _this.generateChartOptions();
         _this.options = _this.mergeDeep(_this.globalOptions, _this.chartOptions);
 
+        console.log(_this.options);
+
         _this.chart = new _apexcharts2.default(_this.el, _this.options);
         _this.chart.render();
 
@@ -689,6 +730,21 @@ var PieChart = function (_Chart) {
                 },
                 labels: this.data.labels,
                 series: this.data.values,
+                colors: this.colors,
+                fill: {
+                    type: 'gradient',
+                    colors: this.colors,
+                    opacity: .7
+                },
+                stroke: {
+                    show: true,
+                    opacity: 0,
+                    lineCap: 'butt',
+                    width: 4,
+                    curve: 'smooth',
+                    colors: this.colors,
+                    dashArray: 20
+                },
                 plotOptions: {
                     pie: {
                         customScale: 0.9,
@@ -698,7 +754,7 @@ var PieChart = function (_Chart) {
                             labels: {
                                 show: this.data.type === 'pie' ? false : true,
                                 name: {
-                                    color: '#FFF'
+                                    color: 'rgba(255, 255, 255, 0.8)'
                                 },
                                 value: {
                                     color: 'rgba(255, 255, 255, 0.5)'
@@ -706,14 +762,6 @@ var PieChart = function (_Chart) {
                             }
                         }
                     }
-                },
-                stroke: {
-                    show: true,
-                    opacity: .2,
-                    lineCap: 'round',
-                    width: 5,
-                    curve: 'straight',
-                    colors: this.backgroundColor
                 },
                 grid: {
                     show: false
@@ -728,7 +776,7 @@ var PieChart = function (_Chart) {
 
 exports.default = PieChart;
 
-},{"./Chart":2,"apexcharts":11,"chroma-js":12}],5:[function(require,module,exports){
+},{"./Chart":2,"apexcharts":13,"chroma-js":14}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -862,7 +910,355 @@ var RadarChart = function (_Chart) {
 
 exports.default = RadarChart;
 
-},{"./Chart":2,"apexcharts":11}],6:[function(require,module,exports){
+},{"./Chart":2,"apexcharts":13}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _apexcharts = require('apexcharts');
+
+var _apexcharts2 = _interopRequireDefault(_apexcharts);
+
+var _chromaJs = require('chroma-js');
+
+var _chromaJs2 = _interopRequireDefault(_chromaJs);
+
+var _Chart2 = require('./Chart');
+
+var _Chart3 = _interopRequireDefault(_Chart2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Lib
+
+
+// Base Chart
+
+
+/**
+ * Radial Chart, extends Chart
+ *
+ * @class RadialChart
+ */
+var RadialChart = function (_Chart) {
+    _inherits(RadialChart, _Chart);
+
+    /**
+     * @constructor
+     * @param {Object} data
+     */
+    function RadialChart(data) {
+        _classCallCheck(this, RadialChart);
+
+        var _this = _possibleConstructorReturn(this, (RadialChart.__proto__ || Object.getPrototypeOf(RadialChart)).call(this, data));
+
+        _this.el = data.el;
+        _this.globalOptions = _this.generateGlobalOptions();
+        _this.chartOptions = _this.generateChartOptions();
+        _this.options = _this.mergeDeep(_this.globalOptions, _this.chartOptions);
+
+        _this.chart = new _apexcharts2.default(_this.el, _this.options);
+        _this.chart.render();
+
+        return _this;
+    }
+
+    /**
+     * Generating chart specific options
+     * @return {Object}
+     */
+
+
+    _createClass(RadialChart, [{
+        key: 'generateChartOptions',
+        value: function generateChartOptions() {
+            var _ref;
+
+            return _ref = {
+                chart: {
+                    type: 'radialBar',
+                    height: '100%'
+                },
+                labels: this.data.labels,
+                series: this.data.values,
+                stroke: {
+                    show: true,
+                    opacity: .2,
+                    lineCap: 'round',
+                    width: 5,
+                    curve: 'straight',
+                    colors: this.backgroundColor
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'dark',
+                        type: 'horizontal',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#ABE5A1'],
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    }
+                }
+            }, _defineProperty(_ref, 'stroke', {
+                lineCap: 'round'
+            }), _defineProperty(_ref, 'title', {
+                text: ''
+            }), _defineProperty(_ref, 'grid', { show: false }), _defineProperty(_ref, 'plotOptions', {
+                radialBar: {
+                    startAngle: -135,
+                    endAngle: 225,
+                    hollow: {
+                        margin: 0,
+                        size: '70%',
+                        background: '#fff',
+                        image: undefined,
+                        imageOffsetX: 0,
+                        imageOffsetY: 0,
+                        position: 'front',
+                        dropShadow: {
+                            enabled: true,
+                            top: 3,
+                            left: 0,
+                            blur: 4,
+                            opacity: 0.24
+                        }
+                    },
+                    track: {
+                        background: '#fff',
+                        strokeWidth: '67%',
+                        margin: 0, // margin is in pixels
+                        dropShadow: {
+                            enabled: true,
+                            top: -3,
+                            left: 0,
+                            blur: 4,
+                            opacity: 0.35
+                        }
+                    },
+                    dataLabels: {
+                        showOn: 'always',
+                        name: {
+                            offsetY: -10,
+                            show: true,
+                            color: '#888',
+                            fontSize: '17px'
+                        },
+                        value: {
+                            color: '#111',
+                            fontSize: '36px',
+                            show: true,
+                            formatter: function formatter(val) {
+                                return parseInt(val);
+                            }
+                        }
+                    }
+                }
+            }), _ref;
+        }
+    }]);
+
+    return RadialChart;
+}(_Chart3.default);
+
+exports.default = RadialChart;
+
+},{"./Chart":2,"apexcharts":13,"chroma-js":14}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _apexcharts = require('apexcharts');
+
+var _apexcharts2 = _interopRequireDefault(_apexcharts);
+
+var _Chart2 = require('./Chart');
+
+var _Chart3 = _interopRequireDefault(_Chart2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Lib
+
+
+// Base Chart
+
+
+/**
+ * Selected Chart, extends Chart
+ *
+ * @class SelectedChart
+ */
+var SelectedChart = function (_Chart) {
+    _inherits(SelectedChart, _Chart);
+
+    /**
+     * @constructor
+     * @param {Object} data
+     */
+    function SelectedChart(data) {
+        _classCallCheck(this, SelectedChart);
+
+        var _this = _possibleConstructorReturn(this, (SelectedChart.__proto__ || Object.getPrototypeOf(SelectedChart)).call(this, data));
+
+        _this.el = data.el;
+        _this.globalOptions = _this.generateGlobalOptions(false);
+        _this.chartOptions = _this.generateChartOptions();
+        _this.options = _this.mergeDeep(_this.globalOptions, _this.chartOptions);
+
+        _this.chart = new _apexcharts2.default(_this.el, _this.options);
+        _this.chart.render();
+
+        return _this;
+    }
+
+    /**
+     * Generating chart specific options
+     * @return {Object}
+     */
+
+
+    _createClass(SelectedChart, [{
+        key: 'generateChartOptions',
+        value: function generateChartOptions() {
+
+            return {
+                chart: {
+                    type: 'radialBar',
+                    height: '100%'
+                },
+                labels: this.data.labels,
+                series: [50],
+                title: {
+                    text: ''
+                },
+                stroke: {
+                    show: false,
+                    curve: 'smooth',
+                    lineCap: 'round',
+                    colors: '#FFF'
+                },
+                fill: {
+                    type: 'solid',
+                    colors: '#fff'
+                },
+                grid: { show: false },
+                plotOptions: {
+                    radialBar: {
+                        hollow: {
+                            margin: 0,
+                            size: '70%',
+                            background: 'transparent',
+                            image: undefined,
+                            imageOffsetX: 0,
+                            imageOffsetY: 0,
+                            position: 'back',
+                            dropShadow: {
+                                enabled: true,
+                                top: 3,
+                                left: 0,
+                                blur: 4,
+                                opacity: 0
+                            }
+                        },
+                        track: {
+                            background: 'rgba(255, 255, 255, 0.25)',
+                            strokeWidth: '100%',
+                            margin: 0, // margin is in pixels
+                            dropShadow: {
+                                enabled: false
+                            }
+                        },
+                        dataLabels: {
+                            showOn: 'always',
+                            name: {
+                                offsetY: -10,
+                                show: true,
+                                color: '#FFF',
+                                fontSize: '17px'
+                            },
+                            value: {
+                                color: '#FFF',
+                                fontSize: '36px',
+                                show: true,
+                                formatter: function formatter(val) {
+                                    return parseInt(val) + '%';
+                                }
+                            }
+                        }
+                    }
+                },
+                responsive: [{
+                    breakpoint: 768,
+                    options: {
+                        chart: {
+                            height: '200px'
+                        }
+                    }
+                }, {
+                    breakpoint: 1024,
+                    options: {
+                        chart: {
+                            height: '200px'
+                        },
+                        plotOptions: {
+                            radialBar: {
+                                hollow: {
+                                    size: '70%'
+                                },
+                                track: {
+                                    strokeWidth: '30%'
+                                },
+                                dataLabels: {
+                                    showOn: 'always',
+                                    name: {
+                                        offsetY: 0,
+                                        show: true,
+                                        color: '#FFF',
+                                        fontSize: '17px'
+                                    },
+                                    value: {
+                                        offsetY: 0,
+                                        color: '#FFF',
+                                        fontSize: '16px',
+                                        show: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }]
+
+            };
+        }
+    }]);
+
+    return SelectedChart;
+}(_Chart3.default);
+
+exports.default = SelectedChart;
+
+},{"./Chart":2,"apexcharts":13}],8:[function(require,module,exports){
 'use strict';
 
 var _Campaign = require('./modules/Campaign');
@@ -885,7 +1281,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new _MobileNav2.default(navContainer);
 });
 
-},{"./modules/Campaign":7,"./modules/MobileNav":9}],7:[function(require,module,exports){
+},{"./modules/Campaign":9,"./modules/MobileNav":11}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -930,6 +1326,7 @@ var Campaign = function () {
         this.carouselContainer = this.container.querySelector('[data-questions="carousel"]');
 
         this.carousel = this.initCarousel(this.carouselContainer);
+
         this.carousel.mount({ arrowDisabler: this.arrowDisabler, selectChanger: this.selectChanger.bind(this) });
 
         this.charts = new _Charts2.default(this.questionsContainer);
@@ -960,7 +1357,7 @@ var Campaign = function () {
 
         /**
          * On select Change
-         * 
+         *
          * @return {Void}
          */
 
@@ -1067,6 +1464,29 @@ var Campaign = function () {
                 }
             };
         }
+    }, {
+        key: 'carouselAutoHeight',
+        value: function carouselAutoHeight(Glide, Components, Events) {
+
+            return false;
+
+            var AUTOHEIGHT = {
+                mount: function mount() {
+                    Components.Html.track.style.transition = 'height 0.2s ease-in-out';
+
+                    AUTOHEIGHT.set();
+                },
+                set: function set() {
+                    Components.Html.track.style.height = Components.Html.slides[Glide.index].offsetHeight + 'px';
+                }
+            };
+
+            Events.on(['run', 'resize'], function () {
+                AUTOHEIGHT.set();
+            });
+
+            return AUTOHEIGHT;
+        }
     }]);
 
     return Campaign;
@@ -1074,7 +1494,7 @@ var Campaign = function () {
 
 exports.default = Campaign;
 
-},{"./Charts":8,"@glidejs/glide":10}],8:[function(require,module,exports){
+},{"./Charts":10,"@glidejs/glide":12}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1101,6 +1521,14 @@ var _RadarChart = require('../charts/RadarChart');
 
 var _RadarChart2 = _interopRequireDefault(_RadarChart);
 
+var _RadialChart = require('../charts/RadialChart');
+
+var _RadialChart2 = _interopRequireDefault(_RadialChart);
+
+var _SelectedChart = require('../charts/SelectedChart');
+
+var _SelectedChart2 = _interopRequireDefault(_SelectedChart);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1126,6 +1554,10 @@ var Charts = function () {
         this.chartElements = this.container.querySelectorAll('[data-question="chart"]');
         this.chartData = this.getChartData(this.chartElements);
         this.charts = this.initializeCharts(this.chartData);
+
+        this.selectedChartElements = this.container.querySelectorAll('[data-selected="chart"]');
+        this.selectedChartData = this.getChartData(this.selectedChartElements);
+        this.selectedCharts = this.initializeSelectedCharts(this.selectedChartData);
     }
 
     /**
@@ -1147,6 +1579,21 @@ var Charts = function () {
 
                 charts[i] = _extends({}, item, {
                     chart: _this.chooseChart(item)
+                });
+            });
+
+            return charts;
+        }
+    }, {
+        key: 'initializeSelectedCharts',
+        value: function initializeSelectedCharts(data) {
+
+            var charts = {};
+
+            data.forEach(function (item, i) {
+
+                charts[i] = _extends({}, item, {
+                    chart: new _SelectedChart2.default(item)
                 });
             });
 
@@ -1175,8 +1622,6 @@ var Charts = function () {
             // radialBar
             // bubble
             // scatter
-            //
-            console.log(item.type);
 
             switch (item.type) {
                 case 'pie':
@@ -1187,6 +1632,7 @@ var Charts = function () {
                     new _BarChart2.default(item);
                     break;
                 case 'line':
+                case 'area':
                     new _LineChart2.default(item);
                     break;
                 case 'radar':
@@ -1229,7 +1675,7 @@ var Charts = function () {
 
 exports.default = Charts;
 
-},{"../charts/BarChart":1,"../charts/LineChart":3,"../charts/PieChart":4,"../charts/RadarChart":5}],9:[function(require,module,exports){
+},{"../charts/BarChart":1,"../charts/LineChart":3,"../charts/PieChart":4,"../charts/RadarChart":5,"../charts/RadialChart":6,"../charts/SelectedChart":7}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1265,11 +1711,16 @@ var MobileNav = function () {
         });
     }
 
+    /**
+     * On nav button click
+     *
+     * @return {Void}
+     */
+
+
     _createClass(MobileNav, [{
         key: 'onNavBtnClick',
-        value: function onNavBtnClick(event) {
-
-            event.preventDefault();
+        value: function onNavBtnClick() {
 
             this.mobileNav.classList.toggle('active');
         }
@@ -1280,7 +1731,7 @@ var MobileNav = function () {
 
 exports.default = MobileNav;
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /*!
  * Glide.js v3.4.1
  * (c) 2013-2019 Jędrzej Chałubek <jedrzej.chalubek@gmail.com> (http://jedrzejchalubek.com/)
@@ -4958,7 +5409,7 @@ exports.default = MobileNav;
 
 })));
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (setImmediate){
 /*!
  * ApexCharts v3.11.2
@@ -4977,7 +5428,7 @@ function(){function t(t){t.remember("_draggable",this),this.el=t}t.prototype.ini
 /*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
 "document"in self&&("classList"in document.createElement("_")&&(!document.createElementNS||"classList"in document.createElementNS("http://www.w3.org/2000/svg","g"))||function(t){if("Element"in t){var e=t.Element.prototype,i=Object,s=String.prototype.trim||function(){return this.replace(/^\s+|\s+$/g,"")},a=Array.prototype.indexOf||function(t){for(var e=0,i=this.length;e<i;e++)if(e in this&&this[e]===t)return e;return-1},r=function(t,e){this.name=t,this.code=DOMException[t],this.message=e},n=function(t,e){if(""===e)throw new r("SYNTAX_ERR","The token must not be empty.");if(/\s/.test(e))throw new r("INVALID_CHARACTER_ERR","The token must not contain space characters.");return a.call(t,e)},o=function(t){for(var e=s.call(t.getAttribute("class")||""),i=e?e.split(/\s+/):[],a=0,r=i.length;a<r;a++)this.push(i[a]);this._updateClassName=function(){t.setAttribute("class",this.toString())}},l=o.prototype=[],h=function(){return new o(this)};if(r.prototype=Error.prototype,l.item=function(t){return this[t]||null},l.contains=function(t){return~n(this,t+"")},l.add=function(){var t,e=arguments,i=0,s=e.length,a=!1;do{t=e[i]+"",~n(this,t)||(this.push(t),a=!0)}while(++i<s);a&&this._updateClassName()},l.remove=function(){var t,e,i=arguments,s=0,a=i.length,r=!1;do{for(t=i[s]+"",e=n(this,t);~e;)this.splice(e,1),r=!0,e=n(this,t)}while(++s<a);r&&this._updateClassName()},l.toggle=function(t,e){var i=this.contains(t),s=i?!0!==e&&"remove":!1!==e&&"add";return s&&this[s](t),!0===e||!1===e?e:!i},l.replace=function(t,e){var i=n(t+"");~i&&(this.splice(i,1,e),this._updateClassName())},l.toString=function(){return this.join(" ")},i.defineProperty){var c={get:h,enumerable:!0,configurable:!0};try{i.defineProperty(e,"classList",c)}catch(t){void 0!==t.number&&-2146823252!==t.number||(c.enumerable=!1,i.defineProperty(e,"classList",c))}}else i.prototype.__defineGetter__&&e.__defineGetter__("classList",h)}}(self),function(){var t=document.createElement("_");if(t.classList.add("c1","c2"),!t.classList.contains("c2")){var e=function(t){var e=DOMTokenList.prototype[t];DOMTokenList.prototype[t]=function(t){var i,s=arguments.length;for(i=0;i<s;i++)t=arguments[i],e.call(this,t)}};e("add"),e("remove")}if(t.classList.toggle("c3",!1),t.classList.contains("c3")){var i=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(t,e){return 1 in arguments&&!this.contains(t)==!e?e:i.call(this,t)}}"replace"in document.createElement("_").classList||(DOMTokenList.prototype.replace=function(t,e){var i=this.toString().split(" "),s=i.indexOf(t+"");~s&&(i=i.slice(s),this.remove.apply(this,i),this.add(e),this.add.apply(this,i.slice(1)))}),t=null}()),function(){function t(t){var e=t.__resizeTriggers__,i=e.firstElementChild,s=e.lastElementChild,a=i.firstElementChild;s.scrollLeft=s.scrollWidth,s.scrollTop=s.scrollHeight,a.style.width=i.offsetWidth+1+"px",a.style.height=i.offsetHeight+1+"px",i.scrollLeft=i.scrollWidth,i.scrollTop=i.scrollHeight}function e(e){var i=this;t(this),this.__resizeRAF__&&r(this.__resizeRAF__),this.__resizeRAF__=a((function(){(function(t){return t.offsetWidth!=t.__resizeLast__.width||t.offsetHeight!=t.__resizeLast__.height})(i)&&(i.__resizeLast__.width=i.offsetWidth,i.__resizeLast__.height=i.offsetHeight,i.__resizeListeners__.forEach((function(t){t.call(e)})))}))}var i,s,a=(i=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||function(t){return window.setTimeout(t,20)},function(t){return i(t)}),r=(s=window.cancelAnimationFrame||window.mozCancelAnimationFrame||window.webkitCancelAnimationFrame||window.clearTimeout,function(t){return s(t)}),n=!1,o="animationstart",l="Webkit Moz O ms".split(" "),h="webkitAnimationStart animationstart oAnimationStart MSAnimationStart".split(" "),c=document.createElement("fakeelement");if(void 0!==c.style.animationName&&(n=!0),!1===n)for(var d=0;d<l.length;d++)if(void 0!==c.style[l[d]+"AnimationName"]){o=h[d];break}window.addResizeListener=function(i,s){i.__resizeTriggers__||("static"==getComputedStyle(i).position&&(i.style.position="relative"),i.__resizeLast__={},i.__resizeListeners__=[],(i.__resizeTriggers__=document.createElement("div")).className="resize-triggers",i.__resizeTriggers__.innerHTML='<div class="expand-trigger"><div></div></div><div class="contract-trigger"></div>',i.appendChild(i.__resizeTriggers__),t(i),i.addEventListener("scroll",e,!0),o&&i.__resizeTriggers__.addEventListener(o,(function(e){"resizeanim"==e.animationName&&t(i)}))),i.__resizeListeners__.push(s)},window.removeResizeListener=function(t,i){t&&(t.__resizeListeners__.splice(t.__resizeListeners__.indexOf(i),1),t.__resizeListeners__.length||(t.removeEventListener("scroll",e),t.__resizeTriggers__=!t.removeChild(t.__resizeTriggers__)))}}(),window.Apex={};var ApexCharts$1=function(){function t(e,i){_classCallCheck(this,t),this.opts=i,this.ctx=this,this.w=new Base(i).init(),this.el=e,this.w.globals.cuid=Utils.randomId(),this.w.globals.chartID=this.w.config.chart.id?this.w.config.chart.id:this.w.globals.cuid,this.eventList=["mousedown","mousemove","touchstart","touchmove","mouseup","touchend"],this.initModules(),this.create=Utils.bind(this.create,this),this.documentEvent=Utils.bind(this.documentEvent,this),this.windowResizeHandler=this.windowResize.bind(this)}return _createClass(t,[{key:"render",value:function(){var t=this;return new Promise$1((function(e,i){if(null!==t.el){void 0===Apex._chartInstances&&(Apex._chartInstances=[]),t.w.config.chart.id&&Apex._chartInstances.push({id:t.w.globals.chartID,group:t.w.config.chart.group,chart:t}),t.setLocale(t.w.config.chart.defaultLocale);var s=t.w.config.chart.events.beforeMount;"function"==typeof s&&s(t,t.w),t.fireEvent("beforeMount",[t,t.w]),window.addEventListener("resize",t.windowResizeHandler),window.addResizeListener(t.el.parentNode,t.parentResizeCallback.bind(t));var a=t.create(t.w.config.series,{});if(!a)return e(t);t.mount(a).then((function(){e(a),"function"==typeof t.w.config.chart.events.mounted&&t.w.config.chart.events.mounted(t,t.w),t.fireEvent("mounted",[t,t.w])})).catch((function(t){i(t)}))}else i(new Error("Element not found"))}))}},{key:"initModules",value:function(){this.animations=new Animations(this),this.axes=new Axes(this),this.core=new Core(this.el,this),this.data=new Data(this),this.grid=new Grid(this),this.coreUtils=new CoreUtils(this),this.config=new Config({}),this.crosshairs=new Crosshairs(this),this.options=new Options,this.responsive=new Responsive(this),this.series=new Series(this),this.theme=new Theme(this),this.formatters=new Formatters(this),this.titleSubtitle=new TitleSubtitle(this),this.legend=new Legend(this),this.toolbar=new Toolbar(this),this.dimensions=new Dimensions(this),this.zoomPanSelection=new ZoomPanSelection(this),this.w.globals.tooltip=new Tooltip(this)}},{key:"addEventListener",value:function(t,e){var i=this.w;i.globals.events.hasOwnProperty(t)?i.globals.events[t].push(e):i.globals.events[t]=[e]}},{key:"removeEventListener",value:function(t,e){var i=this.w;if(i.globals.events.hasOwnProperty(t)){var s=i.globals.events[t].indexOf(e);-1!==s&&i.globals.events[t].splice(s,1)}}},{key:"fireEvent",value:function(t,e){var i=this.w;if(i.globals.events.hasOwnProperty(t)){e&&e.length||(e=[]);for(var s=i.globals.events[t],a=s.length,r=0;r<a;r++)s[r].apply(null,e)}}},{key:"create",value:function(t,e){var i=this.w;this.initModules();var s=this.w.globals;if(s.noData=!1,s.animationEnded=!1,this.responsive.checkResponsiveConfig(e),null===this.el)return s.animationEnded=!0,null;if(this.core.setupElements(),0===s.svgWidth)return s.animationEnded=!0,null;var a=CoreUtils.checkComboSeries(t);s.comboCharts=a.comboCharts,s.comboChartsHasBars=a.comboChartsHasBars,(0===t.length||1===t.length&&t[0].data&&0===t[0].data.length)&&this.series.handleNoData(),this.setupEventHandlers(),this.data.parseData(t),this.theme.init(),new Markers(this).setGlobalMarkerSize(),this.formatters.setLabelFormatters(),this.titleSubtitle.draw(),s.noData&&s.collapsedSeries.length!==s.series.length||this.legend.init(),this.series.hasAllSeriesEqualX(),s.axisCharts&&(this.core.coreCalculations(),"category"!==i.config.xaxis.type&&this.formatters.setLabelFormatters()),this.formatters.heatmapLabelFormatters(),this.dimensions.plotCoords();var r=this.core.xySettings();this.grid.createGridMask();var n=this.core.plotChartType(t,r);this.core.shiftGraphPosition();var o={plot:{left:i.globals.translateX,top:i.globals.translateY,width:i.globals.gridWidth,height:i.globals.gridHeight}};return{elGraph:n,xyRatios:r,elInner:i.globals.dom.elGraphical,dimensions:o}}},{key:"mount",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:null,e=this,i=e.w;return new Promise$1((function(s,a){if(null===e.el)return a(new Error("Not enough data to display or target element not found"));if((null===t||i.globals.allSeriesCollapsed)&&e.series.handleNoData(),e.annotations=new Annotations(e),e.axes.drawAxis(i.config.chart.type,t.xyRatios),e.grid=new Grid(e),"back"===i.config.grid.position&&e.grid.drawGrid(),"back"===i.config.annotations.position&&e.annotations.drawAnnotations(),t.elGraph instanceof Array)for(var r=0;r<t.elGraph.length;r++)i.globals.dom.elGraphical.add(t.elGraph[r]);else i.globals.dom.elGraphical.add(t.elGraph);if("front"===i.config.grid.position&&e.grid.drawGrid(),"front"===i.config.xaxis.crosshairs.position&&e.crosshairs.drawXCrosshairs(),"front"===i.config.yaxis[0].crosshairs.position&&e.crosshairs.drawYCrosshairs(),"front"===i.config.annotations.position&&e.annotations.drawAnnotations(),!i.globals.noData){if(i.config.tooltip.enabled&&!i.globals.noData&&e.w.globals.tooltip.drawTooltip(t.xyRatios),i.globals.axisCharts&&i.globals.isXNumeric)(i.config.chart.zoom.enabled||i.config.chart.selection&&i.config.chart.selection.enabled||i.config.chart.pan&&i.config.chart.pan.enabled)&&e.zoomPanSelection.init({xyRatios:t.xyRatios});else{var n=i.config.chart.toolbar.tools;n.zoom=!1,n.zoomin=!1,n.zoomout=!1,n.selection=!1,n.pan=!1,n.reset=!1}i.config.chart.toolbar.show&&!i.globals.allSeriesCollapsed&&e.toolbar.createToolbar()}i.globals.memory.methodsToExec.length>0&&i.globals.memory.methodsToExec.forEach((function(t){t.method(t.params,!1,t.context)})),i.globals.axisCharts||i.globals.noData||e.core.resizeNonAxisCharts(),s(e)}))}},{key:"clearPreviousPaths",value:function(){var t=this.w;t.globals.previousPaths=[],t.globals.allSeriesCollapsed=!1,t.globals.collapsedSeries=[],t.globals.collapsedSeriesIndices=[]}},{key:"updateOptions",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]&&arguments[1],i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],s=!(arguments.length>3&&void 0!==arguments[3])||arguments[3],a=!(arguments.length>4&&void 0!==arguments[4])||arguments[4],r=this.w;return t.series&&(this.resetSeries(!1),t.series.length&&t.series[0].data&&(t.series=t.series.map((function(t,e){return _objectSpread2({},r.config.series[e],{name:t.name?t.name:r.config.series[e]&&r.config.series[e].name,type:t.type?t.type:r.config.series[e]&&r.config.series[e].type,data:t.data?t.data:r.config.series[e]&&r.config.series[e].data})}))),this.revertDefaultAxisMinMax()),t.xaxis&&((t.xaxis.min||t.xaxis.max)&&this.forceXAxisUpdate(t),t.xaxis.categories&&t.xaxis.categories.length&&r.config.xaxis.convertedCatToNumeric&&(t=Defaults.convertCatToNumeric(t))),r.globals.collapsedSeriesIndices.length>0&&this.clearPreviousPaths(),t.theme&&(t=this.theme.updateThemeOptions(t)),this._updateOptions(t,e,i,s,a)}},{key:"_updateOptions",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]&&arguments[1],i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],s=!(arguments.length>3&&void 0!==arguments[3])||arguments[3],a=arguments.length>4&&void 0!==arguments[4]&&arguments[4],r=[this];s&&(r=this.getSyncedCharts()),this.w.globals.isExecCalled&&(r=[this],this.w.globals.isExecCalled=!1),r.forEach((function(s){var r=s.w;return r.globals.shouldAnimate=i,e||(r.globals.resized=!0,r.globals.dataChanged=!0,i&&s.series.getPreviousPaths()),t&&"object"===_typeof(t)&&(s.config=new Config(t),t=CoreUtils.extendArrayProps(s.config,t),r.config=Utils.extend(r.config,t),a&&(r.globals.initialConfig=Utils.extend({},r.config),r.globals.initialSeries=JSON.parse(JSON.stringify(r.config.series)))),s.update(t)}))}},{key:"updateSeries",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];return this.resetSeries(!1),this.revertDefaultAxisMinMax(),this._updateSeries(t,e,i)}},{key:"appendSeries",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],s=this.w.config.series.slice();return s.push(t),this.resetSeries(!1),this.revertDefaultAxisMinMax(),this._updateSeries(s,e,i)}},{key:"_updateSeries",value:function(t,e){var i,s=arguments.length>2&&void 0!==arguments[2]&&arguments[2],a=this.w;return this.w.globals.shouldAnimate=e,a.globals.dataChanged=!0,a.globals.allSeriesCollapsed&&(a.globals.allSeriesCollapsed=!1),e&&this.series.getPreviousPaths(),a.globals.axisCharts?(0===(i=t.map((function(t,e){return _objectSpread2({},a.config.series[e],{name:t.name?t.name:a.config.series[e]&&a.config.series[e].name,type:t.type?t.type:a.config.series[e]&&a.config.series[e].type,data:t.data?t.data:a.config.series[e]&&a.config.series[e].data})}))).length&&(i=[{data:[]}]),a.config.series=i):a.config.series=t.slice(),s&&(a.globals.initialConfig.series=JSON.parse(JSON.stringify(a.config.series)),a.globals.initialSeries=JSON.parse(JSON.stringify(a.config.series))),this.update()}},{key:"getSyncedCharts",value:function(){var t=this.getGroupedCharts(),e=[this];return t.length&&(e=[],t.forEach((function(t){e.push(t)}))),e}},{key:"getGroupedCharts",value:function(){var t=this;return Apex._chartInstances.filter((function(t){if(t.group)return!0})).map((function(e){return t.w.config.chart.group===e.group?e.chart:t}))}},{key:"appendData",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=this;i.w.globals.dataChanged=!0,i.series.getPreviousPaths();for(var s=i.w.config.series.slice(),a=0;a<s.length;a++)if(void 0!==t[a])for(var r=0;r<t[a].data.length;r++)s[a].data.push(t[a].data[r]);return i.w.config.series=s,e&&(i.w.globals.initialSeries=JSON.parse(JSON.stringify(i.w.config.series))),this.update()}},{key:"update",value:function(t){var e=this;return new Promise$1((function(i,s){e.clear();var a=e.create(e.w.config.series,t);if(!a)return i(e);e.mount(a).then((function(){"function"==typeof e.w.config.chart.events.updated&&e.w.config.chart.events.updated(e,e.w),e.fireEvent("updated",[e,e.w]),e.w.globals.isDirty=!0,i(e)})).catch((function(t){s(t)}))}))}},{key:"forceXAxisUpdate",value:function(t){var e=this.w;void 0!==t.xaxis.min&&(e.config.xaxis.min=t.xaxis.min),void 0!==t.xaxis.max&&(e.config.xaxis.max=t.xaxis.max)}},{key:"revertDefaultAxisMinMax",value:function(){var t=this,e=this.w;e.config.xaxis.min=this.opts.xaxis.min||Apex.xaxis&&Apex.xaxis.min,e.config.xaxis.max=this.opts.xaxis.max||Apex.xaxis&&Apex.xaxis.max,e.config.yaxis.map((function(i,s){e.globals.zoomed&&void 0!==t.opts.yaxis[s]&&(i.min=t.opts.yaxis[s].min,i.max=t.opts.yaxis[s].max)}))}},{key:"clear",value:function(){this.zoomPanSelection&&this.zoomPanSelection.destroy(),this.toolbar&&this.toolbar.destroy(),this.animations=null,this.axes=null,this.annotations=null,this.core=null,this.data=null,this.grid=null,this.series=null,this.responsive=null,this.theme=null,this.formatters=null,this.titleSubtitle=null,this.legend=null,this.dimensions=null,this.options=null,this.crosshairs=null,this.zoomPanSelection=null,this.toolbar=null,this.w.globals.tooltip=null,this.clearDomElements()}},{key:"killSVG",value:function(t){return new Promise$1((function(e,i){t.each((function(t,e){this.removeClass("*"),this.off(),this.stop()}),!0),t.ungroup(),t.clear(),e("done")}))}},{key:"clearDomElements",value:function(){var t=this;this.eventList.forEach((function(e){document.removeEventListener(e,t.documentEvent)}));var e=this.w.globals.dom;if(null!==this.el)for(;this.el.firstChild;)this.el.removeChild(this.el.firstChild);this.killSVG(e.Paper),e.Paper.remove(),e.elWrap=null,e.elGraphical=null,e.elLegendWrap=null,e.baseEl=null,e.elGridRect=null,e.elGridRectMask=null,e.elGridRectMarkerMask=null,e.elDefs=null}},{key:"destroy",value:function(){this.clear();var t=this.w.config.chart.id;t&&Apex._chartInstances.forEach((function(e,i){e.id===t&&Apex._chartInstances.splice(i,1)})),window.removeEventListener("resize",this.windowResizeHandler),window.removeResizeListener(this.el.parentNode,this.parentResizeCallback.bind(this))}},{key:"toggleSeries",value:function(t){var e=this.series.isSeriesHidden(t);return this.legend.toggleDataSeries(e.realIndex,e.isHidden),e.isHidden}},{key:"showSeries",value:function(t){var e=this.series.isSeriesHidden(t);e.isHidden&&this.legend.toggleDataSeries(e.realIndex,!0)}},{key:"hideSeries",value:function(t){var e=this.series.isSeriesHidden(t);e.isHidden||this.legend.toggleDataSeries(e.realIndex,!1)}},{key:"resetSeries",value:function(){var t=!(arguments.length>0&&void 0!==arguments[0])||arguments[0];this.series.resetSeries(t)}},{key:"setupEventHandlers",value:function(){var t=this,e=this.w,i=this,s=e.globals.dom.baseEl.querySelector(e.globals.chartClass);this.eventListHandlers=[],this.eventList.forEach((function(t){s.addEventListener(t,(function(t){var s=Object.assign({},e,{seriesIndex:e.globals.capturedSeriesIndex,dataPointIndex:e.globals.capturedDataPointIndex});"mousemove"===t.type||"touchmove"===t.type?"function"==typeof e.config.chart.events.mouseMove&&e.config.chart.events.mouseMove(t,i,s):("mouseup"===t.type&&1===t.which||"touchend"===t.type)&&("function"==typeof e.config.chart.events.click&&e.config.chart.events.click(t,i,s),i.fireEvent("click",[t,i,s]))}),{capture:!1,passive:!0})})),this.eventList.forEach((function(e){document.addEventListener(e,t.documentEvent)})),this.core.setupBrushHandler()}},{key:"documentEvent",value:function(t){var e=this.w;e.globals.clientX="touchmove"===t.type?t.touches[0].clientX:t.clientX,e.globals.clientY="touchmove"===t.type?t.touches[0].clientY:t.clientY}},{key:"addXaxisAnnotation",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:void 0,s=this;i&&(s=i),s.annotations.addXaxisAnnotationExternal(t,e,s)}},{key:"addYaxisAnnotation",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:void 0,s=this;i&&(s=i),s.annotations.addYaxisAnnotationExternal(t,e,s)}},{key:"addPointAnnotation",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:void 0,s=this;i&&(s=i),s.annotations.addPointAnnotationExternal(t,e,s)}},{key:"clearAnnotations",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:void 0,e=this;t&&(e=t),e.annotations.clearAnnotations(e)}},{key:"removeAnnotation",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:void 0,i=this;e&&(i=e),i.annotations.removeAnnotation(i,t)}},{key:"addText",value:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:void 0,s=this;i&&(s=i),s.annotations.addText(t,e,s)}},{key:"getChartArea",value:function(){return this.w.globals.dom.baseEl.querySelector(".apexcharts-inner")}},{key:"getSeriesTotalXRange",value:function(t,e){return this.coreUtils.getSeriesTotalsXRange(t,e)}},{key:"getHighestValueInSeries",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0,e=new Range$1(this.ctx),i=e.getMinYMaxY(t);return i.highestY}},{key:"getLowestValueInSeries",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0,e=new Range$1(this.ctx),i=e.getMinYMaxY(t);return i.lowestY}},{key:"getSeriesTotal",value:function(){return this.w.globals.seriesTotals}},{key:"setLocale",value:function(t){this.setCurrentLocaleValues(t)}},{key:"toggleDataPointSelection",value:function(t,e){var i=this.w,s=null;i.globals.axisCharts?s=i.globals.dom.Paper.select(".apexcharts-series[data\\:realIndex='".concat(t,"'] path[j='").concat(e,"'], .apexcharts-series[data\\:realIndex='").concat(t,"'] circle[j='").concat(e,"'], .apexcharts-series[data\\:realIndex='").concat(t,"'] rect[j='").concat(e,"']")).members[0]:(s=i.globals.dom.Paper.select(".apexcharts-series[data\\:realIndex='".concat(t,"']")).members[0],("pie"===i.config.chart.type||"donut"===i.config.chart.type)&&new Pie(this.ctx).pieClicked(t));s?new Graphics(this.ctx).pathMouseDown(s,null):console.warn("toggleDataPointSelection: Element not found");return s.node?s.node:null}},{key:"setCurrentLocaleValues",value:function(t){var e=this.w.config.chart.locales;window.Apex.chart&&window.Apex.chart.locales&&window.Apex.chart.locales.length>0&&(e=this.w.config.chart.locales.concat(window.Apex.chart.locales));var i=e.filter((function(e){return e.name===t}))[0];if(!i)throw new Error("Wrong locale name provided. Please make sure you set the correct locale name in options");var s=Utils.extend(en,i);this.w.globals.locale=s.options}},{key:"dataURI",value:function(){return new Exports(this.ctx).dataURI()}},{key:"paper",value:function(){return this.w.globals.dom.Paper}},{key:"parentResizeCallback",value:function(){this.w.globals.animationEnded&&this.windowResize()}},{key:"windowResize",value:function(){var t=this;clearTimeout(this.w.globals.resizeTimer),this.w.globals.resizeTimer=window.setTimeout((function(){t.w.globals.resized=!0,t.w.globals.dataChanged=!1,t.update()}),150)}}],[{key:"initOnLoad",value:function(){for(var e=document.querySelectorAll("[data-apexcharts]"),i=0;i<e.length;i++){new t(e[i],JSON.parse(e[i].getAttribute("data-options"))).render()}}},{key:"exec",value:function(t,e){var i=this.getChartByID(t);if(i){i.w.globals.isExecCalled=!0;var s=["updateOptions","updateSeries","appendData","appendSeries","toggleSeries","resetSeries","toggleDataPointSelection","dataURI","addXaxisAnnotation","addYaxisAnnotation","addPointAnnotation","addText","clearAnnotations","removeAnnotation","paper","destroy"],a=null;if(-1!==s.indexOf(e)){for(var r=arguments.length,n=new Array(r>2?r-2:0),o=2;o<r;o++)n[o-2]=arguments[o];a=i[e].apply(i,n)}return a}}},{key:"merge",value:function(t,e){return Utils.extend(t,e)}},{key:"getChartByID",value:function(t){return Apex._chartInstances.filter((function(e){return e.id===t}))[0].chart}}]),t}();module.exports=ApexCharts$1;
 }).call(this,require("timers").setImmediate)
-},{"timers":14}],12:[function(require,module,exports){
+},{"timers":16}],14:[function(require,module,exports){
 /**
  * chroma.js - JavaScript library for color conversions
  *
@@ -8204,7 +8655,7 @@ function(){function t(t){t.remember("_draggable",this),this.el=t}t.prototype.ini
 
 })));
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8390,7 +8841,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],14:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -8469,4 +8920,4 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":13,"timers":14}]},{},[6]);
+},{"process/browser.js":15,"timers":16}]},{},[8]);

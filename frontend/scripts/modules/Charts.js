@@ -2,6 +2,8 @@ import BarChart from '../charts/BarChart';
 import PieChart from '../charts/PieChart';
 import LineChart from '../charts/LineChart';
 import RadarChart from '../charts/RadarChart';
+import RadialChart from '../charts/RadialChart';
+import SelectedChart from '../charts/SelectedChart';
 
 
 /**
@@ -25,6 +27,10 @@ export default class Charts {
         this.chartElements = this.container.querySelectorAll('[data-question="chart"]');
         this.chartData = this.getChartData(this.chartElements);
         this.charts = this.initializeCharts(this.chartData);
+
+        this.selectedChartElements = this.container.querySelectorAll('[data-selected="chart"]');
+        this.selectedChartData = this.getChartData(this.selectedChartElements);
+        this.selectedCharts = this.initializeSelectedCharts(this.selectedChartData);
 
     }
 
@@ -53,6 +59,26 @@ export default class Charts {
     }
 
 
+
+    initializeSelectedCharts(data) {
+
+        let charts = {};
+
+        data.forEach((item, i) => {
+
+            charts[i] = {
+                ...item,
+                chart: new SelectedChart(item)
+            };
+
+        });
+
+        return charts;
+
+
+    }
+
+
     /**
      * Choose the chart type to instantiate
      *
@@ -72,8 +98,6 @@ export default class Charts {
         // radialBar
         // bubble
         // scatter
-        //
-        console.log(item.type);
 
         switch (item.type) {
             case 'pie':
@@ -84,6 +108,7 @@ export default class Charts {
                 new BarChart(item);
                 break;
             case 'line':
+            case 'area':
                 new LineChart(item);
                 break;
             case 'radar':

@@ -17,7 +17,7 @@ export default class Chart {
 
         this.el = data.el;
 
-        this.font = 'D-Din';
+        this.font = 'Arial';
         this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
         this.backgroundColor = ['#130c26']
 
@@ -63,9 +63,9 @@ export default class Chart {
      * @method generateGlobalOptions
      * @return {Object}
      */
-    generateGlobalOptions() {
+    generateGlobalOptions(responsiveness = true) {
 
-        return {
+        const options = {
 
             /**
              * Chart
@@ -75,7 +75,7 @@ export default class Chart {
                 type: this.data.type,
                 toolbar: { show: false },
                 fontFamily: this.font,
-                height: '750px',
+                height: '600px',
                 background: 'transparent',
                 animations: {
                     enabled: true,
@@ -278,6 +278,15 @@ export default class Chart {
 
 
             /**
+             * X Axis
+             * @type {Object}
+             */
+            xaxis: {
+                tickPlacement: 'on'
+            },
+
+
+            /**
              * Theme
              * @type {Object}
              */
@@ -286,6 +295,31 @@ export default class Chart {
             }
 
         };
+
+        if(responsiveness === true) {
+
+            options.responsive = [
+                {
+                    breakpoint: 768,
+                    options: {
+                        chart: {
+                            height: '400px'
+                        }
+                    },
+                },
+                {
+                    breakpoint: 1024,
+                    options: {
+                        chart: {
+                            height: '400px'
+                        }
+                    },
+                }
+            ];
+
+        };
+
+        return options;
 
     }
 

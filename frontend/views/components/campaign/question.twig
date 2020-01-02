@@ -3,9 +3,9 @@
 <div class="campaign-question glide__slide" data-question="item" data-index="{{ loop.index0 }}">
 
     {# Question Responses #}
-    <div class="grid campaign__section">
+    <div class="grid">
 
-        <div class="grid__item {{ (subcharts ? '3/5' : '1/1') }} 1/1--palm-portrait">
+        <div class="grid__item {{ (subcharts ? '4/6' : '1/1') }} 1/1--tablet-portrait">
             <div class="campaign-question__chart">
 
                 <div
@@ -22,9 +22,41 @@
         </div>
 
         {% if subcharts %}
-            <div class="grid__item 2/5 1/1--palm-portrait">
+            <div class="grid__item 2/6 1/1--tablet-portrait">
 
                 <div class="campaign-question__subcharts">
+
+                    {% if question.most_selected %}
+
+                        <div class="campaign-question__selected campaign-question__selected--alt">
+                            <div>
+                                <span class="campaign-question__subtitle">Most selected</span>
+                                <div
+                                    class="selected-chart"
+                                    data-selected="chart"
+                                    data-question-title="{{ question.title }}"
+                                    data-answers="{{ question.answers|json_encode|escape|raw }}"
+                                ></div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                    {% if question.least_selected %}
+
+                        <div class="campaign-question__selected">
+                            <div>
+                                <span class="campaign-question__subtitle">Least selected</span>
+                                <div
+                                    class="selected-chart"
+                                    data-selected="chart"
+                                    data-question-title="{{ question.title }}"
+                                    data-answers="{{ question.answers|json_encode|escape|raw }}"
+                                ></div>
+                            </div>
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
