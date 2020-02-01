@@ -26,10 +26,42 @@ register_post_type('campaign', [
     'hierarchical'  => true,
     'taxonomies'    => ['post_tag', 'category'],
     'menu_icon'     => 'dashicons-analytics',
-    'menu_position' => 5,
+    'menu_position' => 7,
     'supports'      => ['title'],
     'rewrite'       => ['slug' => 'campaigns'],
     'has_archive'   => 'campaigns',
+
+]);
+
+/**
+ * Question Post Type
+ * @var [type]
+ */
+register_post_type('question', [
+
+    'labels' => [
+        'name' => _x('Questions', 'post type general name'),
+        'singular_name' => _x('Question','post type singular name'),
+        'add_new'            => _x( 'Add New', 'Question' ),
+        'add_new_item'       => __( 'Add New Question' ),
+        'edit_item'          => __( 'Edit Question' ),
+        'new_item'           => __( 'New Question' ),
+        'all_items'          => __( 'All Questions' ),
+        'view_item'          => __( 'View Question' ),
+        'search_items'       => __( 'Search Questions' ),
+        'not_found'          => __( 'No questions found' ),
+        'not_found_in_trash' => __( 'No questions found in the Trash' ),
+        'parent_item_colon'  => '',
+        'menu_name'          => __('Questions')
+    ],
+    'description'   => 'Questions to be associated with a campaign',
+    'public'        => true,
+    'hierarchical'  => false,
+    'menu_icon'     => 'dashicons-text-page',
+    'menu_position' => 6,
+    'supports'      => ['title'],
+    'rewrite'       => ['slug' => 'questions'],
+    'has_archive'   => false,
 
 ]);
 
@@ -58,7 +90,7 @@ register_post_type('client', [
     'public'        => true,
     'hierarchical'  => true,
     'menu_icon'     => 'dashicons-businessman',
-    'menu_position' => 6,
+    'menu_position' => 8,
     'supports'      => ['title'],
     'rewrite'       => ['slug' => 'clients'],
     'has_archive'   => 'clients',

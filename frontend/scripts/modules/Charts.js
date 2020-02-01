@@ -3,6 +3,7 @@ import PieChart from '../charts/PieChart';
 import LineChart from '../charts/LineChart';
 import RadarChart from '../charts/RadarChart';
 import RadialChart from '../charts/RadialChart';
+import BubbleChart from '../charts/BubbleChart';
 import SelectedChart from '../charts/SelectedChart';
 
 
@@ -113,6 +114,12 @@ export default class Charts {
                 break;
             case 'radar':
                 new RadarChart(item);
+                break;
+            case 'radial':
+                new RadialChart(item);
+                break;
+            case 'bubble':
+                new BubbleChart(item);
                 break;
             default:
 

@@ -4,26 +4,27 @@
 
 <aside class="campaign__sidebar">
 
-    <div class="campaign-group">
-        <div class="campaign-group__title">
-            <span>Parents</span>
-        </div>
-        <div class="campaign-group__options">
-            <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
-            <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
-            <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
-        </div>
-    </div>
+    {% for group in groups %}
 
-    <div class="campaign-group">
-        <div class="campaign-group__title">
-            <span>Students</span>
+        <div class="campaign-group">
+            <div class="campaign-group__title">
+                <span>{{ group.name }}</span>
+            </div>
+            <div class="campaign-group__options">
+
+                {% for sub_group in group.sub_group %}
+
+                    {% set group_name = group.name|lower %}
+                    {% set group_type = group.type|lower %}
+                    {% set group_item = sub_group.label|lower %}
+                    {% set active = ((current_group.group_name == group_name) and (current_group.group_item == group_item)) %}
+
+                    <a href="?type={{ group_type }}&group_name={{ group_name }}&group_item={{ group_item }}" class="campaign-group__option {{ active ? 'campaign-group__option--active' }}">{{ group_item|capitalize }}</a>
+
+                {% endfor %}
+            </div>
         </div>
-        <div class="campaign-group__options">
-            <a href="#" class="campaign-group__option campaign-group__option--active"><i class="fas fa-globe-europe"></i> Singapore</a>
-            <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Indonesia</a>
-            <a href="#" class="campaign-group__option"><i class="fas fa-globe-europe"></i> Malaysia</a>
-        </div>
-    </div>
+
+    {% endfor %}
 
 </aside>

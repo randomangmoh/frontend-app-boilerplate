@@ -27,8 +27,6 @@ export default class PieChart extends Chart {
         this.chartOptions = this.generateChartOptions();
         this.options = this.mergeDeep(this.globalOptions, this.chartOptions);
 
-        console.log(this.options);
-
         this.chart = new ApexCharts(this.el, this.options);
         this.chart.render();
 

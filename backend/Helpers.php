@@ -90,4 +90,89 @@ class Helpers
 
     }
 
+
+    /**
+     * Search for object in groups based on group and subgroup
+     *
+     * @param  Array   $array
+     * @param  Integer $index
+     * @param  String  $value
+     * @return Object
+     */
+    public static function search_group($array, $index, $value)
+    {
+        foreach($array as $arrayInf) {
+            if($arrayInf->{$index} == $value) {
+                return $arrayInf;
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Parse the query string or set it on the campaign page
+     * This sets the current group and allows us to get the current questions
+     *
+     * @param  Object $context
+     * @return Object
+     */
+    public static function parse_querystring($context)
+    {
+
+        $groups = [];
+        parse_str($_SERVER['QUERY_STRING'], $groups);
+
+        if(array_key_exists('group_name', $groups) && array_key_exists('group_item', $groups) && array_key_exists('type', $groups)) {
+
+            return [
+                'type' => strtolower($groups['type']),
+                'group_name' => strtolower($groups['group_name']),
+                'group_item' => strtolower($groups['group_item'])
+            ];
+
+        } else {
+
+            $default_group = $context['post']->get_field('groups')[0];
+            $default_group_name = $default_group['name'];
+            $default_group_value = $default_group['sub_group'][0]['label'];
+            $default_group_type = $default_group['type'];
+
+            $group = [
+                'type' => strtolower($default_group_type),
+                'group_name' => strtolower($default_group_name),
+                'group_item' => strtolower($default_group_value)
+            ];
+
+            http_build_query($group);
+
+            return $group;
+
+        }
+
+    }
+
+
+    public static function get_questions($current_group, $group_data)
+    {
+
+        foreach($group_data as $group) {
+
+            if((strtolower($group['name']) == $current_group['group_name']) && (strtolower($group['type']) == $current_group['type'])) {
+
+                foreach ($group['sub_group'] as $sub_group) {
+
+                    if(strtolower($sub_group['label']) == $current_group['group_item']) {
+                        return $sub_group['campaign'];
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

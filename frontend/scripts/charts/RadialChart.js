@@ -1,6 +1,5 @@
 // Lib
 import ApexCharts from 'apexcharts';
-import Chroma from 'chroma-js';
 
 // Base Chart
 import Chart from './Chart';
