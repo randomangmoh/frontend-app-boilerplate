@@ -5,6 +5,7 @@
 .login {
     width: 100%;
     height: 100vh;
+    padding: 10px;
 }
 
 .login__inner {
@@ -21,10 +22,16 @@
 .login-username,
 .login-password {
     display: block;
+    margin-top: 45px;
+    position: relative;
     @extend .form-field;
 
     label {
-        display: none;
+        top: -30px;
+        left: 0;
+
+        position: absolute;
+        // display: none;
     }
 
     input {

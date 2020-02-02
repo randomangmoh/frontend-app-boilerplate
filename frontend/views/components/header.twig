@@ -21,13 +21,22 @@
         <div class="grid__item align--right 2/3">
 
             {% if logged_in %}
+
                 <nav class="nav nav--primary">
+
                     <a href="{{ function('get_post_type_archive_link', 'campaign') }}" class="nav__item">Campaigns</a>
-                    <a href="#" class="nav__item">Users</a>
-                    <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
-                    <a href="#" class="nav__item btn btn--secondary">Add New User</a>
-                    <a href="#" class="nav__item btn btn--primary">Add New Campaign</a>
+
+                    {% if is_admin %}
+                        <a href="{{ function('site_url', '/wp-admin/users.php')}}" class="nav__item">Users</a>
+                        <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
+                        <a href="{{ function('site_url', '/wp-admin/user-new.php') }}" class="nav__item btn btn--secondary">Add New User</a>
+                        <a href="{{ function('site_url', '/wp-admin/edit.php?post_type=campaign') }}" class="nav__item btn btn--primary">Add New Campaign</a>
+                    {% else %}
+                        <a href="{{ function('wp_logout_url', '/') }}" class="nav__item btn btn--secondary">Log Out</a>
+                    {% endif %}
+
                 </nav>
+
             {% else %}
                 <nav class="nav nav--secondary">
                     <a href="{{ function('wp_login_url', '/') }}" class="nav__item btn btn--secondary margin-right">Log in</a>
@@ -43,11 +52,17 @@
         {% if logged_in %}
             <nav class="nav nav--primary nav--mobile">
                 <button class="nav__item nav__close" data-mobile-nav="close"><i class="fas fa-times"></i></button>
+
                 <a href="{{ function('get_post_type_archive_link', 'campaign') }}" class="nav__item">Campaigns</a>
-                <a href="#" class="nav__item">Users</a>
-                <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
-                <a href="#" class="nav__item btn btn--secondary">Add New User</a>
-                <a href="#" class="nav__item btn btn--primary">Add New Campaign</a>
+                {% if is_admin %}
+                    <a href="{{ function('site_url', '/wp-admin/users.php')}}" class="nav__item">Users</a>
+                    <a href="{{ function('wp_logout_url', '/') }}" class="nav__item">Log Out</a>
+                    <a href="{{ function('site_url', '/wp-admin/user-new.php') }}" class="nav__item btn btn--secondary">Add New User</a>
+                    <a href="{{ function('site_url', '/wp-admin/edit.php?post_type=campaign') }}" class="nav__item btn btn--primary">Add New Campaign</a>
+                {% else %}
+                    <a href="{{ function('wp_logout_url', '/') }}" class="nav__item btn btn--secondary">Log Out</a>
+                {% endif %}
+                
             </nav>
         {% else %}
             <nav class="nav nav--secondary nav--mobile">

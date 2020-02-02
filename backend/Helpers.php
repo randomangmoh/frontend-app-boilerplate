@@ -24,8 +24,18 @@ class Helpers
      * @param  [type] $client_ids [description]
      * @return [type]             [description]
      */
-    public function filter_campaigns($client_ids = null, $paged = 0)
+    public function filter_campaigns($client_ids = null, $paged = 0, $is_admin)
     {
+
+        if($is_admin) {
+
+            return $campaigns = new Timber\PostQuery([
+                'post_type' => 'campaign',
+                'posts_per_page' => 10,
+                'paged' => $paged
+            ]);
+
+        }
 
         if($client_ids) {
 

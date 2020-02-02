@@ -3,6 +3,7 @@
 {# Page Variables #}
 {% set page_title = 'ADNA - Login' %}
 {% set page_name = 'ADNA' %}
+{% set header = false %}
 
 {# Page Content #}
 {% block body %}
@@ -15,6 +16,7 @@
 
             {{  function('wp_login_form', {
                 'echo'           : true,
+                'redirect'       : '/campaigns',
                 'form_id'        : 'userlogin',
                 'label_username' : __( 'Name' ),
                 'label_password' : __( 'Password' ),
@@ -28,39 +30,6 @@
                 'value_username' : NULL,
                 'value_remember' : true
             })}}
-
-            <!-- <form class="form grid grid--middle margin-top--double" action="index.html" method="post">
-
-                <div class="grid__item 1/1 margin-bottom--quarter">
-
-                    <label for="login-username" class="form-field form-field--full margin-bottom">
-                        <div class="form-field__icon fas fa-user"></div>
-                        <input type="text" class="form-field__field" name="login-username" placeholder="Username / E-mail" />
-                    </label>
-
-                </div>
-
-                <div class="grid__item 1/1 margin-bottom">
-
-                    <label for="login-password" class="form-field form-field--full ">
-                        <div class="form-field__icon fas fa-lock"></div>
-                        <input type="password" class="form-field__field" name="login-password" placeholder="Password" />
-                    </label>
-
-                </div>
-
-                <div class="grid__item 1/2 align--left">
-                    <a href="#" class="form__link">Reset Password</a>
-                </div>
-
-                <div class="grid__item 1/2 align--right">
-                    <button type="button" name="login-login" class="btn btn--primary btn--form btn--icon">
-                        Login
-                        <i class="btn__icon fas fa-long-arrow-alt-right"></i>
-                    </button>
-                </div>
-
-            </form> -->
 
         </div>
 

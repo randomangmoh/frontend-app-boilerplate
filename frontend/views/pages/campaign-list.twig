@@ -3,6 +3,7 @@
 {# Page Variables #}
 {% set page_title = 'ADNA - Campaign List' %}
 {% set page_name = 'ADNA' %}
+{% set header = true %}
 
 {# Page Content #}
 {% block body %}
@@ -20,7 +21,7 @@
 
             <section class="campaign-list__items" data-campaign="items">
 
-                {% if not is_admin %}
+                {% if is_admin %}
 
                     <div class="campaign-list-header">
                         <div class="campaign-list-header__item campaign-list-header__item--code">Code</div>
@@ -41,7 +42,7 @@
 
                 {% for campaign in campaigns %}
 
-                    {% if not is_admin %}
+                    {% if is_admin %}
 
                         <div class="campaign-list__item">
                             <div class="campaign-list__code">{{ campaign.code }}</div>
@@ -50,7 +51,7 @@
                                 <span data-campaign="actions">
                                     <a href="{{ campaign.link }}" class="campaign-list__action"><i class="far fa-chart-bar"></i></a>
                                     <a href="{{ function('get_edit_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-edit"></i></a>
-                                    <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a>
+                                    <!-- <a href="#" class="campaign-list__action"><i class="fas fa-user"></i></a> -->
                                     <a href="{{ function('get_delete_post_link', campaign.id) }}" class="campaign-list__action"><i class="fas fa-trash"></i></a>
                                 </span>
                             </div>

@@ -13,9 +13,24 @@
  * @since   Timber 0.1
  */
 
+require_once(__DIR__ . '/backend/Helpers.php');
+
+global $paged;
+
 $context = Timber::get_context();
 $context['post'] = new Timber\Post();
 
-$templates = ['pages/index.twig'];
+if($context['logged_in']) {
+
+    $helpers = new Helpers($context);
+    $client_ids = $helpers->check_user_clients();
+    $context['campaigns'] = $helpers->filter_campaigns($client_ids, $paged, $context['is_admin']);
+    if($context['campaigns']) $context['pagination'] = $context['campaigns']->pagination();
+    $templates = ['pages/campaign-list.twig'];
+
+} else {
+    $templates = ['pages/login.twig'];
+}
+
 
 Timber::render( $templates, $context );

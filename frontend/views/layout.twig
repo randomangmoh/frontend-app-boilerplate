@@ -8,7 +8,11 @@
     </head>
     <body>
 
+        {% if header %}
+
         {% include './components/header.twig' %}
+
+        {% endif %}
 
         <main class="page" data-page="container">
             {% block body %}{% endblock %}

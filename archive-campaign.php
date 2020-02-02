@@ -1,7 +1,5 @@
 <?php
 
-require_once(__DIR__ . '/backend/Helpers.php');
-
 /**
  * The main template file
  * This is the most generic template file in a WordPress theme
@@ -16,6 +14,8 @@ require_once(__DIR__ . '/backend/Helpers.php');
  * @since   Timber 0.1
  */
 
+require_once(__DIR__ . '/backend/Helpers.php');
+
 global $paged;
 
 $context = Timber::get_context();
@@ -23,8 +23,9 @@ $context['post'] = new Timber\Post();
 
 $helpers = new Helpers($context);
 $client_ids = $helpers->check_user_clients();
-$context['campaigns'] = $helpers->filter_campaigns($client_ids, $paged);
-$context['pagination'] = $context['campaigns']->pagination();
+$context['campaigns'] = $helpers->filter_campaigns($client_ids, $paged, $context['is_admin']);
+
+if($context['campaigns']) $context['pagination'] = $context['campaigns']->pagination();
 
 $templates = $context['logged_in'] ? ['pages/campaign-list.twig'] : ['pages/login.twig'];
 
