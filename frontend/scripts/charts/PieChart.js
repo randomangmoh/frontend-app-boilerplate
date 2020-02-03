@@ -1,6 +1,5 @@
 // Lib
 import ApexCharts from 'apexcharts';
-import Chroma from 'chroma-js';
 
 // Base Chart
 import Chart from './Chart';
@@ -43,29 +42,21 @@ export default class PieChart extends Chart {
             chart: {
                 type: 'donut',
             },
+            colors: this.colors,
             labels: this.data.labels,
             series: this.data.values,
-            colors: this.colors,
-            fill: {
-                type: 'gradient',
-                colors: this.colors,
-                opacity: .7
-            },
             stroke: {
-                show: true,
+                show: false,
                 opacity: 0,
                 lineCap: 'butt',
-                width: 4,
-                curve: 'smooth',
-                colors: this.colors,
-                dashArray: 20
+                width: 0,
             },
             plotOptions: {
                 pie: {
                     customScale: 0.9,
                     expandOnClick: false,
                     donut: {
-                        size: this.data.type === 'pie' ? '5%' : '50%',
+                        size: this.data.type === 'pie' ? '0%' : '50%',
                         labels: {
                             show: this.data.type === 'pie' ? false : true,
                             name: {

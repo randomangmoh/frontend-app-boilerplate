@@ -90,9 +90,13 @@ class Helpers
 
         $user_clients = $this->check_user_clients();
 
-        foreach ($user_clients as $client) {
+        if($user_clients) {
 
-            if($campaign_client[0] == $client) return true;
+            foreach ($user_clients as $client) {
+
+                if($campaign_client[0] == $client) return true;
+
+            }
 
         }
 

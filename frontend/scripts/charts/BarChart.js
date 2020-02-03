@@ -47,6 +47,7 @@ export default class BarChart extends Chart {
             labels: this.data.labels,
             series: [
                 {
+                    name: 'Answers: ',
                     data: this.data.values
                 }
             ],
@@ -83,6 +84,9 @@ export default class BarChart extends Chart {
                         backgroundBarOpacity: .02,
                     },
                 }
+            },
+            xaxis: {
+                type: 'categories'
             },
             yaxis: {
                 title: {

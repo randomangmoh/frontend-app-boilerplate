@@ -18,8 +18,53 @@ export default class Chart {
         this.el = data.el;
 
         this.font = 'Arial';
-        this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
-        this.backgroundColor = ['#130c26']
+        // this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
+        this.backgroundColor = ['#130c26'];
+
+        this.colors = [
+            '#7420E6',
+            '#42E496',
+            '#40ECDC',
+            '#FCE08A',
+            '#30B157',
+            '#5328FF',
+            '#F9729A',
+            '#ED650B',
+            '#C44139',
+            '#7420E6',
+            '#42E496',
+            '#40ECDC',
+            '#FCE08A',
+            '#30B157',
+            '#5328FF',
+            '#F9729A',
+            '#ED650B',
+            '#C44139'
+        ];
+
+        this.gradients = [
+            ['#7420E6', '#E95E64'],
+            ['#42E496', '#3BB3B7'],
+            ['#40ECDC', '#5E7CE9'],
+            ['#FCE08A', '#F68682'],
+            ['#30B157', '#23A2E1'],
+            ['#5328FF', '#36D3E7'],
+            ['#F9729A', '#FA9CA4'],
+            ['#ED650B', '#FCB562'],
+            ['#C44139', '#F55955'],
+            /**
+             * @todo Don't repeat, create new ones
+             */
+            ['#7420E6', '#E95E64'],
+            ['#42E496', '#3BB3B7'],
+            ['#40ECDC', '#5E7CE9'],
+            ['#FCE08A', '#F68682'],
+            ['#30B157', '#23A2E1'],
+            ['#5328FF', '#36D3E7'],
+            ['#F9729A', '#FA9CA4'],
+            ['#ED650B', '#FCB562'],
+            ['#C44139', '#F55955']
+        ];
 
         this.rawData = data;
         this.data = this.sanitizeData(this.rawData);
@@ -111,7 +156,7 @@ export default class Chart {
              * Default colors
              * @type {Array}
              */
-            colors: this.colors,
+            colors: [],
 
 
             /**
@@ -194,10 +239,21 @@ export default class Chart {
             tooltip: {
                 enabled: true,
                 followCursor: false,
-                fillSeriesColor: false,
+                fillSeriesColor: true,
                 theme: 'dark',
                 x: {
-                    show: false
+                    show: true,
+                    title: '',
+                    formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+                        return value;
+                    }
+                },
+                y: {
+                    show: true,
+                    title: '',
+                    formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+                        return value;
+                    }
                 }
             },
 
@@ -323,6 +379,7 @@ export default class Chart {
 
     }
 
+
     /**
      * Performs a deep merge of `source` into `target`.
      * Mutates `target` only but not its objects and arrays.
@@ -362,6 +419,12 @@ export default class Chart {
     }
 
 
+    generateGradients(values) {
 
+        const count = values.length;
+
+        return this.gradients.slice(0, count);
+
+    }
 
 }

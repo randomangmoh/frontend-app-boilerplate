@@ -76,6 +76,7 @@ var BarChart = function (_Chart) {
                 },
                 labels: this.data.labels,
                 series: [{
+                    name: 'Answers: ',
                     data: this.data.values
                 }],
                 title: {
@@ -111,6 +112,9 @@ var BarChart = function (_Chart) {
                             backgroundBarOpacity: .02
                         }
                     }
+                },
+                xaxis: {
+                    type: 'categories'
                 },
                 yaxis: {
                     title: {
@@ -262,8 +266,16 @@ var Chart = function () {
         this.el = data.el;
 
         this.font = 'Arial';
-        this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
+        // this.colors = ['#24B3E8', '#51B748', '#F27024', '#EA0D80'];
         this.backgroundColor = ['#130c26'];
+
+        this.colors = ['#7420E6', '#42E496', '#40ECDC', '#FCE08A', '#30B157', '#5328FF', '#F9729A', '#ED650B', '#C44139', '#7420E6', '#42E496', '#40ECDC', '#FCE08A', '#30B157', '#5328FF', '#F9729A', '#ED650B', '#C44139'];
+
+        this.gradients = [['#7420E6', '#E95E64'], ['#42E496', '#3BB3B7'], ['#40ECDC', '#5E7CE9'], ['#FCE08A', '#F68682'], ['#30B157', '#23A2E1'], ['#5328FF', '#36D3E7'], ['#F9729A', '#FA9CA4'], ['#ED650B', '#FCB562'], ['#C44139', '#F55955'],
+        /**
+         * @todo Don't repeat, create new ones
+         */
+        ['#7420E6', '#E95E64'], ['#42E496', '#3BB3B7'], ['#40ECDC', '#5E7CE9'], ['#FCE08A', '#F68682'], ['#30B157', '#23A2E1'], ['#5328FF', '#36D3E7'], ['#F9729A', '#FA9CA4'], ['#ED650B', '#FCB562'], ['#C44139', '#F55955']];
 
         this.rawData = data;
         this.data = this.sanitizeData(this.rawData);
@@ -357,7 +369,7 @@ var Chart = function () {
                  * Default colors
                  * @type {Array}
                  */
-                colors: this.colors,
+                colors: [],
 
                 /**
                  * Labels
@@ -434,10 +446,31 @@ var Chart = function () {
                 tooltip: {
                     enabled: true,
                     followCursor: false,
-                    fillSeriesColor: false,
+                    fillSeriesColor: true,
                     theme: 'dark',
                     x: {
-                        show: false
+                        show: true,
+                        title: '',
+                        formatter: function formatter(value, _ref) {
+                            var series = _ref.series,
+                                seriesIndex = _ref.seriesIndex,
+                                dataPointIndex = _ref.dataPointIndex,
+                                w = _ref.w;
+
+                            return value;
+                        }
+                    },
+                    y: {
+                        show: true,
+                        title: '',
+                        formatter: function formatter(value, _ref2) {
+                            var series = _ref2.series,
+                                seriesIndex = _ref2.seriesIndex,
+                                dataPointIndex = _ref2.dataPointIndex,
+                                w = _ref2.w;
+
+                            return value;
+                        }
                     }
                 },
 
@@ -591,6 +624,14 @@ var Chart = function () {
             });
 
             return target;
+        }
+    }, {
+        key: 'generateGradients',
+        value: function generateGradients(values) {
+
+            var count = values.length;
+
+            return this.gradients.slice(0, count);
         }
     }]);
 
@@ -763,10 +804,6 @@ var _apexcharts = require('apexcharts');
 
 var _apexcharts2 = _interopRequireDefault(_apexcharts);
 
-var _chromaJs = require('chroma-js');
-
-var _chromaJs2 = _interopRequireDefault(_chromaJs);
-
 var _Chart2 = require('./Chart');
 
 var _Chart3 = _interopRequireDefault(_Chart2);
@@ -825,29 +862,21 @@ var PieChart = function (_Chart) {
                 chart: {
                     type: 'donut'
                 },
+                colors: this.colors,
                 labels: this.data.labels,
                 series: this.data.values,
-                colors: this.colors,
-                fill: {
-                    type: 'gradient',
-                    colors: this.colors,
-                    opacity: .7
-                },
                 stroke: {
-                    show: true,
+                    show: false,
                     opacity: 0,
                     lineCap: 'butt',
-                    width: 4,
-                    curve: 'smooth',
-                    colors: this.colors,
-                    dashArray: 20
+                    width: 0
                 },
                 plotOptions: {
                     pie: {
                         customScale: 0.9,
                         expandOnClick: false,
                         donut: {
-                            size: this.data.type === 'pie' ? '5%' : '50%',
+                            size: this.data.type === 'pie' ? '0%' : '50%',
                             labels: {
                                 show: this.data.type === 'pie' ? false : true,
                                 name: {
@@ -873,7 +902,7 @@ var PieChart = function (_Chart) {
 
 exports.default = PieChart;
 
-},{"./Chart":3,"apexcharts":14,"chroma-js":15}],6:[function(require,module,exports){
+},{"./Chart":3,"apexcharts":14}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
