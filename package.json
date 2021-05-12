@@ -14,7 +14,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^8.0.0",
     "browserify": "^14.5.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chroma-js": "^2.1.0",
     "custom-select": "^1.1.15",
     "dotenv": "^4.0.0",
